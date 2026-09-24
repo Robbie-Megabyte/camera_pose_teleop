@@ -1,0 +1,10345 @@
+
+/* ============================================================
+   D14E — Exact Stitch visual transplant
+   SOURCE: exported Stitch code.html + screen.png
+   VISUAL ONLY — loaded after the existing dashboard CSS.
+   ============================================================ */
+
+:root {
+    --st-page: #141414;
+    --st-shell: #1c1c1c;
+    --st-card: #161616;
+    --st-panel-head: #212121;
+    --st-control: #272622;
+    --st-control-2: #2b2a26;
+    --st-border: #333333;
+    --st-border-2: #3d3c38;
+    --st-border-3: #44423c;
+    --st-green: #8ecb7f;
+    --st-green-bright: #a1d494;
+    --st-emerald: #10b981;
+    --st-emerald-bright: #34d399;
+    --st-amber: #f59e0b;
+    --st-text: #e2e2e2;
+    --st-muted: #a1a1aa;
+    --st-muted-2: #71717a;
+    --st-sidebar: 288px;
+}
+
+html,
+body {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    background: var(--st-page) !important;
+}
+
+body.reference-stitch {
+    box-sizing: border-box !important;
+    padding: 16px !important;
+    overflow: hidden !important;
+    color: var(--st-text) !important;
+    font-family:
+        "Plus Jakarta Sans",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+    user-select: none;
+}
+
+body.reference-stitch *,
+body.reference-stitch *::before,
+body.reference-stitch *::after {
+    box-sizing: border-box;
+}
+
+body.reference-stitch .app-shell {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: var(--st-sidebar) minmax(0, 1fr) !important;
+    grid-template-rows: 64px minmax(0, 1fr) !important;
+    column-gap: 12px !important;
+    row-gap: 12px !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* ---------------------------- top header ---------------------------- */
+
+body.reference-stitch .topbar {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+    position: relative !important;
+    z-index: 20 !important;
+    width: 100% !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    margin: 0 !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    overflow: visible !important;
+    border: 1px solid var(--st-border) !important;
+    border-radius: 12px !important;
+    background: var(--st-shell) !important;
+    box-shadow:
+        0 10px 25px -5px rgba(0, 0, 0, 0.50),
+        0 0 15px rgba(255, 255, 255, 0.02) !important;
+}
+
+body.reference-stitch .topbar::before,
+body.reference-stitch .topbar::after {
+    display: none !important;
+    content: none !important;
+}
+
+body.reference-stitch #systemBadge {
+    display: none !important;
+}
+
+.rv-brand-cluster {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 220px;
+}
+
+.rv-brand-emblem {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--st-border-3);
+    border-radius: 12px;
+    background: #31302b;
+    box-shadow: inset 0 1px 8px rgba(0,0,0,.28);
+}
+
+.rv-brand-emblem > svg {
+    width: 24px;
+    height: 24px;
+    color: var(--st-amber);
+    transition: transform 700ms ease;
+}
+
+.rv-brand-emblem:hover > svg {
+    transform: rotate(45deg);
+}
+
+.rv-brand-online-dot {
+    position: absolute;
+    right: -2px;
+    top: -3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--st-emerald);
+}
+
+.rv-brand-online-dot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--st-emerald-bright);
+    animation: st-ping 1.7s cubic-bezier(0,0,.2,1) infinite;
+}
+
+body.reference-stitch .topbar .brand {
+    display: block !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+}
+
+body.reference-stitch .topbar .brand-mark {
+    display: none !important;
+}
+
+body.reference-stitch .topbar .brand-title {
+    color: var(--st-green-bright) !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+    text-transform: none !important;
+}
+
+body.reference-stitch .topbar .sidebar-footer {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    min-height: 0 !important;
+    margin: 2px 0 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: var(--st-emerald-bright) !important;
+    font-family: "Space Mono", monospace !important;
+    font-size: 10px !important;
+    line-height: 14px !important;
+    letter-spacing: .06em !important;
+    text-transform: uppercase !important;
+}
+
+body.reference-stitch .topbar .sidebar-footer .status-dot {
+    width: 6px !important;
+    height: 6px !important;
+    flex: 0 0 6px !important;
+    background: var(--st-emerald-bright) !important;
+    box-shadow: none !important;
+}
+
+body.reference-stitch .topbar .sidebar-footer #backendText {
+    font-size: 10px !important;
+    color: var(--st-emerald-bright) !important;
+    white-space: nowrap !important;
+}
+
+.rv-center-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.rv-center-title .rv-flourish {
+    width: 32px;
+    height: 16px;
+    flex: 0 0 32px;
+}
+
+.rv-center-title .rv-flourish.flip {
+    transform: scaleX(-1);
+}
+
+.rv-center-title .rv-title-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 999px;
+    background: var(--st-emerald-bright);
+    box-shadow: 0 0 12px rgba(16,185,129,.8);
+    animation: st-soft-pulse 2s ease-in-out infinite;
+}
+
+body.reference-stitch #pageTitle {
+    margin: 0 !important;
+    color: white !important;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
+    font-size: 18px !important;
+    line-height: 24px !important;
+    font-weight: 600 !important;
+    letter-spacing: .06em !important;
+    text-transform: uppercase !important;
+    text-shadow: none !important;
+}
+
+body.reference-stitch .bacalbasa-system-switch {
+    position: relative !important;
+    z-index: 10 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+    padding: 4px !important;
+    margin: 0 !important;
+    border: 1px solid var(--st-border-2) !important;
+    border-radius: 12px !important;
+    background: #22211e !important;
+    box-shadow: inset 0 1px 5px rgba(0,0,0,.2) !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment {
+    height: 31px !important;
+    min-height: 31px !important;
+    margin: 0 !important;
+    padding: 0 13px !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: .05em !important;
+    box-shadow: none !important;
+    transition:
+        background 200ms ease,
+        color 200ms ease,
+        transform 100ms ease !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment:active {
+    transform: scale(.95);
+}
+
+body.reference-stitch .bacalbasa-system-segment-primary {
+    min-width: 0 !important;
+    background: var(--st-green) !important;
+    color: #0f2e0c !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment-primary:hover:not(:disabled) {
+    background: var(--st-green-bright) !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment-stop {
+    min-width: 0 !important;
+    padding-left: 11px !important;
+    padding-right: 11px !important;
+    background: transparent !important;
+    color: #fbbf24 !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment-stop:hover:not(:disabled) {
+    background: #31302b !important;
+    color: #fcd34d !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment:disabled {
+    opacity: .42 !important;
+}
+
+/* ---------------------------- workspace ---------------------------- */
+
+body.reference-stitch .sidebar {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    width: var(--st-sidebar) !important;
+    min-width: var(--st-sidebar) !important;
+    max-width: var(--st-sidebar) !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    border: 1px solid var(--st-border) !important;
+    border-radius: 12px !important;
+    background: var(--st-shell) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, .50) !important;
+}
+
+body.reference-stitch .sidebar > .brand,
+body.reference-stitch .sidebar > .sidebar-footer {
+    display: none !important;
+}
+
+body.reference-stitch .main {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+body.reference-stitch .main > .topbar {
+    display: none !important;
+}
+
+body.reference-stitch .view {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.reference-stitch #view-live.active {
+    display: block !important;
+}
+
+body.reference-stitch #view-logs.active {
+    display: block !important;
+    overflow: hidden !important;
+}
+
+body.reference-stitch .live-grid,
+body.reference-stitch .live-media-grid {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+}
+
+body.reference-stitch .demo-control-strip {
+    display: none !important;
+}
+
+body.reference-stitch #mediaWorkspace {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ---------------------------- sidebar nav ---------------------------- */
+
+body.reference-stitch .sidebar nav {
+    width: 100% !important;
+    margin: 2px 0 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+body.reference-stitch .nav-item {
+    width: 100% !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding: 0 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: #a1a1aa !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+    font-weight: 500 !important;
+    letter-spacing: .025em !important;
+    text-align: left !important;
+    box-shadow: none !important;
+}
+
+body.reference-stitch .nav-item:hover {
+    background: #31302b !important;
+    color: #e4e4e7 !important;
+}
+
+body.reference-stitch .nav-item.active {
+    background: #4e8d44 !important;
+    color: #0d220b !important;
+    font-weight: 700 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,.18) !important;
+}
+
+.rv-nav-icon {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+}
+
+/* ---------------------------- sidebar cards ---------------------------- */
+
+body.reference-stitch .design-sidebar-sections {
+    display: contents !important;
+}
+
+body.reference-stitch .design-side-card,
+body.reference-stitch .robot-modes-card {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    border: 1px solid #2e2e2e !important;
+    border-radius: 12px !important;
+    background: var(--st-card) !important;
+    box-shadow: none !important;
+}
+
+body.reference-stitch .design-side-card strong,
+body.reference-stitch .robot-modes-header > strong,
+body.reference-stitch .d12n-status-heading,
+body.reference-stitch .robot-mode-group-label {
+    color: #a1a1aa !important;
+    font-family: "Space Mono", monospace !important;
+    font-size: 10px !important;
+    line-height: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: .08em !important;
+    text-transform: uppercase !important;
+}
+
+/* target select */
+body.reference-stitch .system-target-field {
+    width: 100% !important;
+}
+
+body.reference-stitch #systemTargetSelect {
+    width: 100% !important;
+    height: 30px !important;
+    margin: 0 !important;
+    padding: 0 34px 0 12px !important;
+    border: 1px solid var(--st-border-3) !important;
+    border-radius: 8px !important;
+    background: var(--st-control-2) !important;
+    color: white !important;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,.20) !important;
+}
+
+/* connection badge */
+body.reference-stitch .d12n-connection-row {
+    width: 100% !important;
+    min-height: 30px !important;
+    margin: 0 !important;
+    padding: 0 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    border-radius: 8px !important;
+    font-family: "Space Mono", monospace !important;
+}
+
+body.reference-stitch .d12n-connection-row.d12n-disconnected {
+    border: 1px solid rgba(234,179,8,.72) !important;
+    background: #2d291e !important;
+    color: #fcd34d !important;
+}
+
+body.reference-stitch .d12n-connection-row.d12n-connected {
+    border: 1px solid rgba(142,203,127,.45) !important;
+    background: #233022 !important;
+    color: #9dd090 !important;
+}
+
+body.reference-stitch .d12n-connection-row::before {
+    width: 6px !important;
+    height: 6px !important;
+    flex: 0 0 6px !important;
+}
+
+body.reference-stitch .d12n-connection-row::after {
+    font-family: "Space Mono", monospace !important;
+    font-size: 10px !important;
+    line-height: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: .06em !important;
+}
+
+body.reference-stitch .robot-connection-toggle {
+    width: 100% !important;
+    min-height: 30px !important;
+    height: 30px !important;
+    margin: 0 !important;
+    padding: 0 12px !important;
+    border: 1px solid #40643b !important;
+    border-radius: 8px !important;
+    background: #233022 !important;
+    color: #9dd090 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,.16) !important;
+}
+
+body.reference-stitch .robot-connection-toggle[data-state="connected"] {
+    border-color: var(--st-border-3) !important;
+    background: #272622 !important;
+    color: #d4d4d8 !important;
+}
+
+/* status lines */
+body.reference-stitch .design-status-list,
+body.reference-stitch .design-sidebar-status {
+    font-size: 12px !important;
+}
+
+body.reference-stitch .design-status-row {
+    min-height: 22px !important;
+    font-size: 12px !important;
+}
+
+body.reference-stitch .design-status-row strong {
+    font-family: "Space Mono", monospace !important;
+    font-size: 10px !important;
+}
+
+/* display settings */
+body.reference-stitch .design-toggle-row,
+body.reference-stitch .design-display-row {
+    min-height: 28px !important;
+    color: #d4d4d8 !important;
+    font-size: 12px !important;
+}
+
+/* robot modes */
+body.reference-stitch .robot-modes-card {
+    padding: 12px !important;
+}
+
+body.reference-stitch .robot-modes-header {
+    min-height: 20px !important;
+    margin: 0 0 10px !important;
+}
+
+body.reference-stitch .robot-mode-refresh {
+    height: 22px !important;
+    min-height: 22px !important;
+    padding: 0 8px !important;
+    border: 1px solid var(--st-border-3) !important;
+    border-radius: 4px !important;
+    background: #2d2c28 !important;
+    color: #d4d4d8 !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
+}
+
+body.reference-stitch .robot-mode-status {
+    width: 100% !important;
+    min-height: 30px !important;
+    margin: 0 0 9px !important;
+    padding: 0 10px !important;
+    border: 1px solid var(--st-border-2) !important;
+    border-radius: 8px !important;
+    background: var(--st-control) !important;
+}
+
+body.reference-stitch .robot-mode-status span {
+    color: #a1a1aa !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+body.reference-stitch .robot-mode-status strong {
+    color: var(--st-green) !important;
+    font-family: "Space Mono", monospace !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+}
+
+body.reference-stitch .robot-mode-ownership {
+    display: none !important;
+}
+
+body.reference-stitch .robot-mode-grid {
+    width: 100% !important;
+    margin: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+}
+
+body.reference-stitch .robot-mode-group-label {
+    grid-column: 1 / -1 !important;
+    margin: 2px 0 1px !important;
+    padding: 0 !important;
+}
+
+body.reference-stitch .robot-mode-button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 31px !important;
+    height: 31px !important;
+    margin: 0 !important;
+    padding: 0 8px !important;
+    overflow: hidden !important;
+    border: 1px solid var(--st-border-2) !important;
+    border-radius: 6px !important;
+    background: var(--st-control) !important;
+    color: #a1a1aa !important;
+    font-size: 11px !important;
+    line-height: 15px !important;
+    font-weight: 500 !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+}
+
+body.reference-stitch .robot-mode-button:hover:not(:disabled) {
+    border-color: #4b4943 !important;
+    background: #33312c !important;
+    color: #e4e4e7 !important;
+}
+
+body.reference-stitch .robot-mode-button.danger {
+    border-color: var(--st-border-2) !important;
+    background: var(--st-control) !important;
+    color: #a1a1aa !important;
+}
+
+body.reference-stitch .robot-mode-button:disabled,
+body.reference-stitch .robot-mode-refresh:disabled {
+    opacity: .42 !important;
+}
+
+/* ---------------------------- media cards ---------------------------- */
+
+body.reference-stitch #mediaWorkspace > *,
+body.reference-stitch .workspace-tile,
+body.reference-stitch .live-media-grid > .panel {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border: 1px solid var(--st-border) !important;
+    border-radius: 12px !important;
+    background: var(--st-shell) !important;
+    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .55) !important;
+    /* D14F: legacy dashboard owns tile movement transitions. */
+}
+
+body.reference-stitch #mediaWorkspace > *:hover,
+body.reference-stitch .workspace-tile:hover {
+    border-color: rgba(16,185,129,.40) !important;
+}
+
+body.reference-stitch #mediaWorkspace > *::after,
+body.reference-stitch .workspace-tile::after,
+body.reference-stitch .live-media-grid > .panel::after {
+    display: none !important;
+    content: none !important;
+}
+
+body.reference-stitch #view-live .workspace-tile-header,
+body.reference-stitch #view-live .panel-header,
+body.reference-stitch #view-live .camera-feed-label {
+    width: 100% !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--st-border) !important;
+    border-radius: 0 !important;
+    background: var(--st-panel-head) !important;
+}
+
+body.reference-stitch #view-live .workspace-tile-header::before,
+body.reference-stitch #view-live .panel-header::before,
+body.reference-stitch #view-live .camera-feed-label::before {
+    content: "" !important;
+    display: block !important;
+    width: 8px !important;
+    height: 8px !important;
+    flex: 0 0 8px !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    background: var(--st-emerald-bright) !important;
+    box-shadow: none !important;
+    animation: st-soft-pulse 2s ease-in-out infinite;
+}
+
+body.reference-stitch #view-live .workspace-tile-header::after,
+body.reference-stitch #view-live .panel-header::after,
+body.reference-stitch #view-live .camera-feed-label::after {
+    display: none !important;
+    content: none !important;
+}
+
+body.reference-stitch #view-live .workspace-tile-header strong,
+body.reference-stitch #view-live .workspace-tile-header span,
+body.reference-stitch #view-live .panel-header h2,
+body.reference-stitch #view-live .panel-header strong,
+body.reference-stitch #view-live .camera-feed-label strong {
+    margin: 0 !important;
+    color: #f4f4f5 !important;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: .05em !important;
+    text-transform: uppercase !important;
+}
+
+body.reference-stitch #view-live .workspace-tile-header {
+    justify-content: flex-start !important;
+}
+
+body.reference-stitch #view-live .workspace-tile-header > button,
+body.reference-stitch #view-live .workspace-tile-header .workspace-tile-control {
+    margin-left: auto !important;
+}
+
+.rv-header-ornament {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    color: var(--st-amber);
+}
+
+body.reference-stitch .camera-stage,
+body.reference-stitch .mujoco-stage,
+body.reference-stitch .robot-camera-stage,
+body.reference-stitch .workspace-tile-body,
+body.reference-stitch .camera-feed .camera-stage {
+    min-height: 0 !important;
+    background: var(--st-page) !important;
+}
+
+body.reference-stitch .camera-image,
+body.reference-stitch #mujocoImage,
+body.reference-stitch .robot-camera-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+body.reference-stitch [hidden] {
+    display: none !important;
+}
+
+/* ---------------------------- placeholder ---------------------------- */
+
+body.reference-stitch .camera-placeholder,
+body.reference-stitch .unified-preview-placeholder,
+body.reference-stitch .robot-camera-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    text-align: center !important;
+    color: #a1a1aa !important;
+    background: transparent !important;
+}
+
+body.reference-stitch .camera-placeholder[hidden],
+body.reference-stitch .unified-preview-placeholder[hidden],
+body.reference-stitch .robot-camera-placeholder[hidden] {
+    display: none !important;
+}
+
+body.reference-stitch .camera-icon,
+body.reference-stitch .robot-camera-placeholder-icon {
+    display: none !important;
+}
+
+body.reference-stitch .camera-placeholder strong,
+body.reference-stitch .unified-preview-placeholder strong,
+body.reference-stitch .robot-camera-placeholder strong {
+    margin: 12px 0 0 !important;
+    color: #e4e4e7 !important;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    font-weight: 600 !important;
+    letter-spacing: .025em !important;
+}
+
+body.reference-stitch .camera-placeholder > span:not(.robot-camera-placeholder-icon),
+body.reference-stitch .unified-preview-placeholder > span,
+body.reference-stitch .robot-camera-placeholder > span:not(.robot-camera-placeholder-icon) {
+    margin-top: 4px !important;
+    color: #a1a1aa !important;
+    font-family: "Space Mono", monospace !important;
+    font-size: 12px !important;
+    line-height: 17px !important;
+    font-weight: 400 !important;
+}
+
+/* Exact reticle geometry from exported code.html */
+.rv-reticle {
+    position: relative;
+    width: 112px;
+    height: 112px;
+    flex: 0 0 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rv-reticle svg {
+    overflow: visible;
+}
+
+.rv-reticle .rv-outer {
+    position: absolute;
+    inset: 0;
+    width: 112px;
+    height: 112px;
+    color: rgba(16,185,129,.40);
+}
+
+.rv-reticle .rv-inner {
+    position: absolute;
+    inset: 8px;
+    width: 96px;
+    height: 96px;
+    color: rgba(245,158,11,.45);
+}
+
+.rv-reticle.raw .rv-inner {
+    inset: 4px;
+    width: 104px;
+    height: 104px;
+}
+
+.rv-reticle-core {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(16,185,129,.40);
+    border-radius: 999px;
+    background: rgba(2,44,34,.40);
+    box-shadow: 0 0 20px rgba(16,185,129,.25);
+}
+
+.rv-reticle-core svg {
+    width: 32px;
+    height: 32px;
+    color: var(--st-emerald-bright);
+}
+
+.rv-reticle.sim .rv-reticle-core svg {
+    width: 28px;
+    height: 28px;
+}
+
+.reticle-spin {
+    animation: st-spin 30s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+.reticle-spin-rev {
+    animation: st-spin-rev 35s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+.reticle-pulse {
+    animation: st-reticle-pulse 4s ease-in-out infinite;
+}
+
+/* logs remain functional, only recolored */
+body.reference-stitch .d10e-terminal-shell,
+body.reference-stitch .d10e-terminal-header,
+body.reference-stitch #view-logs .panel {
+    border-color: var(--st-border) !important;
+    background: var(--st-shell) !important;
+    border-radius: 12px !important;
+}
+
+/* scrollbar copied from export */
+body.reference-stitch ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+body.reference-stitch ::-webkit-scrollbar-track {
+    background: #23221f;
+}
+
+body.reference-stitch ::-webkit-scrollbar-thumb {
+    background: #3d3c38;
+    border-radius: 4px;
+}
+
+body.reference-stitch ::-webkit-scrollbar-thumb:hover {
+    background: #504e49;
+}
+
+@keyframes st-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes st-spin-rev {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes st-reticle-pulse {
+    0%, 100% { transform: scale(1); opacity: .85; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes st-soft-pulse {
+    0%, 100% { opacity: .55; }
+    50% { opacity: 1; }
+}
+
+@keyframes st-ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 1100px) {
+    :root {
+        --st-sidebar: 256px;
+    }
+
+    body.reference-stitch {
+        padding: 12px !important;
+    }
+
+    body.reference-stitch .app-shell {
+        column-gap: 10px !important;
+        row-gap: 10px !important;
+    }
+
+    body.reference-stitch #mediaWorkspace {
+        gap: 10px !important;
+    }
+
+    body.reference-stitch #pageTitle {
+        font-size: 15px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reticle-spin,
+    .reticle-spin-rev,
+    .reticle-pulse,
+    .rv-brand-online-dot::before,
+    .rv-title-dot {
+        animation: none !important;
+    }
+}
+
+/* ============================================================
+   D14G — ORIGINAL DRAG OWNER + REQUESTED POLISH
+
+   IMPORTANT:
+   - original app.js owns drag/reorder functionality
+   - original style.css owns drag/reorder animation
+   - this block never sets transform/transition/display/position
+     on movable media tiles
+   ============================================================ */
+
+/* Equal 2x2 tracks, while leaving tile movement mechanics alone. */
+body.reference-stitch #mediaWorkspace {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr))
+        !important;
+
+    grid-template-rows:
+        repeat(2, minmax(0, 1fr))
+        !important;
+
+    align-items: stretch !important;
+    justify-items: stretch !important;
+}
+
+body.reference-stitch #mediaWorkspace > * {
+    min-width: 0 !important;
+    min-height: 0 !important;
+}
+
+/*
+ * Keep the content viewport clipped, but do not force a new layout
+ * model on the draggable tiles themselves.
+ */
+body.reference-stitch .main,
+body.reference-stitch #view-live,
+body.reference-stitch #view-live .live-grid,
+body.reference-stitch #view-live .live-media-grid {
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Remove the injected icons beside Live / Logs. */
+body.reference-stitch .rv-nav-icon {
+    display: none !important;
+}
+
+/* With no icon, restore the simple exported nav spacing. */
+body.reference-stitch .nav-item {
+    gap: 0 !important;
+}
+
+/* ------------------------------------------------------------
+   Connection state spacing
+   ------------------------------------------------------------ */
+
+body.reference-stitch .d12n-connection-row {
+    margin-bottom: 9px !important;
+}
+
+body.reference-stitch .robot-connection-toggle {
+    margin-top: 0 !important;
+}
+
+/* ------------------------------------------------------------
+   All literal OFF values use one exact appearance.
+   JS only adds .rv-status-off based on displayed text.
+   ------------------------------------------------------------ */
+
+body.reference-stitch .rv-status-off {
+    color: #d4d4d8 !important;
+    font-family:
+        "Space Mono",
+        monospace
+        !important;
+    font-size: 10px !important;
+    line-height: 14px !important;
+    font-weight: 400 !important;
+    letter-spacing: .04em !important;
+}
+
+/* ------------------------------------------------------------
+   Top-right control — match the Stitch reference crop.
+   Visual text/icons only. Existing button IDs, state and handlers
+   remain untouched.
+   ------------------------------------------------------------ */
+
+body.reference-stitch .bacalbasa-system-switch {
+    width: 166px !important;
+    height: 38px !important;
+    min-width: 166px !important;
+    min-height: 38px !important;
+
+    margin-left: auto !important;
+    padding: 4px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+
+    border: 1px solid #3d3c38 !important;
+    border-radius: 12px !important;
+    background: #22211e !important;
+
+    box-shadow:
+        inset 0 1px 5px rgba(0, 0, 0, .22)
+        !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment {
+    position: relative !important;
+
+    height: 30px !important;
+    min-height: 30px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    border: 0 !important;
+    border-radius: 8px !important;
+
+    box-shadow: none !important;
+
+    font-size: 0 !important;
+    line-height: 1 !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment-primary {
+    width: 72px !important;
+    min-width: 72px !important;
+    flex: 0 0 72px !important;
+
+    background: #8ecb7f !important;
+    color: #0f2e0c !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-primary::before {
+    content: "";
+
+    width: 10px;
+    height: 10px;
+
+    flex: 0 0 10px;
+
+    background: #153b12;
+
+    clip-path:
+        polygon(
+            8% 64%,
+            61% 11%,
+            88% 18%,
+            93% 43%,
+            39% 94%,
+            23% 79%
+        );
+
+    transform: rotate(-5deg);
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-primary::after {
+    content: "Start";
+
+    color: #0f2e0c;
+
+    font-family:
+        "Plus Jakarta Sans",
+        system-ui,
+        sans-serif;
+
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 700;
+    letter-spacing: .02em;
+}
+
+body.reference-stitch .bacalbasa-system-segment-stop {
+    width: 76px !important;
+    min-width: 76px !important;
+    flex: 0 0 76px !important;
+
+    background: transparent !important;
+    color: #fbbf24 !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::before {
+    content: "";
+
+    width: 8px;
+    height: 9px;
+
+    flex: 0 0 8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f59e0b 0 2px,
+            transparent 2px 5px,
+            #f59e0b 5px 7px,
+            transparent 7px 8px
+        );
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::after {
+    content: "Stop";
+
+    color: #fbbf24;
+
+    font-family:
+        "Plus Jakarta Sans",
+        system-ui,
+        sans-serif;
+
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 700;
+    letter-spacing: .02em;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-primary:hover:not(:disabled) {
+    background: #a1d494 !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-stop:hover:not(:disabled) {
+    background: #31302b !important;
+    color: #fcd34d !important;
+}
+
+body.reference-stitch .bacalbasa-system-segment:disabled {
+    opacity: .42 !important;
+}
+
+/* 900p-ish screens: only reduce outside gutters, never tile mechanics. */
+@media (max-height: 940px) {
+    body.reference-stitch {
+        padding: 10px !important;
+    }
+
+    body.reference-stitch .app-shell {
+        grid-template-rows:
+            60px minmax(0, 1fr)
+            !important;
+
+        row-gap: 10px !important;
+        column-gap: 10px !important;
+    }
+
+    body.reference-stitch .topbar {
+        height: 60px !important;
+        min-height: 60px !important;
+    }
+
+    body.reference-stitch #mediaWorkspace {
+        gap: 10px !important;
+    }
+}
+
+/* ============================================================
+   D14I — SLOT-AWARE WORKSPACE FIX
+
+   The movable workspace is:
+       #mediaWorkspace
+         -> .workspace-slot
+              -> .workspace-tile
+
+   The Stitch skin must style the TILE, never the SLOT.
+
+   app.js keeps complete ownership of:
+       drag start/move/end
+       --workspace-drag-x/y
+       slot swapping
+       FLIP animation
+       pointer capture
+   ============================================================ */
+
+/* LIVE / LOGS — absolutely no icon or pseudo-symbol. */
+body.reference-stitch
+.nav-item[data-view="live"]::before,
+body.reference-stitch
+.nav-item[data-view="logs"]::before {
+    content: none !important;
+    display: none !important;
+}
+
+body.reference-stitch
+.nav-item[data-view="live"],
+body.reference-stitch
+.nav-item[data-view="logs"] {
+    padding-left: 12px !important;
+    gap: 0 !important;
+}
+
+body.reference-stitch .rv-nav-icon {
+    display: none !important;
+}
+
+/* WORKSPACE — exactly four equal SLOT rectangles. */
+body.reference-stitch #mediaWorkspace {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr))
+        !important;
+
+    grid-template-rows:
+        repeat(2, minmax(0, 1fr))
+        !important;
+
+    gap: 12px !important;
+
+    align-items: stretch !important;
+    justify-items: stretch !important;
+
+    overflow: visible !important;
+}
+
+/*
+ * D14E incorrectly styled "#mediaWorkspace > *" as if those
+ * children were tiles. They are actually the four drop slots.
+ * Reset the slots to transparent geometry containers.
+ */
+body.reference-stitch
+#mediaWorkspace > .workspace-slot {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    align-self: stretch !important;
+    justify-self: stretch !important;
+
+    overflow: visible !important;
+
+    border: 1px solid transparent !important;
+    border-radius: 12px !important;
+
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Preserve a visible drop target without changing dimensions. */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot {
+    min-height: 0 !important;
+}
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot.workspace-slot-target {
+    border-color:
+        rgba(52, 211, 153, 0.38)
+        !important;
+
+    background:
+        rgba(16, 185, 129, 0.035)
+        !important;
+}
+
+/*
+ * TILE — every actual window fills its slot identically.
+ * No transform, transition, animation or position is set here.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot
+> .workspace-tile {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    border:
+        1px solid var(--st-border)
+        !important;
+
+    border-radius:
+        12px
+        !important;
+
+    background:
+        var(--st-shell)
+        !important;
+
+    box-shadow:
+        0 8px 20px -4px
+        rgba(0, 0, 0, .55)
+        !important;
+}
+
+/* During drag, original .workspace-dragging transform still wins. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-dragging {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* EXACT SAME HEADER GEOMETRY FOR ALL FOUR WINDOWS. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile
+> .workspace-tile-header,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-feed-label,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+> .panel-header {
+    box-sizing: border-box !important;
+
+    width: 100% !important;
+
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+
+    margin: 0 !important;
+    padding: 0 16px !important;
+
+    flex: 0 0 44px !important;
+
+    border: 0 !important;
+    border-bottom:
+        1px solid var(--st-border)
+        !important;
+
+    border-radius: 0 !important;
+
+    background:
+        var(--st-panel-head)
+        !important;
+
+    overflow: hidden !important;
+}
+
+/* Simulation nested header must remain a single row. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+> .panel-header
+> div:first-child {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 6px !important;
+}
+
+/* Window title is geometrically centered in every header. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-feed-label
+> strong,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+> .panel-header
+h2,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile
+> .workspace-tile-header
+> strong {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    transform:
+        translate(-50%, -50%)
+        !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    white-space: nowrap !important;
+}
+
+/* EVERY WINDOW BODY FILLS THE SAME REMAINING HEIGHT. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-stage,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+> .mujoco-stage,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.robot-camera-panel
+> .robot-camera-stage {
+    width: 100% !important;
+
+    height:
+        calc(100% - 44px)
+        !important;
+
+    min-height: 0 !important;
+    max-height: none !important;
+
+    aspect-ratio: auto !important;
+
+    margin: 0 !important;
+}
+
+/* Camera wrapper variant. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-feed,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-views {
+    width: 100% !important;
+
+    height:
+        calc(100% - 44px)
+        !important;
+
+    min-height: 0 !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+
+    overflow: hidden !important;
+}
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+.camera-feed
+> .camera-stage,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+.camera-views
+.camera-stage {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-height: 0 !important;
+
+    aspect-ratio: auto !important;
+}
+
+/* START / STOP — reference geometry, centered text independent of icon. */
+body.reference-stitch
+.bacalbasa-system-switch {
+    width: 166px !important;
+    min-width: 166px !important;
+    max-width: 166px !important;
+
+    height: 38px !important;
+    min-height: 38px !important;
+
+    padding: 4px !important;
+    gap: 4px !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-primary {
+    position: relative !important;
+
+    width: 74px !important;
+    min-width: 74px !important;
+    max-width: 74px !important;
+    flex: 0 0 74px !important;
+
+    padding: 0 !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-primary::before {
+    position: absolute !important;
+
+    left: 10px !important;
+    top: 50% !important;
+
+    transform:
+        translateY(-50%)
+        rotate(-5deg)
+        !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-primary::after {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    transform:
+        translate(-50%, -50%)
+        !important;
+
+    width: auto !important;
+
+    text-align: center !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-stop {
+    position: relative !important;
+
+    width: 76px !important;
+    min-width: 76px !important;
+    max-width: 76px !important;
+    flex: 0 0 76px !important;
+
+    padding: 0 !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::before {
+    position: absolute !important;
+
+    left: 10px !important;
+    top: 50% !important;
+
+    transform:
+        translateY(-50%)
+        !important;
+}
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::after {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    transform:
+        translate(-50%, -50%)
+        !important;
+
+    width: auto !important;
+
+    text-align: center !important;
+}
+
+@media (max-height: 940px) {
+    body.reference-stitch #mediaWorkspace {
+        grid-template-rows:
+            repeat(2, minmax(0, 1fr))
+            !important;
+
+        gap: 10px !important;
+    }
+}
+
+/* ============================================================
+   D14J — EXACT D7H DRAG CONTRACT
+
+   The Stitch skin owns appearance only.
+
+   During workspace rearrangement, the original D7H rules from
+   style.css own:
+       pointer interaction
+       drag transform
+       jiggle animation
+       slot targeting
+       drag transition behavior
+       z-index / pointer-events
+
+   DO NOT add alternate drag transforms here.
+   ============================================================ */
+
+
+/* Headers remain the original D7H drag handles. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile
+> .workspace-tile-header,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-feed-label,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+> .panel-header {
+    cursor: grab !important;
+    user-select: none !important;
+    touch-action: none !important;
+    pointer-events: auto !important;
+}
+
+
+/* Original D7H slot interaction contract. */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot {
+    position: relative !important;
+
+    transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease
+        !important;
+}
+
+
+/*
+ * Older Stitch selectors incorrectly treated direct workspace
+ * children as visual cards. They are slots, not windows.
+ *
+ * Neutralize that old hover/card behavior completely.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot:hover {
+    overflow: visible !important;
+
+    border-color:
+        transparent
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/* Original D7H drop target. */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot.workspace-slot-target {
+    border-color:
+        rgba(
+            97,
+            227,
+            173,
+            0.75
+        )
+        !important;
+
+    background:
+        rgba(
+            97,
+            227,
+            173,
+            0.055
+        )
+        !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(
+            97,
+            227,
+            173,
+            0.07
+        )
+        inset
+        !important;
+}
+
+
+/*
+ * EXACT original D7H rearrange jiggle.
+ *
+ * This deliberately overrides any later visual-skin animation
+ * while the workspace is arranging.
+ */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+.workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation:
+        workspaceJiggle
+        210ms
+        ease-in-out
+        infinite
+        alternate
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+.workspace-slot:nth-child(even)
+.workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-direction:
+        alternate-reverse
+        !important;
+}
+
+
+/*
+ * EXACT original D7H dragged-tile mechanics.
+ *
+ * These values intentionally match style.css.
+ */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging {
+    z-index: 100 !important;
+
+    pointer-events: none !important;
+
+    cursor: grabbing !important;
+
+    animation: none !important;
+
+    border-color:
+        rgba(
+            97,
+            227,
+            173,
+            0.44
+        )
+        !important;
+
+    box-shadow:
+        0 22px 45px
+        rgba(
+            0,
+            0,
+            0,
+            0.36
+        ),
+        0 0 0 1px
+        rgba(
+            97,
+            227,
+            173,
+            0.13
+        )
+        !important;
+
+    transform:
+        translate3d(
+            var(
+                --workspace-drag-x,
+                0px
+            ),
+            var(
+                --workspace-drag-y,
+                0px
+            ),
+            0
+        )
+        scale(1.018)
+        rotate(0.18deg)
+        !important;
+
+    transition:
+        none
+        !important;
+
+    will-change:
+        transform
+        !important;
+}
+
+
+/*
+ * Dragged windows must not be clipped by the Stitch presentation
+ * containers. D7H translates the real tile; it is not a clone.
+ */
+body.reference-stitch
+#view-live,
+
+body.reference-stitch
+#view-live
+.live-grid,
+
+body.reference-stitch
+#view-live
+.live-media-grid,
+
+body.reference-stitch
+#mediaWorkspace {
+    overflow:
+        visible
+        !important;
+}
+
+
+/*
+ * Preserve the original reduced-motion drag translation too.
+ */
+@media (prefers-reduced-motion: reduce) {
+    body.reference-stitch
+    #mediaWorkspace
+    .workspace-tile.workspace-dragging {
+        transform:
+            translate3d(
+                var(
+                    --workspace-drag-x,
+                    0px
+                ),
+                var(
+                    --workspace-drag-y,
+                    0px
+                ),
+                0
+            )
+            !important;
+    }
+}
+
+/* ============================================================
+   D14K — DRAG HIT-TEST RESTORE
+
+   D7H determines the destination slot with elementFromPoint().
+
+   While dragging, the complete dragged tile subtree must be
+   absent from pointer hit-testing so elementFromPoint() can see
+   the workspace slot underneath it.
+
+   Pointer capture still delivers drag events to the original
+   header; this rule affects hit-testing only.
+   ============================================================ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging * {
+    pointer-events:
+        none
+        !important;
+}
+
+/* ============================================================
+   D14O — VIEWPORT FIT + CLEAN WINDOW STATUS
+   ============================================================ */
+
+
+/*
+ * The complete 2x2 workspace height is calculated by JS from
+ * its actual viewport position.
+ *
+ * This guarantees:
+ *
+ *     top row
+ *       10px
+ *     bottom row
+ *       10px
+ *     browser bottom
+ */
+body.reference-stitch
+#mediaWorkspace {
+    height:
+        var(
+            --d14o-workspace-height
+        )
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        var(
+            --d14o-workspace-height
+        )
+        !important;
+
+    grid-template-rows:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        )
+        !important;
+
+    grid-auto-rows:
+        minmax(0, 1fr)
+        !important;
+
+    gap:
+        10px
+        !important;
+
+    align-items:
+        stretch
+        !important;
+
+    align-content:
+        stretch
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot {
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    align-self:
+        stretch
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot
+> .workspace-tile {
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/*
+ * The media body fills the card beneath its 44px header.
+ *
+ * Old aspect-ratio sizing is intentionally disabled here so
+ * the second row cannot grow below the viewport.
+ */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-stage,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+> .mujoco-stage,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.robot-camera-panel
+> .camera-stage {
+    width:
+        100%
+        !important;
+
+    height:
+        calc(100% - 44px)
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    aspect-ratio:
+        auto
+        !important;
+}
+
+
+/* ============================================================
+   REMOVE HENNA / DECORATIVE WINDOW ORNAMENTS
+   ============================================================ */
+
+body.reference-stitch
+#mediaWorkspace
+.rv-header-ornament {
+    display:
+        none
+        !important;
+}
+
+
+/* ============================================================
+   WINDOW STATUS DOT
+   CLOSED / IDLE = AMBER
+   OPEN / LIVE   = GREEN
+   ============================================================ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile
+> .workspace-tile-header::before {
+    background:
+        #f59e0b
+        !important;
+
+    box-shadow:
+        0 0 7px
+        rgba(
+            245,
+            158,
+            11,
+            0.62
+        )
+        !important;
+
+    animation:
+        none
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.rv-window-open
+> .workspace-tile-header::before {
+    background:
+        #34d399
+        !important;
+
+    box-shadow:
+        0 0 8px
+        rgba(
+            52,
+            211,
+            153,
+            0.70
+        )
+        !important;
+
+    animation:
+        st-soft-pulse
+        2s
+        ease-in-out
+        infinite
+        !important;
+}
+
+/* ============================================================
+   D14P — HEADER CLEANUP + UNIFORM WINDOW DOTS
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   WINDOW STATUS DOTS — EXACTLY THE SAME SIZE ON ALL 4 CARDS
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile
+> .workspace-tile-header::before,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.camera-panel
+> .camera-feed-label::before,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+> .panel-header::before,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.robot-camera-panel
+> .workspace-tile-header::before {
+    width:
+        8px
+        !important;
+
+    height:
+        8px
+        !important;
+
+    min-width:
+        8px
+        !important;
+
+    min-height:
+        8px
+        !important;
+
+    max-width:
+        8px
+        !important;
+
+    max-height:
+        8px
+        !important;
+
+    flex:
+        0 0 8px
+        !important;
+
+    border-radius:
+        50%
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE GREEN DOT BESIDE "CAMERA TELEOPERATION"
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.rv-title-dot {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE GREEN ONLINE DOT FROM TOP-LEFT EMBLEM
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.rv-brand-online-dot {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE "BACKEND ONLINE" / SIDEBAR FOOTER FROM TOP BAR
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.rv-brand-copy
+.sidebar-footer {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   RECENTER BACALBASA BESIDE THE EMBLEM
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.rv-brand-cluster {
+    align-items:
+        center
+        !important;
+}
+
+
+body.reference-stitch
+.rv-brand-copy {
+    display:
+        flex
+        !important;
+
+    flex-direction:
+        column
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    align-items:
+        flex-start
+        !important;
+
+    align-self:
+        stretch
+        !important;
+
+    min-height:
+        100%
+        !important;
+}
+
+
+body.reference-stitch
+.rv-brand-copy
+.brand {
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    align-items:
+        center
+        !important;
+}
+
+
+body.reference-stitch
+.rv-brand-copy
+.brand
+> * {
+    margin-top:
+        0
+        !important;
+
+    margin-bottom:
+        0
+        !important;
+}
+
+/* ============================================================
+   D14Q — HEADER MOTION + CONTROL CONSISTENCY
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   TOP-LEFT EMBLEM — CONTINUOUS SLOW MOTION
+   ------------------------------------------------------------ */
+
+@keyframes d14qBrandSpin {
+    from {
+        transform:
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+body.reference-stitch
+.rv-brand-emblem
+> svg {
+    transform-origin:
+        50% 50%
+        !important;
+
+    transition:
+        none
+        !important;
+
+    animation:
+        d14qBrandSpin
+        18s
+        linear
+        infinite
+        !important;
+}
+
+
+/*
+ * Hover no longer changes the movement.
+ */
+body.reference-stitch
+.rv-brand-emblem:hover
+> svg {
+    animation-play-state:
+        running
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   START / STOP — IDENTICAL SEGMENT GEOMETRY
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.bacalbasa-system-segment-primary,
+
+body.reference-stitch
+.bacalbasa-system-segment-stop {
+    width:
+        76px
+        !important;
+
+    min-width:
+        76px
+        !important;
+
+    max-width:
+        76px
+        !important;
+
+    flex:
+        0 0 76px
+        !important;
+
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    max-height:
+        30px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CONNECT / DISCONNECT — MATCH PHYSICAL ROBOT SELECT
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.robot-connection-toggle {
+    width:
+        100%
+        !important;
+
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0 12px
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    border:
+        1px solid
+        var(--st-border-3)
+        !important;
+
+    border-radius:
+        8px
+        !important;
+
+    background:
+        var(--st-control-2)
+        !important;
+
+    color:
+        white
+        !important;
+
+    font-family:
+        "Plus Jakarta Sans",
+        system-ui,
+        sans-serif
+        !important;
+
+    font-size:
+        12px
+        !important;
+
+    line-height:
+        16px
+        !important;
+
+    font-weight:
+        600
+        !important;
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(
+            0,
+            0,
+            0,
+            .20
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.robot-connection-toggle:hover:not(:disabled) {
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .42
+        )
+        !important;
+
+    background:
+        #282a26
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CONNECTED / DISCONNECTED — TRUE CENTERED LABEL
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d12n-connection-row {
+    position:
+        relative
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    padding:
+        0 12px
+        !important;
+}
+
+
+/*
+ * Keep its state dot on the left without allowing it to push
+ * the word away from the true horizontal center.
+ */
+body.reference-stitch
+.d12n-connection-row::before {
+    position:
+        absolute
+        !important;
+
+    left:
+        12px
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translateY(-50%)
+        !important;
+}
+
+
+body.reference-stitch
+.d12n-connection-row::after {
+    width:
+        100%
+        !important;
+
+    margin:
+        0
+        !important;
+
+    text-align:
+        center
+        !important;
+}
+
+/* ============================================================
+   D14R — CONTROL ALIGNMENT + CONNECTION UNIFICATION
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   PHYSICAL ROBOT SELECT + CONNECT/DISCONNECT
+   USE THE EXACT SAME VISUAL SURFACE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#systemTargetSelect,
+
+body.reference-stitch
+.robot-connection-toggle {
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    max-height:
+        30px
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            142,
+            203,
+            127,
+            0.28
+        )
+        !important;
+
+    border-radius:
+        8px
+        !important;
+
+    background:
+        #182018
+        !important;
+
+    color:
+        #f4f4f5
+        !important;
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(
+            0,
+            0,
+            0,
+            0.24
+        )
+        !important;
+
+    font-family:
+        "Plus Jakarta Sans",
+        system-ui,
+        sans-serif
+        !important;
+
+    font-size:
+        12px
+        !important;
+
+    line-height:
+        16px
+        !important;
+
+    font-weight:
+        600
+        !important;
+}
+
+
+/*
+ * Preserve enough room for the select arrow.
+ */
+body.reference-stitch
+#systemTargetSelect {
+    padding:
+        0 30px 0 12px
+        !important;
+}
+
+
+body.reference-stitch
+.robot-connection-toggle {
+    padding:
+        0 12px
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+}
+
+
+body.reference-stitch
+#systemTargetSelect:hover,
+
+body.reference-stitch
+.robot-connection-toggle:hover:not(:disabled) {
+    background:
+        #1d261e
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            0.42
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CONNECTED STATE — NO GREEN DOT
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d12n-connection-row.d12n-connected::before,
+
+body.reference-stitch
+.d12n-connection-row.d12n-connected
+.status-dot {
+    display:
+        none
+        !important;
+
+    content:
+        none
+        !important;
+}
+
+
+/*
+ * Label stays truly centered regardless of state.
+ */
+body.reference-stitch
+.d12n-connection-row.d12n-connected,
+
+body.reference-stitch
+.d12n-connection-row.d12n-disconnected {
+    justify-content:
+        center
+        !important;
+
+    text-align:
+        center
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   TOP-RIGHT START / STOP
+   MATCH REFERENCE PROPORTIONS
+   ------------------------------------------------------------ */
+
+/*
+ * Compact outer control, close to the proportions in the
+ * reference image:
+ *
+ *       [ Start ][ Stop ]
+ */
+body.reference-stitch
+.bacalbasa-system-switch {
+    width:
+        140px
+        !important;
+
+    min-width:
+        140px
+        !important;
+
+    max-width:
+        140px
+        !important;
+
+    height:
+        38px
+        !important;
+
+    min-height:
+        38px
+        !important;
+
+    max-height:
+        38px
+        !important;
+
+    padding:
+        4px
+        !important;
+
+    gap:
+        4px
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/*
+ * Both actual buttons are now IDENTICAL.
+ *
+ * 64 + 64 + 4 gap + 8 outer padding = 140px.
+ */
+body.reference-stitch
+.bacalbasa-system-segment-primary,
+
+body.reference-stitch
+.bacalbasa-system-segment-stop {
+    position:
+        relative
+        !important;
+
+    width:
+        64px
+        !important;
+
+    min-width:
+        64px
+        !important;
+
+    max-width:
+        64px
+        !important;
+
+    flex:
+        0 0 64px
+        !important;
+
+    height:
+        28px
+        !important;
+
+    min-height:
+        28px
+        !important;
+
+    max-height:
+        28px
+        !important;
+
+    padding:
+        0
+        !important;
+
+    margin:
+        0
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    gap:
+        6px
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/*
+ * Older D14 rules positioned the icon and word independently.
+ *
+ * Reset both pseudo-elements back into normal flex layout so
+ * the ICON + WORD combination is centered as one unit.
+ */
+body.reference-stitch
+.bacalbasa-system-segment-primary::before,
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::before {
+    position:
+        static
+        !important;
+
+    left:
+        auto
+        !important;
+
+    right:
+        auto
+        !important;
+
+    top:
+        auto
+        !important;
+
+    bottom:
+        auto
+        !important;
+
+    margin:
+        0
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-segment-primary::before {
+    width:
+        9px
+        !important;
+
+    height:
+        9px
+        !important;
+
+    flex:
+        0 0 9px
+        !important;
+
+    transform:
+        rotate(-5deg)
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::before {
+    width:
+        8px
+        !important;
+
+    height:
+        9px
+        !important;
+
+    flex:
+        0 0 8px
+        !important;
+
+    transform:
+        none
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-segment-primary::after,
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::after {
+    position:
+        static
+        !important;
+
+    left:
+        auto
+        !important;
+
+    right:
+        auto
+        !important;
+
+    top:
+        auto
+        !important;
+
+    bottom:
+        auto
+        !important;
+
+    width:
+        auto
+        !important;
+
+    margin:
+        0
+        !important;
+
+    transform:
+        none
+        !important;
+
+    text-align:
+        left
+        !important;
+
+    line-height:
+        16px
+        !important;
+}
+
+/* ============================================================
+   D14S — NAV CONSISTENCY + EXACT SEGMENT EQUALITY
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   LIVE / LOGS
+   Selected tab uses the same visual language as
+   Physical Robot + Connect/Disconnect.
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.nav-item.active,
+
+body.reference-stitch
+.nav-item.selected,
+
+body.reference-stitch
+.nav-item[aria-selected="true"],
+
+body.reference-stitch
+.nav-item[aria-current="page"] {
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            142,
+            203,
+            127,
+            0.28
+        )
+        !important;
+
+    border-radius:
+        8px
+        !important;
+
+    background:
+        #182018
+        !important;
+
+    color:
+        #f4f4f5
+        !important;
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(
+            0,
+            0,
+            0,
+            0.24
+        )
+        !important;
+
+    font-weight:
+        600
+        !important;
+}
+
+
+/*
+ * Same subtle hover language as the other controls.
+ */
+body.reference-stitch
+.nav-item.active:hover,
+
+body.reference-stitch
+.nav-item.selected:hover,
+
+body.reference-stitch
+.nav-item[aria-selected="true"]:hover,
+
+body.reference-stitch
+.nav-item[aria-current="page"]:hover {
+    background:
+        #1d261e
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            0.42
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   START / STOP
+   Strict 50 / 50 grid — no possibility of one segment being
+   wider than the other.
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.bacalbasa-system-switch {
+    width:
+        140px
+        !important;
+
+    min-width:
+        140px
+        !important;
+
+    max-width:
+        140px
+        !important;
+
+    height:
+        38px
+        !important;
+
+    padding:
+        4px
+        !important;
+
+    gap:
+        4px
+        !important;
+
+    display:
+        grid
+        !important;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        )
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-segment-primary,
+
+body.reference-stitch
+.bacalbasa-system-segment-stop {
+    width:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    height:
+        28px
+        !important;
+
+    min-height:
+        28px
+        !important;
+
+    max-height:
+        28px
+        !important;
+
+    flex:
+        none
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    justify-self:
+        stretch
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/*
+ * Give both icons the same layout footprint too, so the
+ * icon + label groups are visually centered consistently.
+ */
+body.reference-stitch
+.bacalbasa-system-segment-primary::before,
+
+body.reference-stitch
+.bacalbasa-system-segment-stop::before {
+    width:
+        9px
+        !important;
+
+    min-width:
+        9px
+        !important;
+
+    max-width:
+        9px
+        !important;
+
+    flex:
+        0 0 9px
+        !important;
+}
+
+/* ============================================================
+   D14T — SLIDING START STOP SWITCH
+
+   OFF:
+       green highlight under Start
+       Start = dark text/icon
+       Stop  = amber text/icon
+
+   ACTIVE:
+       highlight slides to Stop and becomes amber
+       Start = green text/icon
+       Stop  = dark text/icon
+   ============================================================ */
+
+
+/* Outer switch becomes the track for one moving highlight. */
+body.reference-stitch
+.bacalbasa-system-switch {
+    position:
+        relative
+        !important;
+
+    overflow:
+        hidden
+        !important;
+
+    isolation:
+        isolate
+        !important;
+}
+
+
+/*
+ * ONE highlight moves between the two equal button positions.
+ *
+ * Outer:
+ *     140px
+ * Padding:
+ *     4px + 4px
+ * Gap:
+ *     4px
+ *
+ * Each position:
+ *     64px
+ */
+body.reference-stitch
+.bacalbasa-system-switch::before {
+    content:
+        ""
+        !important;
+
+    position:
+        absolute
+        !important;
+
+    z-index:
+        0
+        !important;
+
+    top:
+        4px
+        !important;
+
+    left:
+        4px
+        !important;
+
+    width:
+        calc(
+            (100% - 12px) / 2
+        )
+        !important;
+
+    height:
+        28px
+        !important;
+
+    border-radius:
+        8px
+        !important;
+
+    background:
+        #8ecb7f
+        !important;
+
+    box-shadow:
+        0 1px 3px
+        rgba(0, 0, 0, .22),
+        inset 0 1px 0
+        rgba(255, 255, 255, .11)
+        !important;
+
+    transform:
+        translateX(0)
+        !important;
+
+    transform-origin:
+        center
+        !important;
+
+    transition:
+        transform
+            380ms
+            cubic-bezier(.34, 1.35, .64, 1),
+        background-color
+            240ms
+            ease,
+        box-shadow
+            240ms
+            ease
+        !important;
+
+    will-change:
+        transform
+        !important;
+
+    pointer-events:
+        none
+        !important;
+}
+
+
+/* ACTIVE — move one complete segment + gap to the right. */
+body.reference-stitch
+.bacalbasa-system-switch.rv-system-active::before {
+    transform:
+        translateX(
+            calc(100% + 4px)
+        )
+        !important;
+
+    background:
+        #f59e0b
+        !important;
+
+    box-shadow:
+        0 1px 3px
+        rgba(0, 0, 0, .24),
+        inset 0 1px 0
+        rgba(255, 255, 255, .10)
+        !important;
+}
+
+
+/*
+ * Both real buttons themselves are transparent.
+ * The moving element underneath them supplies the active fill.
+ */
+body.reference-stitch
+.bacalbasa-system-switch
+.bacalbasa-system-segment-primary,
+
+body.reference-stitch
+.bacalbasa-system-switch
+.bacalbasa-system-segment-stop {
+    position:
+        relative
+        !important;
+
+    z-index:
+        1
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    transition:
+        color 260ms ease,
+        opacity 180ms ease
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-switch
+.bacalbasa-system-segment-primary:hover:not(:disabled),
+
+body.reference-stitch
+.bacalbasa-system-switch
+.bacalbasa-system-segment-stop:hover:not(:disabled) {
+    background:
+        transparent
+        !important;
+}
+
+
+/* ============================================================
+   OFF STATE
+   ============================================================ */
+
+
+/* START: dark icon + dark word on green fill. */
+body.reference-stitch
+.bacalbasa-system-switch:not(.rv-system-active)
+.bacalbasa-system-segment-primary::before {
+    background:
+        #153b12
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-switch:not(.rv-system-active)
+.bacalbasa-system-segment-primary::after {
+    color:
+        #0f2e0c
+        !important;
+
+    transition:
+        color 260ms ease
+        !important;
+}
+
+
+/* STOP: amber icon + word on dark background. */
+body.reference-stitch
+.bacalbasa-system-switch:not(.rv-system-active)
+.bacalbasa-system-segment-stop::before {
+    background:
+        linear-gradient(
+            90deg,
+            #f59e0b 0 2px,
+            transparent 2px 5px,
+            #f59e0b 5px 7px,
+            transparent 7px 9px
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-switch:not(.rv-system-active)
+.bacalbasa-system-segment-stop::after {
+    color:
+        #f59e0b
+        !important;
+
+    transition:
+        color 260ms ease
+        !important;
+}
+
+
+/* ============================================================
+   ACTIVE STATE
+   ============================================================ */
+
+
+/* START becomes dark background + green icon/text. */
+body.reference-stitch
+.bacalbasa-system-switch.rv-system-active
+.bacalbasa-system-segment-primary::before {
+    background:
+        #8ecb7f
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-switch.rv-system-active
+.bacalbasa-system-segment-primary::after {
+    color:
+        #8ecb7f
+        !important;
+}
+
+
+/* STOP becomes amber fill + dark icon/text. */
+body.reference-stitch
+.bacalbasa-system-switch.rv-system-active
+.bacalbasa-system-segment-stop::before {
+    background:
+        linear-gradient(
+            90deg,
+            #181810 0 2px,
+            transparent 2px 5px,
+            #181810 5px 7px,
+            transparent 7px 9px
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.bacalbasa-system-switch.rv-system-active
+.bacalbasa-system-segment-stop::after {
+    color:
+        #181810
+        !important;
+}
+
+
+/*
+ * Keep the click itself stable.
+ * The moving highlight supplies the switch-motion feedback.
+ */
+body.reference-stitch
+.bacalbasa-system-switch
+.bacalbasa-system-segment:active {
+    transform:
+        none
+        !important;
+}
+
+/* ============================================================
+   D14V — EMPTY SLOT DROP VISIBILITY
+
+   While dragging, every logical 2x2 slot must retain its full
+   grid-cell footprint even if no visible tile occupies it.
+   ============================================================ */
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot,
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot.workspace-slot-empty,
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot.d10b-empty-slot {
+    display:
+        block
+        !important;
+
+    visibility:
+        visible
+        !important;
+
+    opacity:
+        1
+        !important;
+
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    align-self:
+        stretch
+        !important;
+
+    justify-self:
+        stretch
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    border:
+        1px solid
+        transparent
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    overflow:
+        visible
+        !important;
+}
+
+
+/*
+ * Target indication is identical whether the destination
+ * currently contains a window or is completely empty.
+ */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot.workspace-slot-target {
+    border:
+        1px solid
+        rgba(
+            52,
+            211,
+            153,
+            .72
+        )
+        !important;
+
+    background:
+        rgba(
+            52,
+            211,
+            153,
+            .035
+        )
+        !important;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(
+            52,
+            211,
+            153,
+            .08
+        ),
+        0 0 10px
+        rgba(
+            52,
+            211,
+            153,
+            .05
+        )
+        !important;
+}
+
+/* ============================================================
+   D14W — SIDEBAR GREEN-ON-DARK CONTROL LANGUAGE
+
+   Consistent interactive treatment:
+       dark surface
+       green text
+       subtle green border
+
+   Applied to:
+       Connect / Disconnect
+       currently selected Live / Logs
+
+   Physical Robot selector intentionally remains unchanged.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   CONNECT / DISCONNECT
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.robot-connection-toggle {
+    background:
+        #181a18
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            142,
+            203,
+            127,
+            .28
+        )
+        !important;
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(
+            0,
+            0,
+            0,
+            .26
+        )
+        !important;
+
+    font-weight:
+        600
+        !important;
+
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease
+        !important;
+}
+
+
+body.reference-stitch
+.robot-connection-toggle:hover:not(:disabled) {
+    background:
+        #1d211d
+        !important;
+
+    color:
+        #a1d494
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .48
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.robot-connection-toggle:active:not(:disabled) {
+    background:
+        #202520
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   SELECTED LIVE / LOGS
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.nav-item.active,
+
+body.reference-stitch
+.nav-item.selected,
+
+body.reference-stitch
+.nav-item[aria-selected="true"],
+
+body.reference-stitch
+.nav-item[aria-current="page"] {
+    background:
+        #181a18
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            142,
+            203,
+            127,
+            .28
+        )
+        !important;
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(
+            0,
+            0,
+            0,
+            .26
+        )
+        !important;
+
+    font-weight:
+        600
+        !important;
+}
+
+
+/* Same hover response as Connect / Disconnect. */
+body.reference-stitch
+.nav-item.active:hover,
+
+body.reference-stitch
+.nav-item.selected:hover,
+
+body.reference-stitch
+.nav-item[aria-selected="true"]:hover,
+
+body.reference-stitch
+.nav-item[aria-current="page"]:hover {
+    background:
+        #1d211d
+        !important;
+
+    color:
+        #a1d494
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .48
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   NON-SELECTED LIVE / LOGS
+   Keep them quiet so the active view remains obvious.
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.nav-item:not(.active):not(.selected):not([aria-selected="true"]):not([aria-current="page"]) {
+    background:
+        transparent
+        !important;
+
+    color:
+        #a1a1aa
+        !important;
+
+    border-color:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+body.reference-stitch
+.nav-item:not(.active):not(.selected):not([aria-selected="true"]):not([aria-current="page"]):hover {
+    background:
+        rgba(
+            142,
+            203,
+            127,
+            .045
+        )
+        !important;
+
+    color:
+        #d4d4d8
+        !important;
+}
+
+/* ============================================================
+   D14X — CONNECTION + TARGET CONTROL UNIFICATION
+
+   Target selector + Connect:
+       dark surface
+       green text
+       green border
+
+   Disconnect:
+       same surface
+       amber text
+       amber border
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   PHYSICAL ROBOT / SIMULATION SELECT
+   MATCH CONNECT EXACTLY
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#systemTargetSelect {
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    max-height:
+        30px
+        !important;
+
+    padding:
+        0 30px 0 12px
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            142,
+            203,
+            127,
+            .28
+        )
+        !important;
+
+    border-radius:
+        8px
+        !important;
+
+    background-color:
+        #181a18
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(
+            0,
+            0,
+            0,
+            .26
+        )
+        !important;
+
+    font-weight:
+        600
+        !important;
+
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease
+        !important;
+}
+
+
+body.reference-stitch
+#systemTargetSelect:hover:not(:disabled) {
+    background-color:
+        #1d211d
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .48
+        )
+        !important;
+
+    color:
+        #a1d494
+        !important;
+}
+
+
+body.reference-stitch
+#systemTargetSelect
+option {
+    background:
+        #181a18;
+
+    color:
+        #d4d4d8;
+}
+
+
+/* ------------------------------------------------------------
+   CONNECT — GREEN ON DARK
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.robot-connection-toggle:not(.rv-disconnect-control) {
+    background:
+        #181a18
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            142,
+            203,
+            127,
+            .28
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.robot-connection-toggle:not(.rv-disconnect-control):hover:not(:disabled) {
+    background:
+        #1d211d
+        !important;
+
+    color:
+        #a1d494
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .48
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   DISCONNECT — AMBER ON THE SAME DARK SURFACE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.robot-connection-toggle.rv-disconnect-control {
+    background:
+        #181a18
+        !important;
+
+    color:
+        #f59e0b
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            245,
+            158,
+            11,
+            .34
+        )
+        !important;
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(
+            0,
+            0,
+            0,
+            .26
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.robot-connection-toggle.rv-disconnect-control:hover:not(:disabled) {
+    background:
+        #211e18
+        !important;
+
+    color:
+        #fbbf24
+        !important;
+
+    border-color:
+        rgba(
+            245,
+            158,
+            11,
+            .56
+        )
+        !important;
+}
+
+/* ============================================================
+   D14Y — SIMULATION HIDES ROBOT CONNECTIVITY
+
+   When Simulation is selected, robot connectivity is irrelevant.
+
+   Hide:
+       STATUS
+       CONNECTED / DISCONNECTED
+       Connect / Disconnect
+
+   Physical Robot restores them automatically.
+   ============================================================ */
+
+body.reference-stitch.rv-target-simulation
+.d12n-status-heading,
+
+body.reference-stitch.rv-target-simulation
+.d12n-connection-row,
+
+body.reference-stitch.rv-target-simulation
+.robot-connection-toggle {
+    display:
+        none
+        !important;
+
+    margin:
+        0
+        !important;
+}
+
+
+/*
+ * Defensive selectors for the actual generated connection
+ * presentation elements in case an older D12 pass wrapped them.
+ */
+body.reference-stitch.rv-target-simulation
+.sidebar
+.d12n-status-heading,
+
+body.reference-stitch.rv-target-simulation
+.sidebar
+.d12n-connected,
+
+body.reference-stitch.rv-target-simulation
+.sidebar
+.d12n-disconnected {
+    display:
+        none
+        !important;
+}
+
+/* ============================================================
+   D15B — DRAGGABLE WINDOW DOCK
+   ============================================================ */
+
+body.reference-stitch {
+    --d15-dock-width:
+        56px;
+}
+
+
+/* ------------------------------------------------------------
+   THREE-COLUMN LIVE SHELL
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.app-shell {
+    grid-template-columns:
+        var(--st-sidebar)
+        minmax(0, 1fr)
+        var(--d15-dock-width)
+        !important;
+}
+
+
+body.reference-stitch
+.topbar {
+    grid-column:
+        1 / -1
+        !important;
+}
+
+
+body.reference-stitch
+.sidebar {
+    grid-column:
+        1
+        !important;
+}
+
+
+body.reference-stitch
+.main {
+    grid-column:
+        2
+        !important;
+}
+
+
+body.reference-stitch
+.d15-window-dock {
+    grid-column:
+        3
+        !important;
+
+    grid-row:
+        2
+        !important;
+
+    width:
+        var(--d15-dock-width)
+        !important;
+
+    height:
+        100%
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    padding:
+        8px 6px
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    border-radius:
+        12px;
+
+    background:
+        #1b1d1b;
+
+    box-shadow:
+        inset 0 1px 6px
+        rgba(0,0,0,.28);
+
+    overflow:
+        hidden;
+
+    transition:
+        border-color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+
+body.reference-stitch
+.d15-window-dock[hidden] {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   TOP GRIP
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-dock-grip {
+    width:
+        20px;
+
+    height:
+        3px;
+
+    flex:
+        0 0 3px;
+
+    border-radius:
+        99px;
+
+    background:
+        rgba(142,203,127,.45);
+}
+
+
+/* ------------------------------------------------------------
+   ICON STACK
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-dock-items {
+    width:
+        100%;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+}
+
+
+body.reference-stitch
+.d15-dock-item {
+    position:
+        relative;
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    min-width:
+        42px;
+
+    min-height:
+        42px;
+
+    padding:
+        4px 3px 3px;
+
+    display:
+        grid;
+
+    grid-template-rows:
+        1fr auto;
+
+    place-items:
+        center;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    border-radius:
+        8px;
+
+    background:
+        #222422;
+
+    color:
+        #777d77;
+
+    box-shadow:
+        inset 0 1px 3px
+        rgba(0,0,0,.25);
+
+    touch-action:
+        none;
+
+    cursor:
+        default;
+
+    transition:
+        color 150ms ease,
+        border-color 150ms ease,
+        background-color 150ms ease,
+        opacity 150ms ease,
+        transform 120ms ease;
+}
+
+
+/*
+ * IMPORTANT:
+ * no amber/status dots on dock items.
+ */
+body.reference-stitch
+.d15-dock-item::before,
+
+body.reference-stitch
+.d15-dock-item::after {
+    display:
+        none
+        !important;
+
+    content:
+        none
+        !important;
+}
+
+
+body.reference-stitch
+.d15-dock-icon {
+    width:
+        20px;
+
+    height:
+        20px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+}
+
+
+body.reference-stitch
+.d15-dock-icon
+svg {
+    width:
+        19px;
+
+    height:
+        19px;
+}
+
+
+body.reference-stitch
+.d15-dock-number {
+    font-family:
+        "Space Mono",
+        monospace;
+
+    font-size:
+        7px;
+
+    line-height:
+        8px;
+}
+
+
+/* Window already visible in workspace. */
+body.reference-stitch
+.d15-dock-item.d15-on-workspace {
+    color:
+        #777d77;
+
+    opacity:
+        .58;
+}
+
+
+/* Window parked and available to drag back. */
+body.reference-stitch
+.d15-dock-item.d15-is-parked {
+    color:
+        #8ecb7f;
+
+    opacity:
+        1;
+
+    cursor:
+        grab;
+
+    background:
+        #182018;
+
+    border-color:
+        rgba(142,203,127,.40);
+}
+
+
+body.reference-stitch
+.d15-dock-item.d15-is-parked:hover {
+    color:
+        #a1d494;
+
+    background:
+        #1d251d;
+
+    border-color:
+        rgba(142,203,127,.60);
+}
+
+
+body.reference-stitch
+.d15-dock-item.d15-is-parked:active {
+    cursor:
+        grabbing;
+
+    transform:
+        scale(.96);
+}
+
+
+/* ------------------------------------------------------------
+   CARD -> DOCK DROP TARGET
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-window-dock.d15-drop-target {
+    border-color:
+        rgba(52,211,153,.76);
+
+    background:
+        #18221b;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(52,211,153,.10),
+        0 0 14px
+        rgba(52,211,153,.08);
+}
+
+
+/*
+ * Allow an existing D7H-dragged card to visually cross toward
+ * the rail.
+ */
+body.reference-stitch:has(
+    #mediaWorkspace.workspace-arranging
+)
+.main {
+    overflow:
+        visible
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   DOCK -> WORKSPACE EMPTY SLOT
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d15-restore-target {
+    border:
+        1px solid
+        rgba(52,211,153,.82)
+        !important;
+
+    background:
+        rgba(52,211,153,.045)
+        !important;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(52,211,153,.10),
+        0 0 12px
+        rgba(52,211,153,.07)
+        !important;
+}
+
+
+/*
+ * Empty slots must NEVER collapse.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.workspace-slot-empty,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d10b-empty-slot {
+    display:
+        block
+        !important;
+
+    visibility:
+        visible
+        !important;
+
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    border:
+        1px solid
+        transparent
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    align-self:
+        stretch
+        !important;
+
+    justify-self:
+        stretch
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   DRAG GHOST
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-window-ghost {
+    position:
+        fixed;
+
+    z-index:
+        10000;
+
+    left:
+        0;
+
+    top:
+        0;
+
+    width:
+        136px;
+
+    height:
+        40px;
+
+    padding:
+        0 10px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    pointer-events:
+        none;
+
+    transform:
+        translate(-50%, -50%);
+
+    border:
+        1px solid
+        rgba(52,211,153,.44);
+
+    border-radius:
+        9px;
+
+    background:
+        rgba(24,32,24,.96);
+
+    color:
+        #a1d494;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.34);
+
+    font-size:
+        10px;
+
+    white-space:
+        nowrap;
+}
+
+
+body.reference-stitch
+.d15-window-ghost-icon,
+
+body.reference-stitch
+.d15-window-ghost-icon svg {
+    width:
+        19px;
+
+    height:
+        19px;
+}
+
+
+/* ------------------------------------------------------------
+   HIDDEN PARKING CONTAINER
+   ------------------------------------------------------------ */
+
+#d15WindowParking {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE OLD DISPLAY SETTINGS
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-display-settings-hidden {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   COMPACT WIDTH
+   ------------------------------------------------------------ */
+
+@media (max-width: 1150px) {
+    body.reference-stitch {
+        --d15-dock-width:
+            50px;
+    }
+
+
+    body.reference-stitch
+    .d15-dock-item {
+        width:
+            38px;
+
+        height:
+            38px;
+
+        min-width:
+            38px;
+
+        min-height:
+            38px;
+    }
+}
+
+/* ============================================================
+   D15C — LARGER DOCK + TITLE ICONS + RESTORE TARGET
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   SLIGHTLY LARGER RIGHT WINDOW DOCK
+   ------------------------------------------------------------ */
+
+body.reference-stitch {
+    --d15-dock-width:
+        64px
+        !important;
+}
+
+
+body.reference-stitch
+.d15-window-dock {
+    width:
+        64px
+        !important;
+
+    min-width:
+        64px
+        !important;
+
+    padding:
+        9px 7px
+        !important;
+}
+
+
+body.reference-stitch
+.d15-dock-item {
+    width:
+        48px
+        !important;
+
+    height:
+        48px
+        !important;
+
+    min-width:
+        48px
+        !important;
+
+    min-height:
+        48px
+        !important;
+}
+
+
+body.reference-stitch
+.d15-dock-icon {
+    width:
+        23px
+        !important;
+
+    height:
+        23px
+        !important;
+}
+
+
+body.reference-stitch
+.d15-dock-icon
+svg {
+    width:
+        22px
+        !important;
+
+    height:
+        22px
+        !important;
+}
+
+
+body.reference-stitch
+.d15-dock-number {
+    font-size:
+        8px
+        !important;
+
+    line-height:
+        9px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   ICON IMMEDIATELY LEFT OF EACH WINDOW NAME
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile-header {
+    position:
+        relative
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15-window-title-group {
+    position:
+        absolute
+        !important;
+
+    left:
+        50%
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        !important;
+
+    display:
+        inline-flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    gap:
+        7px
+        !important;
+
+    width:
+        max-content
+        !important;
+
+    max-width:
+        calc(100% - 70px)
+        !important;
+
+    pointer-events:
+        none
+        !important;
+
+    white-space:
+        nowrap
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15-window-title-group
+> strong,
+
+body.reference-stitch
+#mediaWorkspace
+.d15-window-title-group
+> h2 {
+    position:
+        static
+        !important;
+
+    left:
+        auto
+        !important;
+
+    right:
+        auto
+        !important;
+
+    top:
+        auto
+        !important;
+
+    bottom:
+        auto
+        !important;
+
+    width:
+        auto
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    transform:
+        none
+        !important;
+
+    text-align:
+        left
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15-window-title-icon {
+    width:
+        14px
+        !important;
+
+    height:
+        14px
+        !important;
+
+    min-width:
+        14px
+        !important;
+
+    flex:
+        0 0 14px
+        !important;
+
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    opacity:
+        .88
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15-window-title-icon
+svg {
+    width:
+        14px
+        !important;
+
+    height:
+        14px
+        !important;
+
+    display:
+        block
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   DOCK -> WORKSPACE GREEN DESTINATION BORDER
+   ------------------------------------------------------------ */
+
+/*
+ * This rule deliberately comes AFTER the empty-slot rules.
+ * Previously the empty-slot transparent border was winning
+ * the cascade and hiding the restore target.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d15-restore-target,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.workspace-slot-empty.d15-restore-target,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d10b-empty-slot.d15-restore-target {
+    border:
+        1px solid
+        rgba(
+            52,
+            211,
+            153,
+            .92
+        )
+        !important;
+
+    background:
+        rgba(
+            52,
+            211,
+            153,
+            .055
+        )
+        !important;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(
+            52,
+            211,
+            153,
+            .16
+        ),
+        0 0 14px
+        rgba(
+            52,
+            211,
+            153,
+            .12
+        )
+        !important;
+}
+
+
+/* Make the target visible even when the destination is empty. */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d15-restore-target {
+    visibility:
+        visible
+        !important;
+
+    opacity:
+        1
+        !important;
+}
+
+
+/* Slightly smaller only on genuinely compact screens. */
+@media (max-width: 1150px) {
+    body.reference-stitch {
+        --d15-dock-width:
+            58px
+            !important;
+    }
+
+
+    body.reference-stitch
+    .d15-window-dock {
+        width:
+            58px
+            !important;
+
+        min-width:
+            58px
+            !important;
+    }
+
+
+    body.reference-stitch
+    .d15-dock-item {
+        width:
+            44px
+            !important;
+
+        height:
+            44px
+            !important;
+
+        min-width:
+            44px
+            !important;
+
+        min-height:
+            44px
+            !important;
+    }
+}
+
+/* ============================================================
+   D15D — TITLE REPAIR + FULL QUADRANT OVERLAY
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   HIDE LEGACY TITLE SOURCE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.d15d-original-title-source {
+    display:
+        none
+        !important;
+}
+
+
+/* Old D15C wrapper is retired completely. */
+body.reference-stitch
+#mediaWorkspace
+.d15-window-title-group {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CLEAN, IDENTICAL TITLE LAYOUT FOR ALL 4 WINDOWS
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile-header {
+    position:
+        relative
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15d-window-title-group {
+    position:
+        absolute
+        !important;
+
+    left:
+        50%
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        !important;
+
+    display:
+        inline-flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    gap:
+        7px
+        !important;
+
+    width:
+        max-content
+        !important;
+
+    max-width:
+        calc(100% - 70px)
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    pointer-events:
+        none
+        !important;
+
+    white-space:
+        nowrap
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15d-window-title-icon {
+    width:
+        14px
+        !important;
+
+    height:
+        14px
+        !important;
+
+    min-width:
+        14px
+        !important;
+
+    flex:
+        0 0 14px
+        !important;
+
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    opacity:
+        .90
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15d-window-title-icon
+svg {
+    width:
+        14px
+        !important;
+
+    height:
+        14px
+        !important;
+
+    display:
+        block
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15d-window-title-text {
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    color:
+        #e4e4e7
+        !important;
+
+    font-family:
+        "Plus Jakarta Sans",
+        system-ui,
+        sans-serif
+        !important;
+
+    font-size:
+        12px
+        !important;
+
+    line-height:
+        16px
+        !important;
+
+    font-weight:
+        600
+        !important;
+
+    letter-spacing:
+        .035em
+        !important;
+
+    text-transform:
+        uppercase
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   FULL QUADRANT RESTORE OVERLAY
+   ------------------------------------------------------------ */
+
+#d15RestoreQuadrantOverlay {
+    position:
+        fixed;
+
+    z-index:
+        9000;
+
+    display:
+        none;
+
+    pointer-events:
+        none;
+
+    box-sizing:
+        border-box;
+
+    border:
+        1px solid
+        rgba(
+            52,
+            211,
+            153,
+            .96
+        );
+
+    border-radius:
+        11px;
+
+    background:
+        rgba(
+            52,
+            211,
+            153,
+            .045
+        );
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(
+            52,
+            211,
+            153,
+            .15
+        ),
+        0 0 16px
+        rgba(
+            52,
+            211,
+            153,
+            .13
+        );
+}
+
+
+#d15RestoreQuadrantOverlay.active {
+    display:
+        block;
+}
+
+
+/*
+ * The overlay is now authoritative.
+ * Suppress the old collapsed-line restore indicator so we
+ * cannot see both at once.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d15-restore-target {
+    border-color:
+        transparent
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+/* ============================================================
+   D15E — SIMULATION TITLE + CLEAN RESTORE TARGET
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   FORCE D15D TITLE TEXT VISIBLE
+   ------------------------------------------------------------ */
+
+/*
+ * Older panel-header rules hide generic spans in the MuJoCo
+ * header. D15D's title is presentation-owned and must remain
+ * visible for every tile, especially Simulation.
+ */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile
+.workspace-tile-header
+.d15d-window-title-group,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile
+.workspace-tile-header
+.d15d-window-title-text,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+.workspace-tile-header
+.d15d-window-title-group,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+.workspace-tile-header
+.d15d-window-title-text {
+    display:
+        inline-flex
+        !important;
+
+    visibility:
+        visible
+        !important;
+
+    opacity:
+        1
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15d-window-title-text {
+    width:
+        auto
+        !important;
+
+    min-width:
+        max-content
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    height:
+        auto
+        !important;
+
+    overflow:
+        visible
+        !important;
+
+    clip:
+        auto
+        !important;
+
+    clip-path:
+        none
+        !important;
+
+    white-space:
+        nowrap
+        !important;
+
+    color:
+        #e4e4e7
+        !important;
+
+    font-size:
+        12px
+        !important;
+
+    line-height:
+        16px
+        !important;
+
+    font-weight:
+        600
+        !important;
+
+    text-indent:
+        0
+        !important;
+}
+
+
+/* Simulation uses exactly the same title geometry as cameras. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.mujoco-panel
+.d15d-window-title-group {
+    position:
+        absolute
+        !important;
+
+    left:
+        50%
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translate(-50%, -50%)
+        !important;
+
+    width:
+        max-content
+        !important;
+
+    max-width:
+        calc(100% - 70px)
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    gap:
+        7px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE OLD GREEN SLOT LINE
+   ------------------------------------------------------------ */
+
+/*
+ * D15D's floating quadrant overlay is now the ONLY restore
+ * highlight. The underlying logical slot must draw nothing.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d15-restore-target,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.workspace-slot-target.d15-restore-target,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.workspace-slot-empty.d15-restore-target,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d10b-empty-slot.d15-restore-target {
+    border:
+        0
+        !important;
+
+    border-top:
+        0
+        !important;
+
+    border-right:
+        0
+        !important;
+
+    border-bottom:
+        0
+        !important;
+
+    border-left:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/*
+ * Some older workspace target styling uses pseudo-elements.
+ * Suppress those too while restoring from the dock.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d15-restore-target::before,
+
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot.d15-restore-target::after {
+    content:
+        none
+        !important;
+
+    display:
+        none
+        !important;
+
+    border:
+        0
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+/* ============================================================
+   D15F — WORKSPACE MAXIMIZE
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   TOP-RIGHT MAXIMIZE BUTTON
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile-header
+.d15f-maximize-button {
+    position:
+        absolute
+        !important;
+
+    right:
+        9px
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translateY(-50%)
+        !important;
+
+    z-index:
+        8
+        !important;
+
+    width:
+        24px
+        !important;
+
+    height:
+        24px
+        !important;
+
+    min-width:
+        24px
+        !important;
+
+    min-height:
+        24px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+
+    border:
+        1px solid
+        transparent
+        !important;
+
+    border-radius:
+        6px
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    color:
+        #8b918b
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    cursor:
+        pointer
+        !important;
+
+    opacity:
+        .78
+        !important;
+
+    pointer-events:
+        auto
+        !important;
+
+    touch-action:
+        manipulation
+        !important;
+
+    transition:
+        color 140ms ease,
+        background-color 140ms ease,
+        border-color 140ms ease,
+        opacity 140ms ease,
+        transform 140ms ease
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile-header
+.d15f-maximize-button:hover {
+    color:
+        #a1d494
+        !important;
+
+    background:
+        rgba(
+            142,
+            203,
+            127,
+            .08
+        )
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .24
+        )
+        !important;
+
+    opacity:
+        1
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button
+svg {
+    width:
+        13px
+        !important;
+
+    height:
+        13px
+        !important;
+
+    display:
+        block
+        !important;
+}
+
+
+/* Normal state: outward icon. */
+body.reference-stitch
+.d15f-maximize-button
+.d15f-expand-icon {
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+}
+
+
+body.reference-stitch
+.d15f-maximize-button
+.d15f-restore-icon {
+    display:
+        none
+        !important;
+}
+
+
+/* Maximized state: inward / restore icon. */
+body.reference-stitch
+.d15f-maximize-button.d15f-is-restore
+.d15f-expand-icon {
+    display:
+        none
+        !important;
+}
+
+
+body.reference-stitch
+.d15f-maximize-button.d15f-is-restore
+.d15f-restore-icon {
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   MAXIMIZED 1x1 WORKSPACE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace.d15f-maximized-workspace {
+    grid-template-columns:
+        minmax(0, 1fr)
+        !important;
+
+    grid-template-rows:
+        minmax(0, 1fr)
+        !important;
+
+    gap:
+        0
+        !important;
+}
+
+
+/*
+ * All other logical slots are temporarily absent visually.
+ * Their windows have already been parked in the right rail.
+ */
+body.reference-stitch
+#mediaWorkspace.d15f-maximized-workspace
+> .workspace-slot:not(.d15f-maximized-slot) {
+    display:
+        none
+        !important;
+}
+
+
+/* Active slot consumes the complete former 2x2 region. */
+body.reference-stitch
+#mediaWorkspace.d15f-maximized-workspace
+> .workspace-slot.d15f-maximized-slot {
+    display:
+        block
+        !important;
+
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    grid-column:
+        1
+        !important;
+
+    grid-row:
+        1
+        !important;
+
+    border:
+        0
+        !important;
+}
+
+
+/* The real tile fills the entire workspace. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.d15f-maximized-tile {
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    margin:
+        0
+        !important;
+
+    transform:
+        none
+        !important;
+}
+
+
+/*
+ * Media stage stretches with the larger card rather than
+ * retaining old 2x2 sizing.
+ */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.d15f-maximized-tile
+.camera-stage,
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.d15f-maximized-tile
+.mujoco-stage {
+    width:
+        100%
+        !important;
+
+    height:
+        calc(100% - 44px)
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    aspect-ratio:
+        auto
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   RIGHT DOCK WHILE MAXIMIZED
+   ------------------------------------------------------------ */
+
+/*
+ * Parked windows are shown in the rail exactly as requested,
+ * but restoring a second tile while fullscreen would make the
+ * state ambiguous. Minimize first.
+ */
+body.reference-stitch.d15f-workspace-maximized
+#d15WindowDock
+.d15-dock-item {
+    pointer-events:
+        none
+        !important;
+}
+
+
+body.reference-stitch.d15f-workspace-maximized
+#d15WindowDock
+.d15-dock-item.d15-is-parked {
+    opacity:
+        .82
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CLEAN HEADER DURING MAXIMIZE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.d15f-maximized-tile
+.workspace-tile-header {
+    cursor:
+        default
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.d15f-maximized-tile
+.d15f-maximize-button {
+    color:
+        #8ecb7f
+        !important;
+
+    opacity:
+        1
+        !important;
+}
+
+/* ============================================================
+   D15G — FLUID MAXIMIZE POLISH
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   MAXIMIZE / RESTORE ICON MORPH
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button {
+    overflow:
+        hidden
+        !important;
+}
+
+
+/*
+ * Keep BOTH icons in the same physical location.
+ * We cross-fade / rotate instead of hard display:none switching.
+ */
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button
+.d15f-expand-icon,
+
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button
+.d15f-restore-icon {
+    position:
+        absolute
+        !important;
+
+    left:
+        50%
+        !important;
+
+    top:
+        50%
+        !important;
+
+    width:
+        14px
+        !important;
+
+    height:
+        14px
+        !important;
+
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+
+    transition:
+        opacity
+            180ms
+            ease,
+        transform
+            300ms
+            cubic-bezier(.22, 1, .36, 1)
+        !important;
+}
+
+
+/* Normal: outward arrows visible. */
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button
+.d15f-expand-icon {
+    opacity:
+        1
+        !important;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1)
+        rotate(0deg)
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button
+.d15f-restore-icon {
+    opacity:
+        0
+        !important;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.58)
+        rotate(-70deg)
+        !important;
+}
+
+
+/* Full workspace: inward arrows visible. */
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button.d15f-is-restore
+.d15f-expand-icon {
+    opacity:
+        0
+        !important;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.58)
+        rotate(70deg)
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace
+.d15f-maximize-button.d15f-is-restore
+.d15f-restore-icon {
+    opacity:
+        1
+        !important;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1)
+        rotate(0deg)
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   GEOMETRY ANIMATION QUALITY
+   ------------------------------------------------------------ */
+
+/*
+ * D15G animates the SLOT rather than the tile because earlier
+ * skin layers intentionally use !important tile transforms.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot {
+    transform-origin:
+        top left
+        !important;
+
+    will-change:
+        transform;
+}
+
+
+/*
+ * Keep the card clipped cleanly while the slot scales between
+ * quadrant and full-workspace sizes.
+ */
+body.reference-stitch
+#mediaWorkspace
+> .workspace-slot
+> .workspace-tile {
+    overflow:
+        hidden
+        !important;
+}
+
+
+/*
+ * Slightly smoother visual transition of the card border during
+ * the geometry move.
+ */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile {
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   ACCESSIBILITY
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    body.reference-stitch
+    #mediaWorkspace
+    .d15f-maximize-button
+    .d15f-expand-icon,
+
+    body.reference-stitch
+    #mediaWorkspace
+    .d15f-maximize-button
+    .d15f-restore-icon {
+        transition:
+            none
+            !important;
+    }
+}
+
+/* ============================================================
+   D15H — DUAL-TONE RAIL ACCENTS + DOCK PRESENCE STATE
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   RIGHT RAIL — DEFAULT / EMPTY
+   ------------------------------------------------------------ */
+
+/*
+ * Empty dock:
+ * quieter, flatter, less visually prominent.
+ */
+body.reference-stitch
+.d15-window-dock {
+    background:
+        #1b1d1b
+        !important;
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            .075
+        )
+        !important;
+
+    box-shadow:
+        inset 0 1px 6px
+        rgba(
+            0,
+            0,
+            0,
+            .30
+        )
+        !important;
+
+    transition:
+        background-color 260ms ease,
+        border-color 260ms ease,
+        box-shadow 260ms ease,
+        filter 260ms ease
+        !important;
+
+    filter:
+        saturate(.60)
+        brightness(.93)
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   RIGHT RAIL — CONTAINS AT LEAST ONE PARKED WINDOW
+   ------------------------------------------------------------ */
+
+/*
+ * D15B marks parked icons with .d15-is-parked.
+ *
+ * When at least one genuinely parked window exists, the rail
+ * gains a slightly fuller/richer gray treatment.
+ */
+body.reference-stitch
+.d15-window-dock:has(
+    .d15-dock-item.d15-is-parked
+) {
+    background:
+        #242724
+        !important;
+
+    border-color:
+        rgba(
+            176,
+            217,
+            175,
+            .15
+        )
+        !important;
+
+    box-shadow:
+        inset 0 1px 7px
+        rgba(
+            0,
+            0,
+            0,
+            .24
+        ),
+        0 7px 20px
+        rgba(
+            0,
+            0,
+            0,
+            .17
+        )
+        !important;
+
+    filter:
+        saturate(1)
+        brightness(1)
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   FULLSCREEN OVERRIDE
+   ------------------------------------------------------------ */
+
+/*
+ * During workspace maximize the other open windows are parked
+ * only temporarily.
+ *
+ * Keep the rail visually subdued while fullscreen is active,
+ * regardless of how many temporary parked icons it contains.
+ */
+body.reference-stitch.d15f-workspace-maximized
+.d15-window-dock,
+
+body.reference-stitch.d15f-workspace-maximized
+.d15-window-dock:has(
+    .d15-dock-item.d15-is-parked
+) {
+    background:
+        #1a1c1a
+        !important;
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            .065
+        )
+        !important;
+
+    box-shadow:
+        inset 0 1px 6px
+        rgba(
+            0,
+            0,
+            0,
+            .32
+        )
+        !important;
+
+    filter:
+        saturate(.48)
+        brightness(.90)
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   RIGHT RAIL TOP BAR — TWO-TONE STITCH STYLE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-dock-grip {
+    width:
+        28px
+        !important;
+
+    height:
+        4px
+        !important;
+
+    flex:
+        0 0 4px
+        !important;
+
+    margin:
+        0 0 3px
+        !important;
+
+    border-radius:
+        999px
+        !important;
+
+    /*
+     * Dark side segments + green center segment.
+     */
+    background:
+        linear-gradient(
+            90deg,
+            rgba(
+                121,
+                127,
+                121,
+                .35
+            )
+            0%,
+            rgba(
+                121,
+                127,
+                121,
+                .35
+            )
+            31%,
+
+            #8ecb7f
+            31%,
+            #8ecb7f
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .35
+            )
+            69%,
+            rgba(
+                121,
+                127,
+                121,
+                .35
+            )
+            100%
+        )
+        !important;
+
+    box-shadow:
+        0 0 5px
+        rgba(
+            142,
+            203,
+            127,
+            .10
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   LEFT SIDEBAR — MATCHING, LARGER ACCENT BAR
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.sidebar {
+    position:
+        relative
+        !important;
+
+    /*
+     * Creates a clean area above Live/Logs for the new rail bar.
+     */
+    padding-top:
+        30px
+        !important;
+}
+
+
+body.reference-stitch
+.sidebar::before {
+    content:
+        ""
+        !important;
+
+    position:
+        absolute
+        !important;
+
+    top:
+        12px
+        !important;
+
+    left:
+        50%
+        !important;
+
+    transform:
+        translateX(-50%)
+        !important;
+
+    width:
+        48px
+        !important;
+
+    height:
+        4px
+        !important;
+
+    border-radius:
+        999px
+        !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(
+                121,
+                127,
+                121,
+                .34
+            )
+            0%,
+            rgba(
+                121,
+                127,
+                121,
+                .34
+            )
+            32%,
+
+            #8ecb7f
+            32%,
+            #8ecb7f
+            68%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .34
+            )
+            68%,
+            rgba(
+                121,
+                127,
+                121,
+                .34
+            )
+            100%
+        )
+        !important;
+
+    box-shadow:
+        0 0 5px
+        rgba(
+            142,
+            203,
+            127,
+            .09
+        )
+        !important;
+
+    pointer-events:
+        none
+        !important;
+}
+
+/* ============================================================
+   D15I — FIXED RAIL SURFACE + STATEFUL GRIP
+
+   Right rail surface:
+       always the same gray as the main UI bars.
+
+   Only the small top grip reflects stored-window state.
+
+   Workspace -> dock drop target:
+       restore the full green border/glow.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   RIGHT RAIL — ONE PERMANENT SURFACE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-window-dock,
+
+body.reference-stitch
+.d15-window-dock:has(
+    .d15-dock-item.d15-is-parked
+),
+
+body.reference-stitch.d15f-workspace-maximized
+.d15-window-dock,
+
+body.reference-stitch.d15f-workspace-maximized
+.d15-window-dock:has(
+    .d15-dock-item.d15-is-parked
+) {
+    /*
+     * Match the permanent neutral surface used by the
+     * left sidebar / top presentation bars.
+     */
+    background:
+        #1b1d1b
+        !important;
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        )
+        !important;
+
+    box-shadow:
+        inset 0 1px 6px
+        rgba(
+            0,
+            0,
+            0,
+            .28
+        )
+        !important;
+
+    /*
+     * D15H used filter to brighten/desaturate the whole rail.
+     * Completely retire that behavior.
+     */
+    filter:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   TOP GRIP — EMPTY / QUIET
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-window-dock
+.d15-dock-grip {
+    background:
+        linear-gradient(
+            90deg,
+
+            rgba(
+                121,
+                127,
+                121,
+                .28
+            )
+            0%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .28
+            )
+            31%,
+
+            rgba(
+                142,
+                203,
+                127,
+                .38
+            )
+            31%,
+
+            rgba(
+                142,
+                203,
+                127,
+                .38
+            )
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .28
+            )
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .28
+            )
+            100%
+        )
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    opacity:
+        .72
+        !important;
+
+    transition:
+        background 220ms ease,
+        opacity 220ms ease,
+        box-shadow 220ms ease
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   TOP GRIP — MANUALLY STORED WINDOWS PRESENT
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-window-dock:has(
+    .d15-dock-item.d15-is-parked
+)
+.d15-dock-grip {
+    background:
+        linear-gradient(
+            90deg,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            0%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            31%,
+
+            #8ecb7f
+            31%,
+
+            #8ecb7f
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            100%
+        )
+        !important;
+
+    opacity:
+        1
+        !important;
+
+    box-shadow:
+        0 0 5px
+        rgba(
+            142,
+            203,
+            127,
+            .12
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   FULLSCREEN — GRIP BECOMES QUIET AGAIN
+   ------------------------------------------------------------ */
+
+/*
+ * Fullscreen temporarily parks the other visible windows.
+ * That should NOT make the grip look like manually stored
+ * windows are present.
+ */
+body.reference-stitch.d15f-workspace-maximized
+.d15-window-dock
+.d15-dock-grip,
+
+body.reference-stitch.d15f-workspace-maximized
+.d15-window-dock:has(
+    .d15-dock-item.d15-is-parked
+)
+.d15-dock-grip {
+    background:
+        linear-gradient(
+            90deg,
+
+            rgba(
+                121,
+                127,
+                121,
+                .24
+            )
+            0%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .24
+            )
+            31%,
+
+            rgba(
+                142,
+                203,
+                127,
+                .30
+            )
+            31%,
+
+            rgba(
+                142,
+                203,
+                127,
+                .30
+            )
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .24
+            )
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .24
+            )
+            100%
+        )
+        !important;
+
+    opacity:
+        .58
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   RESTORE WORKSPACE -> DOCK GREEN DROP HIGHLIGHT
+   ------------------------------------------------------------ */
+
+/*
+ * D15H's later !important rail rules were masking this state.
+ *
+ * This final rule deliberately has higher cascade priority.
+ */
+body.reference-stitch
+.d15-window-dock.d15-drop-target,
+
+body.reference-stitch
+.d15-window-dock.d15-drop-target:has(
+    .d15-dock-item.d15-is-parked
+) {
+    background:
+        #1b1d1b
+        !important;
+
+    border-color:
+        rgba(
+            52,
+            211,
+            153,
+            .88
+        )
+        !important;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(
+            52,
+            211,
+            153,
+            .11
+        ),
+        0 0 14px
+        rgba(
+            52,
+            211,
+            153,
+            .12
+        )
+        !important;
+
+    filter:
+        none
+        !important;
+}
+
+
+/*
+ * While the dock itself is a valid destination, make the
+ * small grip green as additional feedback.
+ */
+body.reference-stitch
+.d15-window-dock.d15-drop-target
+.d15-dock-grip {
+    background:
+        #34d399
+        !important;
+
+    opacity:
+        1
+        !important;
+
+    box-shadow:
+        0 0 7px
+        rgba(
+            52,
+            211,
+            153,
+            .25
+        )
+        !important;
+}
+
+/* ============================================================
+   D15J — CENTER-ONLY GRIP HIGHLIGHT + DRAG STACKING
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   DROP TARGET GRIP
+   Keep gray sides; brighten ONLY the green center.
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-window-dock.d15-drop-target
+.d15-dock-grip {
+    background:
+        linear-gradient(
+            90deg,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            0%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            31%,
+
+            #34d399
+            31%,
+
+            #34d399
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            69%,
+
+            rgba(
+                121,
+                127,
+                121,
+                .38
+            )
+            100%
+        )
+        !important;
+
+    opacity:
+        1
+        !important;
+
+    box-shadow:
+        0 0 6px
+        rgba(
+            52,
+            211,
+            153,
+            .20
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   DRAGGED WINDOW MUST PASS ABOVE THE RIGHT DOCK
+   ------------------------------------------------------------ */
+
+/*
+ * Normal state:
+ * dock stays above the normal workspace surface.
+ */
+body.reference-stitch
+.d15-window-dock {
+    position:
+        relative
+        !important;
+
+    z-index:
+        20
+        !important;
+}
+
+
+/*
+ * During a D7H card drag, temporarily lift the whole main
+ * workspace above the dock's stacking context.
+ */
+body.reference-stitch:has(
+    #mediaWorkspace.workspace-arranging
+)
+.main {
+    position:
+        relative
+        !important;
+
+    z-index:
+        100
+        !important;
+
+    overflow:
+        visible
+        !important;
+}
+
+
+/*
+ * And make the actual dragged card the highest visual object.
+ */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging {
+    position:
+        relative
+        !important;
+
+    z-index:
+        10000
+        !important;
+}
+
+
+/*
+ * Dock remains visible underneath so its green destination
+ * feedback can still be seen around the dragged card.
+ */
+body.reference-stitch:has(
+    #mediaWorkspace.workspace-arranging
+)
+.d15-window-dock {
+    z-index:
+        10
+        !important;
+}
+
+
+/*
+ * Its individual icons must never create a stacking layer above
+ * the card being dragged across the rail.
+ */
+body.reference-stitch:has(
+    #mediaWorkspace.workspace-arranging
+)
+.d15-window-dock
+.d15-dock-item,
+
+body.reference-stitch:has(
+    #mediaWorkspace.workspace-arranging
+)
+.d15-window-dock
+.d15-dock-items {
+    z-index:
+        auto
+        !important;
+}
+
+/* ============================================================
+   D15K — DRAGGABLE SIDE RAILS
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   RETIRE OLD LEFT-BAR PSEUDO GRIP
+   D15K needs a REAL element so it can receive pointer events.
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15k-rail-reorder-ready
+.sidebar::before {
+    display:
+        none
+        !important;
+
+    content:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   LEFT SIDEBAR HANDLE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15k-left-rail-handle {
+    position:
+        absolute
+        !important;
+
+    z-index:
+        30
+        !important;
+
+    left:
+        50%
+        !important;
+
+    top:
+        4px
+        !important;
+
+    transform:
+        translateX(-50%)
+        !important;
+
+    width:
+        68px
+        !important;
+
+    height:
+        22px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+
+    border:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    cursor:
+        grab
+        !important;
+
+    touch-action:
+        none
+        !important;
+
+    user-select:
+        none
+        !important;
+}
+
+
+body.reference-stitch
+.d15k-left-rail-handle:active,
+
+body.reference-stitch
+.d15k-left-rail-handle.d15k-rail-handle-active {
+    cursor:
+        grabbing
+        !important;
+}
+
+
+body.reference-stitch
+.d15k-left-rail-grip {
+    width:
+        48px
+        !important;
+
+    height:
+        4px
+        !important;
+
+    border-radius:
+        999px
+        !important;
+
+    background:
+        linear-gradient(
+            90deg,
+
+            rgba(121,127,121,.34)
+            0%,
+
+            rgba(121,127,121,.34)
+            32%,
+
+            #8ecb7f
+            32%,
+
+            #8ecb7f
+            68%,
+
+            rgba(121,127,121,.34)
+            68%,
+
+            rgba(121,127,121,.34)
+            100%
+        )
+        !important;
+
+    transition:
+        box-shadow 160ms ease,
+        background 160ms ease,
+        transform 160ms ease
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   RIGHT DOCK GRIP AS DRAG HANDLE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15-window-dock
+.d15-dock-grip {
+    position:
+        relative
+        !important;
+
+    cursor:
+        grab
+        !important;
+
+    touch-action:
+        none
+        !important;
+
+    user-select:
+        none
+        !important;
+}
+
+
+/*
+ * Invisible larger hit area around the very small visual bar.
+ */
+body.reference-stitch
+.d15-window-dock
+.d15-dock-grip::after {
+    content:
+        ""
+        !important;
+
+    position:
+        absolute
+        !important;
+
+    inset:
+        -7px -10px
+        !important;
+}
+
+
+body.reference-stitch
+.d15-window-dock
+.d15-dock-grip:active,
+
+body.reference-stitch
+.d15-window-dock
+.d15-dock-grip.d15k-rail-handle-active {
+    cursor:
+        grabbing
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   ACTIVE DRAG HANDLE FEEDBACK
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15k-left-rail-handle.d15k-rail-handle-active
+.d15k-left-rail-grip {
+    box-shadow:
+        0 0 8px
+        rgba(52,211,153,.24)
+        !important;
+
+    transform:
+        scaleX(1.08)
+        !important;
+}
+
+
+body.reference-stitch
+.d15-dock-grip.d15k-rail-handle-active {
+    box-shadow:
+        0 0 8px
+        rgba(52,211,153,.24)
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   SMOOTH MOVING SURFACES
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.sidebar,
+
+body.reference-stitch
+.main,
+
+body.reference-stitch
+.d15-window-dock {
+    transform-origin:
+        center
+        !important;
+
+    will-change:
+        transform
+        !important;
+}
+
+
+/*
+ * Keep the sidebars visually above the main pane while they
+ * glide across it.
+ */
+body.reference-stitch
+.sidebar {
+    z-index:
+        30
+        !important;
+}
+
+
+body.reference-stitch
+.d15-window-dock {
+    z-index:
+        30
+        !important;
+}
+
+
+body.reference-stitch
+.main {
+    z-index:
+        1
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   DRAG GHOST
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15k-rail-drag-ghost {
+    position:
+        fixed
+        !important;
+
+    z-index:
+        30000
+        !important;
+
+    left:
+        0;
+
+    top:
+        0;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    height:
+        34px;
+
+    padding:
+        0 11px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    pointer-events:
+        none;
+
+    border:
+        1px solid
+        rgba(52,211,153,.36);
+
+    border-radius:
+        9px;
+
+    background:
+        rgba(24,28,24,.96);
+
+    color:
+        #a1d494;
+
+    box-shadow:
+        0 10px 28px
+        rgba(0,0,0,.34);
+
+    font-family:
+        "Plus Jakarta Sans",
+        system-ui,
+        sans-serif;
+
+    font-size:
+        9px;
+
+    line-height:
+        12px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        .045em;
+
+    white-space:
+        nowrap;
+}
+
+
+body.reference-stitch
+.d15k-rail-drag-ghost-grip {
+    width:
+        28px;
+
+    height:
+        4px;
+
+    border-radius:
+        999px;
+
+    background:
+        linear-gradient(
+            90deg,
+
+            rgba(121,127,121,.42)
+            0%,
+
+            rgba(121,127,121,.42)
+            31%,
+
+            #34d399
+            31%,
+
+            #34d399
+            69%,
+
+            rgba(121,127,121,.42)
+            69%,
+
+            rgba(121,127,121,.42)
+            100%
+        );
+}
+
+
+/* ------------------------------------------------------------
+   WHILE REORDERING
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15k-rail-dragging {
+    cursor:
+        grabbing
+        !important;
+}
+
+
+body.reference-stitch.d15k-rail-dragging
+.sidebar,
+
+body.reference-stitch.d15k-rail-dragging
+.main,
+
+body.reference-stitch.d15k-rail-dragging
+.d15-window-dock {
+    pointer-events:
+        none
+        !important;
+}
+
+
+/*
+ * Pointer capture on the active grip must remain enabled.
+ */
+body.reference-stitch.d15k-rail-dragging
+.d15k-rail-handle-active {
+    pointer-events:
+        auto
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REDUCED MOTION
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    body.reference-stitch
+    .d15k-rail-drag-ghost {
+        transition:
+            none
+            !important;
+    }
+}
+
+/* ============================================================
+   D15L — PHYSICAL RAIL DRAG + WINDOW STACKING
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   RETIRE D15K'S SMALL FLOATING LABEL COMPLETELY
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15k-rail-drag-ghost {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   ACTUAL SIDEBAR FOLLOWS CURSOR
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.app-shell {
+    overflow:
+        visible
+        !important;
+}
+
+
+body.reference-stitch
+.sidebar.d15l-rail-following,
+
+body.reference-stitch
+.d15-window-dock.d15l-rail-following {
+    /*
+     * Move the REAL rail, not a representation of it.
+     */
+    transform:
+        translate3d(
+            var(
+                --d15l-drag-x,
+                0px
+            ),
+            0,
+            0
+        )
+        scale(1.012)
+        !important;
+
+    z-index:
+        40000
+        !important;
+
+    box-shadow:
+        0 18px 44px
+        rgba(
+            0,
+            0,
+            0,
+            .34
+        ),
+        0 0 0 1px
+        rgba(
+            52,
+            211,
+            153,
+            .12
+        )
+        !important;
+
+    will-change:
+        transform
+        !important;
+
+    pointer-events:
+        none
+        !important;
+
+    transition:
+        box-shadow 150ms ease
+        !important;
+}
+
+
+/*
+ * The captured handle remains the logical pointer owner.
+ */
+body.reference-stitch
+.d15l-active-rail-handle {
+    cursor:
+        grabbing
+        !important;
+}
+
+
+/* Slightly brighten the handle while physically moving. */
+body.reference-stitch
+.d15l-active-rail-handle
+.d15k-left-rail-grip,
+
+body.reference-stitch
+.d15-dock-grip.d15l-active-rail-handle {
+    filter:
+        brightness(1.14)
+        !important;
+
+    box-shadow:
+        0 0 8px
+        rgba(
+            52,
+            211,
+            153,
+            .20
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   DRAGGED WORKSPACE WINDOW MUST BE ABOVE EVERY OTHER WINDOW
+   ------------------------------------------------------------ */
+
+/*
+ * The important part:
+ *
+ * z-index on the tile alone was insufficient because each
+ * .workspace-slot can form its own stacking layer.
+ *
+ * Raise the ENTIRE SLOT that owns the dragged tile.
+ */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot {
+    position:
+        relative
+        !important;
+
+    z-index:
+        1
+        !important;
+
+    overflow:
+        visible
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:has(
+    > .workspace-tile.workspace-dragging
+) {
+    z-index:
+        50000
+        !important;
+
+    overflow:
+        visible
+        !important;
+}
+
+
+/*
+ * Then raise the dragged card inside that slot as well.
+ */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging {
+    position:
+        relative
+        !important;
+
+    z-index:
+        50001
+        !important;
+
+    isolation:
+        isolate
+        !important;
+
+    overflow:
+        visible
+        !important;
+}
+
+
+/*
+ * Neighboring cards stay beneath it regardless of their old
+ * skin-specific z-index values.
+ */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+.workspace-tile:not(.workspace-dragging) {
+    z-index:
+        1
+        !important;
+}
+
+
+/*
+ * Nothing in the workspace may clip the moving card.
+ */
+body.reference-stitch
+#mediaWorkspace,
+
+body.reference-stitch
+#view-live,
+
+body.reference-stitch
+#view-live
+.live-grid,
+
+body.reference-stitch
+#view-live
+.live-media-grid,
+
+body.reference-stitch
+.main {
+    overflow:
+        visible
+        !important;
+}
+
+
+/*
+ * During a card drag the main workspace remains above the
+ * ordinary rail surfaces. D15J's dock-target outline remains
+ * visible around the outside.
+ */
+body.reference-stitch:has(
+    #mediaWorkspace.workspace-arranging
+)
+.main {
+    position:
+        relative
+        !important;
+
+    z-index:
+        20000
+        !important;
+}
+
+
+body.reference-stitch:has(
+    #mediaWorkspace.workspace-arranging
+)
+.d15-window-dock {
+    z-index:
+        100
+        !important;
+}
+
+/* ============================================================
+   D15M — LIVE RAIL REFLOW POLISH
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   EXACT POINTER TRACKING
+   ------------------------------------------------------------ */
+
+/*
+ * D15L used a tiny 1.012 scale while the rail was in the hand.
+ * Removing it makes the grab point track the pointer exactly
+ * even when the grid position changes underneath it.
+ */
+body.reference-stitch
+.sidebar.d15l-rail-following,
+
+body.reference-stitch
+.d15-window-dock.d15l-rail-following {
+    transform:
+        translate3d(
+            var(
+                --d15l-drag-x,
+                0px
+            ),
+            0,
+            0
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   OTHER SURFACES REFLOW SMOOTHLY
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15l-physical-rail-drag
+.main,
+
+body.reference-stitch.d15l-physical-rail-drag
+.sidebar:not(.d15l-rail-following),
+
+body.reference-stitch.d15l-physical-rail-drag
+.d15-window-dock:not(.d15l-rail-following) {
+    will-change:
+        transform
+        !important;
+}
+
+
+/*
+ * Give the real rail a clear lifted state without changing its
+ * physical size.
+ */
+body.reference-stitch
+.sidebar.d15l-rail-following,
+
+body.reference-stitch
+.d15-window-dock.d15l-rail-following {
+    box-shadow:
+        0 18px 44px
+        rgba(
+            0,
+            0,
+            0,
+            .36
+        ),
+        0 0 0 1px
+        rgba(
+            52,
+            211,
+            153,
+            .14
+        )
+        !important;
+}
+
+/* ============================================================
+   D15N — COMPACT LEFT SIDEBAR
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   COLLAPSE / EXPAND BUTTON
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-sidebar-toggle {
+    position:
+        absolute
+        !important;
+
+    z-index:
+        80
+        !important;
+
+    top:
+        5px
+        !important;
+
+    right:
+        6px
+        !important;
+
+    width:
+        22px
+        !important;
+
+    height:
+        22px
+        !important;
+
+    min-width:
+        22px
+        !important;
+
+    min-height:
+        22px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+
+    border:
+        1px solid
+        transparent
+        !important;
+
+    border-radius:
+        6px
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    color:
+        #8b918b
+        !important;
+
+    cursor:
+        pointer
+        !important;
+
+    touch-action:
+        manipulation
+        !important;
+
+    transition:
+        color 150ms ease,
+        background-color 150ms ease,
+        border-color 150ms ease
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-sidebar-toggle:hover {
+    color:
+        #a1d494
+        !important;
+
+    background:
+        rgba(
+            142,
+            203,
+            127,
+            .07
+        )
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .20
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-sidebar-toggle
+svg {
+    width:
+        13px
+        !important;
+
+    height:
+        13px
+        !important;
+
+    display:
+        block
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-expand-icon {
+    display:
+        none
+        !important;
+}
+
+
+body.reference-stitch.d15n-left-compact
+.d15n-collapse-icon {
+    display:
+        none
+        !important;
+}
+
+
+body.reference-stitch.d15n-left-compact
+.d15n-expand-icon {
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   GRID WIDTH
+   EXACTLY THE SAME AS THE RIGHT WINDOW DOCK
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact {
+    --st-sidebar:
+        var(--d15-dock-width)
+        !important;
+}
+
+
+body.reference-stitch.d15n-left-compact
+.sidebar {
+    width:
+        var(--d15-dock-width)
+        !important;
+
+    min-width:
+        var(--d15-dock-width)
+        !important;
+
+    max-width:
+        var(--d15-dock-width)
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    padding:
+        31px 6px 8px
+        !important;
+
+    overflow:
+        hidden
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   TOP DRAG HANDLE STILL WORKS IN COMPACT MODE
+   ------------------------------------------------------------ */
+
+/*
+ * Move/shrink it slightly so it doesn't collide with the
+ * collapse/expand arrow in a 64px rail.
+ */
+body.reference-stitch.d15n-left-compact
+.d15k-left-rail-handle {
+    left:
+        5px
+        !important;
+
+    top:
+        4px
+        !important;
+
+    transform:
+        none
+        !important;
+
+    width:
+        31px
+        !important;
+
+    height:
+        22px
+        !important;
+}
+
+
+body.reference-stitch.d15n-left-compact
+.d15k-left-rail-grip {
+    width:
+        28px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   HIDE FULL-SIZE SIDEBAR CONTENT WHEN COMPACT
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+.sidebar
+> *:not(.d15k-left-rail-handle):not(.d15n-sidebar-toggle):not(.d15n-compact-panel) {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   COMPACT PANEL
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-compact-panel {
+    display:
+        none;
+}
+
+
+body.reference-stitch.d15n-left-compact
+.d15n-compact-panel {
+    width:
+        100%
+        !important;
+
+    height:
+        auto
+        !important;
+
+    display:
+        flex
+        !important;
+
+    flex-direction:
+        column
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    gap:
+        7px
+        !important;
+
+    opacity:
+        1
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   LIVE / LOGS
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-mini-nav {
+    width:
+        100%;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+}
+
+
+body.reference-stitch
+.d15n-mini-button {
+    width:
+        44px
+        !important;
+
+    height:
+        30px
+        !important;
+
+    min-width:
+        44px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    display:
+        grid
+        !important;
+
+    place-items:
+        center
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        )
+        !important;
+
+    border-radius:
+        7px
+        !important;
+
+    background:
+        #181a18
+        !important;
+
+    color:
+        #777d77
+        !important;
+
+    box-shadow:
+        inset 0 1px 3px
+        rgba(
+            0,
+            0,
+            0,
+            .24
+        )
+        !important;
+
+    cursor:
+        pointer
+        !important;
+
+    transition:
+        color 150ms ease,
+        border-color 150ms ease,
+        background-color 150ms ease
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-mini-button
+svg {
+    width:
+        15px
+        !important;
+
+    height:
+        15px
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-mini-button.d15n-active {
+    color:
+        #8ecb7f
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .34
+        )
+        !important;
+
+    background:
+        #182018
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   G1 / SIM TARGET SELECT
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-mini-target {
+    width:
+        44px
+        !important;
+
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0 4px
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            142,
+            203,
+            127,
+            .28
+        )
+        !important;
+
+    border-radius:
+        7px
+        !important;
+
+    background:
+        #181a18
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    font-size:
+        8px
+        !important;
+
+    line-height:
+        10px
+        !important;
+
+    font-weight:
+        700
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    cursor:
+        pointer
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CONNECTION STATUS + CONNECT/DISCONNECT
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-mini-connection {
+    width:
+        100%;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+}
+
+
+body.reference-stitch
+.d15n-mini-connection-state {
+    width:
+        44px;
+
+    height:
+        25px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        1px solid
+        rgba(
+            245,
+            158,
+            11,
+            .32
+        );
+
+    border-radius:
+        7px;
+
+    background:
+        #1d1b17;
+
+    color:
+        #f59e0b;
+}
+
+
+body.reference-stitch
+.d15n-mini-connection-state.d15n-connected {
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .34
+        );
+
+    background:
+        #182018;
+
+    color:
+        #8ecb7f;
+}
+
+
+body.reference-stitch
+.d15n-mini-connection-state
+svg {
+    width:
+        14px;
+
+    height:
+        14px;
+}
+
+
+body.reference-stitch
+.d15n-mini-connect-action {
+    color:
+        #8ecb7f
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .30
+        )
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-mini-connect-action.d15n-disconnect-action {
+    color:
+        #f59e0b
+        !important;
+
+    border-color:
+        rgba(
+            245,
+            158,
+            11,
+            .34
+        )
+        !important;
+
+    background:
+        #1d1b17
+        !important;
+}
+
+
+/*
+ * Connection UI is irrelevant in Simulation target mode,
+ * matching the full-size sidebar behavior.
+ */
+body.reference-stitch
+.d15n-compact-panel.d15n-simulation-target
+.d15n-mini-connection {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   SIX MINI SYSTEM STATUSES
+   System / Simulation / SONIC / Camera / Alignment / Tracking
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-mini-status-grid {
+    width:
+        44px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            20px
+        );
+
+    gap:
+        4px;
+
+    justify-content:
+        center;
+
+    margin-top:
+        2px;
+}
+
+
+body.reference-stitch
+.d15n-mini-status {
+    width:
+        20px;
+
+    height:
+        17px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    box-sizing:
+        border-box;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .065
+        );
+
+    border-radius:
+        5px;
+
+    background:
+        #181a18;
+
+    color:
+        #9ca39c;
+
+    font-family:
+        "Space Mono",
+        monospace;
+
+    font-size:
+        5.5px;
+
+    line-height:
+        7px;
+
+    font-weight:
+        600;
+
+    overflow:
+        hidden;
+
+    white-space:
+        nowrap;
+}
+
+
+body.reference-stitch
+.d15n-mini-status[data-state="READY"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="LIVE"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="ON"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="RUNNING"] {
+    color:
+        #8ecb7f;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .22
+        );
+}
+
+
+body.reference-stitch
+.d15n-mini-status[data-state="ERROR"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="FAULT"] {
+    color:
+        #f59e0b;
+
+    border-color:
+        rgba(
+            245,
+            158,
+            11,
+            .26
+        );
+}
+
+
+/* ------------------------------------------------------------
+   SMOOTH COMPACT PANEL APPEARANCE
+   ------------------------------------------------------------ */
+
+@keyframes d15nCompactReveal {
+    from {
+        opacity:
+            0;
+
+        transform:
+            translateY(-3px);
+    }
+
+    to {
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+body.reference-stitch.d15n-left-compact
+.d15n-compact-panel {
+    animation:
+        d15nCompactReveal
+        240ms
+        cubic-bezier(.22, 1, .36, 1)
+        both
+        !important;
+}
+
+/* ============================================================
+   D15O — COMPACT CONTROL SCALE + REAL STATUS COLUMN
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   FIVE MAIN COMPACT CONTROLS
+   Match the RIGHT window-dock buttons exactly in footprint.
+   ------------------------------------------------------------ */
+
+/*
+ * 1. Live
+ * 2. Logs
+ * 3. G1 / SIM
+ * 4. Connection state
+ * 5. Connect / Disconnect
+ */
+
+body.reference-stitch
+.d15n-mini-button,
+
+body.reference-stitch
+.d15n-mini-target,
+
+body.reference-stitch
+.d15n-mini-connection-state {
+    width:
+        48px
+        !important;
+
+    height:
+        48px
+        !important;
+
+    min-width:
+        48px
+        !important;
+
+    min-height:
+        48px
+        !important;
+
+    max-width:
+        48px
+        !important;
+
+    max-height:
+        48px
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    border-radius:
+        8px
+        !important;
+}
+
+
+/*
+ * Same neutral card surface language as the right-side icons.
+ */
+body.reference-stitch
+.d15n-mini-button,
+
+body.reference-stitch
+.d15n-mini-target {
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .10
+        )
+        !important;
+
+    background:
+        #222422
+        !important;
+
+    box-shadow:
+        inset 0 1px 3px
+        rgba(
+            0,
+            0,
+            0,
+            .25
+        )
+        !important;
+}
+
+
+/* Same icon scale as the right dock. */
+body.reference-stitch
+.d15n-mini-button
+svg,
+
+body.reference-stitch
+.d15n-mini-connection-state
+svg {
+    width:
+        22px
+        !important;
+
+    height:
+        22px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   LIVE / LOGS ACTIVE STATE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-mini-button.d15n-active {
+    color:
+        #8ecb7f
+        !important;
+
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .40
+        )
+        !important;
+
+    background:
+        #182018
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   G1 / SIM TARGET
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-mini-target {
+    padding:
+        0 4px
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+
+    font-size:
+        8px
+        !important;
+
+    line-height:
+        10px
+        !important;
+
+    font-weight:
+        700
+        !important;
+
+    text-align:
+        center
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CONNECTION STATE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-mini-connection-state {
+    border:
+        1px solid
+        rgba(
+            245,
+            158,
+            11,
+            .34
+        )
+        !important;
+
+    background:
+        #1d1b17
+        !important;
+
+    color:
+        #f59e0b
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-mini-connection-state.d15n-connected {
+    border-color:
+        rgba(
+            142,
+            203,
+            127,
+            .40
+        )
+        !important;
+
+    background:
+        #182018
+        !important;
+
+    color:
+        #8ecb7f
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   VERTICAL SYSTEM STATUS COLUMN
+   ------------------------------------------------------------ */
+
+/*
+ * Retire D15N's 2x3 grid.
+ *
+ * Status order remains:
+ *
+ * System
+ * Simulation
+ * SONIC
+ * Camera
+ * Alignment
+ * Tracking
+ *
+ * The names remain in tooltips; only the real state is visible.
+ */
+body.reference-stitch
+.d15n-mini-status-grid {
+    width:
+        48px
+        !important;
+
+    display:
+        flex
+        !important;
+
+    flex-direction:
+        column
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        flex-start
+        !important;
+
+    gap:
+        2px
+        !important;
+
+    margin:
+        4px 0 0
+        !important;
+}
+
+
+/*
+ * No tiny green boxes.
+ *
+ * Make these read like the OFF/READY text in the expanded
+ * sidebar instead.
+ */
+body.reference-stitch
+.d15n-mini-status {
+    width:
+        48px
+        !important;
+
+    height:
+        13px
+        !important;
+
+    min-width:
+        48px
+        !important;
+
+    min-height:
+        13px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    display:
+        block
+        !important;
+
+    border:
+        0
+        !important;
+
+    border-radius:
+        0
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    overflow:
+        visible
+        !important;
+
+    white-space:
+        nowrap
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    /*
+     * Exact values are supplied by D15O from the expanded
+     * source status node.
+     */
+    color:
+        var(
+            --d15o-status-color,
+            #a0a6a0
+        )
+        !important;
+
+    font-family:
+        var(
+            --d15o-status-font-family,
+            "Space Mono",
+            monospace
+        )
+        !important;
+
+    font-weight:
+        var(
+            --d15o-status-font-weight,
+            600
+        )
+        !important;
+
+    letter-spacing:
+        var(
+            --d15o-status-letter-spacing,
+            .04em
+        )
+        !important;
+
+    /*
+     * Slightly reduced only because the compact rail is 64px.
+     * Style/color still come directly from the expanded value.
+     */
+    font-size:
+        7px
+        !important;
+
+    line-height:
+        13px
+        !important;
+}
+
+
+/*
+ * D15N had state-specific green/amber overrides.
+ * They are intentionally retired: the real expanded status
+ * source now determines the compact color.
+ */
+body.reference-stitch
+.d15n-mini-status[data-state="READY"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="LIVE"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="ON"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="RUNNING"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="ERROR"],
+
+body.reference-stitch
+.d15n-mini-status[data-state="FAULT"] {
+    color:
+        var(
+            --d15o-status-color,
+            inherit
+        )
+        !important;
+
+    border:
+        0
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   COMPACT SPACING
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+.d15n-compact-panel {
+    gap:
+        6px
+        !important;
+}
+
+
+body.reference-stitch
+.d15n-mini-nav,
+
+body.reference-stitch
+.d15n-mini-connection {
+    gap:
+        6px
+        !important;
+}
+
+/* ============================================================
+   D15P — CLEAN COMPACT RAIL + FULL WIDTH WORKSPACE
+
+   Compact left rail keeps only:
+       Live
+       Logs
+       connection state
+       Connect / Disconnect
+
+   Removed from compact mode:
+       G1 / SIM dropdown
+       six component status labels
+       Robot Modes already removed by D15N
+
+   The media workspace expands into all width freed by collapsing
+   the left sidebar.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   REMOVE G1 / SIM FROM COMPACT MODE
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+.d15n-mini-target {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE OFF / ON / READY STATUS COLUMN FROM COMPACT MODE
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+.d15n-mini-status-grid {
+    display:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   CLEAN COMPACT CONTROL STACK
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+.d15n-compact-panel {
+    width:
+        100%
+        !important;
+
+    display:
+        flex
+        !important;
+
+    flex-direction:
+        column
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        flex-start
+        !important;
+
+    gap:
+        7px
+        !important;
+}
+
+
+body.reference-stitch.d15n-left-compact
+.d15n-mini-nav,
+
+body.reference-stitch.d15n-left-compact
+.d15n-mini-connection {
+    width:
+        100%
+        !important;
+
+    display:
+        flex
+        !important;
+
+    flex-direction:
+        column
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    gap:
+        7px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   MAIN COLUMN MUST CONSUME ALL FREED WIDTH
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+.main {
+    width:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    justify-self:
+        stretch
+        !important;
+
+    align-self:
+        stretch
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   REMOVE OLD MEDIA WIDTH CAPS
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+#view-live,
+
+body.reference-stitch.d15n-left-compact
+#view-live
+.live-grid,
+
+body.reference-stitch.d15n-left-compact
+#view-live
+.live-media-grid,
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace {
+    width:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    justify-self:
+        stretch
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/*
+ * Normal compact state stays a true 2x2 grid.
+ *
+ * IMPORTANT:
+ * explicitly exclude fullscreen because D15F must remain the
+ * authoritative 1x1 layout while a window is maximized.
+ */
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace:not(.d15f-maximized-workspace) {
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        )
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   EACH LOGICAL SLOT FILLS ITS NEW, LARGER GRID CELL
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace:not(.d15f-maximized-workspace)
+> .workspace-slot {
+    width:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    justify-self:
+        stretch
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   EACH REAL WINDOW FILLS THE LARGER SLOT
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace
+.workspace-slot
+> .workspace-tile {
+    width:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    max-width:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   MEDIA CONTENT FOLLOWS WINDOW SIZE
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace
+.workspace-tile
+.camera-stage,
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace
+.workspace-tile
+.mujoco-stage {
+    width:
+        100%
+        !important;
+
+    max-width:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   PRESERVE FULLSCREEN
+   ------------------------------------------------------------ */
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace.d15f-maximized-workspace {
+    grid-template-columns:
+        minmax(0, 1fr)
+        !important;
+
+    grid-template-rows:
+        minmax(0, 1fr)
+        !important;
+}
+
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace.d15f-maximized-workspace
+> .workspace-slot.d15f-maximized-slot,
+
+body.reference-stitch.d15n-left-compact
+#mediaWorkspace
+.workspace-tile.d15f-maximized-tile {
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    max-width:
+        none
+        !important;
+}
+
+/* ============================================================
+   D15Q — REARRANGE MODE WINDOW WIGGLE
+
+   When one workspace window is actively being dragged:
+       dragged window = stable
+       all other visible windows = subtle wiggle
+
+   This is presentation-only.
+   ============================================================ */
+
+
+@keyframes d15qWindowWiggleA {
+    0% {
+        transform:
+            translate3d(
+                -0.6px,
+                0,
+                0
+            )
+            rotate(-0.18deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                0.6px,
+                -0.5px,
+                0
+            )
+            rotate(0.18deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                -0.4px,
+                0.5px,
+                0
+            )
+            rotate(-0.12deg);
+    }
+}
+
+
+@keyframes d15qWindowWiggleB {
+    0% {
+        transform:
+            translate3d(
+                0.5px,
+                -0.4px,
+                0
+            )
+            rotate(0.16deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                -0.6px,
+                0.5px,
+                0
+            )
+            rotate(-0.18deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                0.4px,
+                0,
+                0
+            )
+            rotate(0.12deg);
+    }
+}
+
+
+/* ------------------------------------------------------------
+   ALL NON-DRAGGED VISIBLE WINDOWS WIGGLE
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation:
+        d15qWindowWiggleA
+        235ms
+        ease-in-out
+        infinite
+        alternate
+        !important;
+
+    transform-origin:
+        50% 50%
+        !important;
+
+    will-change:
+        transform
+        !important;
+}
+
+
+/*
+ * Alternate the phase so the cards do not all move together.
+ */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(even)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-name:
+        d15qWindowWiggleB
+        !important;
+
+    animation-delay:
+        -95ms
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(3n)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-delay:
+        -155ms
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   WINDOW IN THE USER'S HAND NEVER WIGGLES
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging {
+    animation:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   STOP CLEANLY AS SOON AS DRAGGING ENDS
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+#mediaWorkspace:not(.workspace-arranging)
+.workspace-tile {
+    animation:
+        none;
+}
+
+
+/* ------------------------------------------------------------
+   ACCESSIBILITY
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    body.reference-stitch
+    #mediaWorkspace.workspace-arranging
+    > .workspace-slot
+    > .workspace-tile:not(.workspace-dragging) {
+        animation:
+            none
+            !important;
+    }
+}
+
+/* ============================================================
+   D15R — SOFTER WIGGLE + ALIGNED RAIL GRIPS
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   MUCH SOFTER / SLOWER WINDOW WIGGLE
+   ------------------------------------------------------------ */
+
+@keyframes d15rWindowWiggleA {
+    0% {
+        transform:
+            translate3d(
+                -0.22px,
+                0,
+                0
+            )
+            rotate(-0.065deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                0.22px,
+                -0.16px,
+                0
+            )
+            rotate(0.065deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                -0.14px,
+                0.16px,
+                0
+            )
+            rotate(-0.045deg);
+    }
+}
+
+
+@keyframes d15rWindowWiggleB {
+    0% {
+        transform:
+            translate3d(
+                0.18px,
+                -0.14px,
+                0
+            )
+            rotate(0.055deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                -0.22px,
+                0.16px,
+                0
+            )
+            rotate(-0.065deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                0.14px,
+                0,
+                0
+            )
+            rotate(0.04deg);
+    }
+}
+
+
+/*
+ * Override D15Q:
+ * approximately half the movement and about twice as slow.
+ */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation:
+        d15rWindowWiggleA
+        470ms
+        ease-in-out
+        infinite
+        alternate
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(even)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-name:
+        d15rWindowWiggleB
+        !important;
+
+    animation-delay:
+        -170ms
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(3n)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-delay:
+        -285ms
+        !important;
+}
+
+
+/* Dragged window itself stays completely steady. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging {
+    animation:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   LEFT / RIGHT TOP GRIPS — SAME VERTICAL HEIGHT
+   ------------------------------------------------------------ */
+
+/*
+ * The right dock's 4px grip begins roughly 9px from the top.
+ *
+ * The left grip sits inside a 22px-tall pointer target, so with
+ * top:4px its visible line was ~4px lower.
+ *
+ * top:0 aligns the visible line centers.
+ */
+body.reference-stitch
+.d15k-left-rail-handle {
+    top:
+        0
+        !important;
+}
+
+
+body.reference-stitch.d15n-left-compact
+.d15k-left-rail-handle {
+    top:
+        0
+        !important;
+}
+
+/* ============================================================
+   D15S — MID WIGGLE + LOWER MATCHED RAIL GRIPS
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   MEDIUM WINDOW WIGGLE
+   Between D15Q and D15R intensity.
+   ------------------------------------------------------------ */
+
+@keyframes d15sWindowWiggleA {
+    0% {
+        transform:
+            translate3d(
+                -0.38px,
+                0.04px,
+                0
+            )
+            rotate(-0.11deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                0.38px,
+                -0.30px,
+                0
+            )
+            rotate(0.11deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                -0.26px,
+                0.28px,
+                0
+            )
+            rotate(-0.075deg);
+    }
+}
+
+
+@keyframes d15sWindowWiggleB {
+    0% {
+        transform:
+            translate3d(
+                0.32px,
+                -0.24px,
+                0
+            )
+            rotate(0.095deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                -0.40px,
+                0.30px,
+                0
+            )
+            rotate(-0.11deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                0.27px,
+                0.02px,
+                0
+            )
+            rotate(0.07deg);
+    }
+}
+
+
+/*
+ * Override both D15Q and D15R.
+ */
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation:
+        d15sWindowWiggleA
+        350ms
+        ease-in-out
+        infinite
+        alternate
+        !important;
+
+    transform-origin:
+        50% 50%
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(even)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-name:
+        d15sWindowWiggleB
+        !important;
+
+    animation-delay:
+        -130ms
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(3n)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-delay:
+        -215ms
+        !important;
+}
+
+
+/* Window currently held by the user remains stable. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging {
+    animation:
+        none
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   LEFT TOP GRIP — LOWER
+   ------------------------------------------------------------ */
+
+/*
+ * D15R moved this to top: 0.
+ * Move it down 4px so its visible line aligns with the
+ * compact collapse/expand arrow.
+ */
+body.reference-stitch
+.d15k-left-rail-handle,
+
+body.reference-stitch.d15n-left-compact
+.d15k-left-rail-handle {
+    top:
+        4px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   RIGHT TOP GRIP — LOWER BY THE SAME AMOUNT
+   ------------------------------------------------------------ */
+
+/*
+ * Keep left/right rail handles on exactly the same Y level.
+ */
+body.reference-stitch
+.d15-window-dock
+.d15-dock-grip {
+    position:
+        relative
+        !important;
+
+    top:
+        4px
+        !important;
+
+    margin-bottom:
+        7px
+        !important;
+}
+
+/* ============================================================
+   D15T — SLIGHTLY STRONGER WIGGLE + ARROW ALIGNMENT
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   SIDEBAR MINIMIZE / EXPAND ARROW
+   Move it only slightly upward.
+   ------------------------------------------------------------ */
+
+body.reference-stitch
+.d15n-sidebar-toggle {
+    top:
+        3px
+        !important;
+}
+
+
+/* ------------------------------------------------------------
+   WIGGLE
+   Just a little stronger than D15S.
+   ------------------------------------------------------------ */
+
+@keyframes d15tWindowWiggleA {
+    0% {
+        transform:
+            translate3d(
+                -0.44px,
+                0.05px,
+                0
+            )
+            rotate(-0.125deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                0.44px,
+                -0.34px,
+                0
+            )
+            rotate(0.125deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                -0.30px,
+                0.32px,
+                0
+            )
+            rotate(-0.085deg);
+    }
+}
+
+
+@keyframes d15tWindowWiggleB {
+    0% {
+        transform:
+            translate3d(
+                0.37px,
+                -0.28px,
+                0
+            )
+            rotate(0.108deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                -0.46px,
+                0.34px,
+                0
+            )
+            rotate(-0.125deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                0.31px,
+                0.03px,
+                0
+            )
+            rotate(0.08deg);
+    }
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation:
+        d15tWindowWiggleA
+        350ms
+        ease-in-out
+        infinite
+        alternate
+        !important;
+
+    transform-origin:
+        50% 50%
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(even)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-name:
+        d15tWindowWiggleB
+        !important;
+
+    animation-delay:
+        -130ms
+        !important;
+}
+
+
+body.reference-stitch
+#mediaWorkspace.workspace-arranging
+> .workspace-slot:nth-child(3n)
+> .workspace-tile:not(.workspace-dragging):not(.hidden) {
+    animation-delay:
+        -215ms
+        !important;
+}
+
+
+/* The card being held must remain completely stable. */
+body.reference-stitch
+#mediaWorkspace
+.workspace-tile.workspace-dragging {
+    animation:
+        none
+        !important;
+}
+
+/* ============================================================
+   D15U — INTERFACE TEXT CLEANUP
+   ============================================================ */
+
+
+/* Remove only the explanatory sentence below idle-state names. */
+body.reference-stitch
+#mediaWorkspace
+.d15u-hidden-preview-description {
+    display:
+        none
+        !important;
+}
+
+
+/* Remove standalone "MODES" heading. */
+body.reference-stitch
+.sidebar
+.d15u-hidden-modes-heading {
+    display:
+        none
+        !important;
+}
+
+
+/*
+ * Tighten the gap left behind after removing MODES without
+ * altering the robot mode button geometry.
+ */
+body.reference-stitch
+.sidebar
+.d15u-hidden-modes-heading
++ * {
+    margin-top:
+        0
+        !important;
+}
+
+/* ============================================================
+   D15V — EXPANDED STATUS VALUE ALIGNMENT
+   ============================================================ */
+
+/*
+ * Move only:
+ *
+ * System       OFF
+ * Simulation   OFF
+ * SONIC        OFF
+ * Camera       OFF
+ * Alignment    OFF
+ * Tracking     OFF
+ *
+ * slightly toward the left.
+ */
+body.reference-stitch
+.sidebar
+.d15v-expanded-status-value {
+    position:
+        relative
+        !important;
+
+    left:
+        -4px
+        !important;
+}
+
+/* ============================================================
+   D15X — REAL WINDOW LIVE LED STATES
+   ============================================================ */
+
+/*
+ * Default state for every workspace header:
+ * no live frames -> amber.
+ */
+body.reference-stitch
+#view-live
+.workspace-tile
+.workspace-tile-header::before,
+
+body.reference-stitch
+#view-live
+.workspace-tile
+.camera-feed-label::before,
+
+body.reference-stitch
+#view-live
+.workspace-tile.mujoco-panel
+> .panel-header::before {
+    background:
+        var(--st-amber)
+        !important;
+
+    box-shadow:
+        0 0 7px
+        rgba(245, 158, 11, 0.60)
+        !important;
+
+    opacity:
+        1
+        !important;
+}
+
+
+/*
+ * Raw Camera live.
+ */
+body.reference-stitch
+#view-live
+#rawCameraView.feed-live
+.camera-feed-label::before,
+
+/*
+ * Keypoint Camera live.
+ */
+body.reference-stitch
+#view-live
+#keypointCameraView.feed-live
+.camera-feed-label::before,
+
+/*
+ * MuJoCo preview live.
+ */
+body.reference-stitch
+#view-live
+.workspace-tile.mujoco-panel.feed-live
+> .panel-header::before,
+
+/*
+ * Physical G1 camera live.
+ *
+ * d11bSyncRobotCamera already owns robot-camera-live.
+ */
+body.reference-stitch
+#view-live
+.workspace-tile.robot-camera-panel.robot-camera-live
+> .workspace-tile-header::before {
+    background:
+        var(--st-green-bright)
+        !important;
+
+    box-shadow:
+        0 0 8px
+        rgba(161, 212, 148, 0.70)
+        !important;
+}

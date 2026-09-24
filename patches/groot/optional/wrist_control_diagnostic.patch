@@ -1,0 +1,79 @@
+diff --git a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp
+index a35f0b3..177fa10 100644
+--- a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp
++++ b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp
+@@ -3950,6 +3950,74 @@ class G1Deploy {
+           }
+           auto motor_command_end_time = std::chrono::steady_clock::now();
+ 
++          // GEMX_WRIST_CONTROL_DIAGNOSTIC
++          //
++          // Diagnostic only:
++          //   REF = streamed MotionSequence joint target
++          //   CMD = policy-generated MotorCommand q_target
++          //   ACT = latest LowState measured joint position
++          //
++          // Semantic order:
++          //   L-roll, R-roll, L-pitch, R-pitch, L-yaw, R-yaw
++          //
++          // MotionSequence is indexed in IsaacLab order:
++          //   23,24,25,26,27,28
++          //
++          // MotorCommand / LowState are indexed in MuJoCo/hardware order:
++          //   19,26,20,27,21,28
++          if ((logging_counter_ % 10) == 0 &&
++              current_motion_copy &&
++              current_frame_copy >= 0 &&
++              current_frame_copy < static_cast<int>(current_motion_copy->timesteps) &&
++              current_motion_copy->GetNumJoints() >= 29) {
++
++            const auto diag_motor_command =
++                motor_command_buffer_.GetDataWithTime().data;
++            const auto diag_low_state =
++                low_state_buffer_.GetDataWithTime().data;
++
++            if (diag_motor_command && diag_low_state) {
++              static constexpr std::array<int, 6> kRefWrist = {
++                  23, 24, 25, 26, 27, 28
++              };
++
++              static constexpr std::array<int, 6> kMotorWrist = {
++                  19, 26, 20, 27, 21, 28
++              };
++
++              const auto diag_ref =
++                  current_motion_copy->JointPositions(current_frame_copy);
++
++              std::cout
++                  << "WRIST SONIC | frame=" << current_frame_copy
++                  << " | order=Lroll,Rroll,Lpitch,Rpitch,Lyaw,Ryaw"
++                  << " | REF(rad)=[";
++
++              for (size_t j = 0; j < kRefWrist.size(); ++j) {
++                if (j) std::cout << ",";
++                std::cout << diag_ref[kRefWrist[j]];
++              }
++
++              std::cout << "] | CMD(rad)=[";
++
++              for (size_t j = 0; j < kMotorWrist.size(); ++j) {
++                if (j) std::cout << ",";
++                std::cout
++                    << diag_motor_command->q_target.at(kMotorWrist[j]);
++              }
++
++              std::cout << "] | ACT(rad)=[";
++
++              for (size_t j = 0; j < kMotorWrist.size(); ++j) {
++                if (j) std::cout << ",";
++                std::cout
++                    << diag_low_state->motor_state()[kMotorWrist[j]].q();
++              }
++
++              std::cout << "]" << std::endl;
++            }
++          }
++
+           // Update Dex3 hands max close ratio from keyboard-controlled value (X/C keys)
+           dex3_hands_.SetMaxCloseRatio(input_interface_->GetMaxCloseRatio());
+           

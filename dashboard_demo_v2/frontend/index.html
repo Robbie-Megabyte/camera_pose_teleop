@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+    <title>Camera Teleoperation</title>
+    <link
+        rel="stylesheet"
+        href="/style.css"
+    >
+    <link rel="stylesheet" href="/reference_video_skin.css?v=d14e">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="app-shell">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">G1</div>
+
+            <div>
+                <div class="brand-title">
+                    Bacalbasa
+                </div>
+            </div>
+        </div>
+
+        <nav>
+            <button
+                class="nav-item active"
+                data-view="live"
+            >
+                Live
+            </button>
+
+            <button
+                class="nav-item"
+                data-view="logs"
+            >
+                Logs
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span
+                id="backendDot"
+                class="status-dot off"
+            ></span>
+
+            <span id="backendText">
+                Backend offline
+            </span>
+        </div>
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1 id="pageTitle">
+                    Camera Teleoperation
+                </h1>
+            </div>
+
+            <div
+                id="systemBadge"
+                class="system-badge"
+            >
+                OFFLINE
+            </div>
+        </header>
+
+
+        <section
+            id="view-live"
+            class="view active"
+        >
+
+            <div class="live-grid">
+
+                
+<section
+    class="demo-control-strip panel"
+    id="demoControlStrip"
+>
+    <div class="demo-state-row">
+
+        <span class="demo-state">
+            SIM
+            <strong id="demoSimState">
+                OFF
+            </strong>
+        </span>
+
+        <span class="demo-state">
+            SONIC
+            <strong id="demoSonicState">
+                OFF
+            </strong>
+        </span>
+
+        <span class="demo-state">
+            CAMERA
+            <strong id="demoCameraState">
+                OFF
+            </strong>
+        </span>
+
+        <span class="demo-state">
+            ALIGN
+            <strong id="demoAlignState">
+                OFF
+            </strong>
+        </span>
+
+        <span class="demo-state">
+            TRACKING
+            <strong id="demoTrackingState">
+                OFF
+            </strong>
+        </span>
+
+    </div>
+
+    <div
+        class="system-launch-panel"
+        id="systemLaunchPanel"
+    >
+        <div class="system-launch-copy">
+            <strong>
+                System Launcher
+            </strong>
+
+        </div>
+
+        <div class="system-launch-controls">
+            <label
+                class="system-target-field"
+                for="systemTargetSelect"
+            >
+                <select
+                    id="systemTargetSelect"
+                    class="sonic-target-select"
+                    title="Choose simulation or physical deployment."
+                >
+                    <option value="sim">
+                        Simulation
+                    </option>
+
+                    <option value="robot">
+                        Physical Robot
+                    </option>
+                </select>
+            </label>
+
+            <button
+                class="button primary"
+                id="systemPrimaryButton"
+                title="Starts the complete simulation stack."
+            >
+                Launch Simulation
+            </button>
+
+            <span
+                class="system-launch-state"
+                id="systemLaunchState"
+            >
+                OFF
+            </span>
+        </div>
+    </div>
+</section>
+
+<div class="live-media-grid">
+                <article class="panel camera-panel">
+                    <div class="panel-header camera-panel-header">
+                        <div>
+                            <h2>Camera Views</h2>
+                            <span>
+                                one capture • raw + ViTPose
+                            </span>
+                        </div>
+
+                        <div class="camera-header-actions">
+                            <button
+                                type="button"
+                                class="camera-mode-button active"
+                                id="keypointToggleButton"
+                            >
+                                Keypoints: ON
+                            </button>
+
+                            <button
+                                type="button"
+                                class="camera-mode-button"
+                                id="bothToggleButton"
+                            >
+                                Show Both: OFF
+                            </button>
+
+                            <span
+                                class="pill neutral"
+                                id="cameraPill"
+                            >
+                                OFF
+                            </span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="camera-views"
+                        id="cameraViews"
+                    >
+
+                        <section
+                            class="camera-feed hidden"
+                            id="rawCameraView"
+                        >
+                            <div class="camera-feed-label">
+                                <strong>Raw Camera</strong>
+
+                                <span
+                                    class="pill neutral"
+                                    id="rawCameraPill"
+                                >
+                                    OFF
+                                </span>
+                            </div>
+
+                            <div class="camera-stage">
+                                <img
+                                    id="rawCameraImage"
+                                    class="camera-image"
+                                    alt="Live raw camera"
+                                >
+
+                                <div
+                                    class="camera-placeholder"
+                                    id="rawCameraPlaceholder"
+                                >
+                                    <div class="camera-icon">
+                                        ◎
+                                    </div>
+
+                                    <strong
+                                        id="rawCameraPlaceholderTitle"
+                                    >
+                                        Raw preview idle
+                                    </strong>
+
+                                    <span
+                                        id="rawCameraPlaceholderText"
+                                    >
+                                        Start V2 to begin the raw stream.
+                                    </span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section
+                            class="camera-feed"
+                            id="keypointCameraView"
+                        >
+                            <div class="camera-feed-label">
+                                <strong>
+                                    Keypoints Camera
+                                </strong>
+
+                                <span
+                                    class="pill neutral"
+                                    id="keypointCameraPill"
+                                >
+                                    OFF
+                                </span>
+                            </div>
+
+                            <div class="camera-stage">
+                                <img
+                                    id="keypointCameraImage"
+                                    class="camera-image"
+                                    alt="Live ViTPose keypoint camera"
+                                >
+
+                                <div
+                                    class="camera-placeholder"
+                                    id="cameraPlaceholder"
+                                >
+                                    <div class="camera-icon">
+                                        ◎
+                                    </div>
+
+                                    <strong
+                                        id="cameraPlaceholderTitle"
+                                    >
+                                        Keypoint preview idle
+                                    </strong>
+
+                                    <span
+                                        id="cameraPlaceholderText"
+                                    >
+                                        Start V2 to begin the keypoint stream.
+                                    </span>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </article>
+
+                <article class="panel mujoco-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Simulation</h2>
+                            <span>
+                                SONIC simulation • offscreen render
+                            </span>
+                        </div>
+
+                        <span
+                            class="pill neutral"
+                            id="mujocoPill"
+                        >
+                            OFF
+                        </span>
+                    </div>
+
+                    <div class="camera-stage mujoco-stage" id="mujocoInteractionSurface">
+<div class="mujoco-camera-toolbar">
+
+    <button
+        type="button"
+        data-mujoco-camera="front"
+    >
+        Front
+    </button>
+
+    <button
+        type="button"
+        data-mujoco-camera="side"
+    >
+        Side
+    </button>
+
+    <button
+        type="button"
+        data-mujoco-camera="rear"
+    >
+        Rear
+    </button>
+
+    <button
+        type="button"
+        data-mujoco-camera="reset"
+    >
+        Reset
+    </button>
+
+</div>
+
+<div class="mujoco-camera-hint">
+    drag to orbit · wheel to zoom
+</div>
+
+                        <img
+                            id="mujocoImage"
+                            class="camera-image"
+                            alt="Live MuJoCo G1 simulation"
+                        >
+
+                        <div
+                            class="camera-placeholder"
+                            id="mujocoPlaceholder"
+                        >
+                            <div class="camera-icon">
+                                ◇
+                            </div>
+
+                            <strong
+                                id="mujocoPlaceholderTitle"
+                            >
+                                MuJoCo preview idle
+                            </strong>
+
+                            <span
+                                id="mujocoPlaceholderText"
+                            >
+                                Start the simulation stack to begin rendering.
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                </div>
+
+
+                <article class="panel v2-runtime-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2>V2 Runtime</h2>
+                            <span>
+                                live pipeline state
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="status-list">
+
+                        <div class="status-row">
+                            <span>Camera</span>
+                            <strong id="cameraState">
+                                OFF
+                            </strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>GVHMR</span>
+                            <strong id="gvhmrState">
+                                OFF
+                            </strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>Full-body framing</span>
+                            <strong id="framingState">
+                                WAITING
+                            </strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>Alignment</span>
+                            <strong id="alignmentState">
+                                WAITING
+                            </strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>SONIC bridge</span>
+                            <strong id="bridgeState">
+                                OFF
+                            </strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>Pose publisher</span>
+                            <strong id="publisherState">
+                                OFF
+                            </strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>Pose rate</span>
+                            <strong id="poseRate">
+                                --
+                            </strong>
+                        </div>
+
+                    </div>
+                </article>
+
+            </div>
+
+
+            <div class="control-strip v2-teleop-control-strip">
+
+                <div>
+                    <div class="control-title">
+                        V2 Teleoperation
+                    </div>
+
+                    <div
+                        id="teleopDescription"
+                        class="control-description"
+                    >
+                        Pipeline is stopped.
+                    </div>
+                </div>
+
+                <div class="button-group">
+
+                    <button
+                        id="startV2Button"
+                        class="action primary"
+                        disabled
+                    >
+                        Start V2
+                    </button>
+
+                    <button
+                        id="stopV2Button"
+                        class="action danger"
+                        disabled
+                    >
+                        Stop V2
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div
+                id="actionMessage"
+                class="action-message"
+            ></div>
+
+        </section>
+
+
+        <section
+            id="view-teleop"
+            class="view"
+        >
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>
+                            Teleoperation Startup
+                        </h2>
+                        <span>
+                            V2 readiness sequence
+                        </span>
+                    </div>
+                </div>
+
+                <div class="steps">
+
+                    <div class="step">
+                        <span class="step-number">
+                            1
+                        </span>
+                        <span>
+                            Camera detected
+                        </span>
+                        <strong id="stepCamera">
+                            WAITING
+                        </strong>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">
+                            2
+                        </span>
+                        <span>
+                            Full body visible
+                        </span>
+                        <strong id="stepFraming">
+                            WAITING
+                        </strong>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">
+                            3
+                        </span>
+                        <span>
+                            Fresh causal history
+                        </span>
+                        <strong id="stepHistory">
+                            WAITING
+                        </strong>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">
+                            4
+                        </span>
+                        <span>
+                            Neutral alignment
+                        </span>
+                        <strong id="stepAlignment">
+                            WAITING
+                        </strong>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">
+                            5
+                        </span>
+                        <span>
+                            SONIC bridge
+                        </span>
+                        <strong id="stepBridge">
+                            WAITING
+                        </strong>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">
+                            6
+                        </span>
+                        <span>
+                            Teleoperation
+                        </span>
+                        <strong id="stepTeleop">
+                            LOCKED
+                        </strong>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <section
+            id="view-system"
+            class="view"
+        >
+
+            <div class="metric-grid">
+
+                <article class="metric-card">
+                    <span>Dashboard</span>
+                    <strong id="dashboardStatus">
+                        OFFLINE
+                    </strong>
+                </article>
+
+                <article class="metric-card">
+                    <span>Mode</span>
+                    <strong id="modeState">
+                        --
+                    </strong>
+                </article>
+
+                <article class="metric-card">
+                    <span>MuJoCo</span>
+                    <strong id="mujocoState">
+                        OFF
+                    </strong>
+                </article>
+
+                <article class="metric-card">
+                    <span>SONIC Sim</span>
+                    <strong id="sonicSimState">
+                        OFF
+                    </strong>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="view-logs"
+            class="view"
+        >
+
+            <article class="panel log-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>
+                            Technical Events
+                        </h2>
+                        <span>
+                            dashboard + V2 runtime
+                        </span>
+                    </div>
+                </div>
+
+                <div
+                    id="eventLog"
+                    class="event-log"
+                >
+                    Waiting for backend...
+                </div>
+            </article>
+
+            <article class="panel log-panel runtime-log-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>
+                            V2 Runtime Output
+                        </h2>
+                        <span>
+                            exact run_pose.sh console stream
+                        </span>
+                    </div>
+                </div>
+
+                <div
+                    id="runtimeLog"
+                    class="event-log runtime-log"
+                >
+                    V2 has not been started.
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="/app.js"></script>
+    <script src="/reference_video_skin.js?v=d14e"></script>
+</body>
+</html>

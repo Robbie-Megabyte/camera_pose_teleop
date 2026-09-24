@@ -1,0 +1,51 @@
+diff --git a/gear_sonic/scripts/run_sim_loop.py b/gear_sonic/scripts/run_sim_loop.py
+index 9115e77..459ef06 100644
+--- a/gear_sonic/scripts/run_sim_loop.py
++++ b/gear_sonic/scripts/run_sim_loop.py
+@@ -8,7 +8,7 @@ from typing import Dict
+ 
+ import tyro
+ 
+-from gear_sonic.utils.mujoco_sim.simulator_factory import SimulatorFactory, init_channel
++from gear_sonic.utils.mujoco_sim.simulator_factory import SimulatorFactory
+ from gear_sonic.utils.mujoco_sim.configs import SimLoopConfig
+ from gear_sonic.data.robot_model.instantiation.g1 import (
+     instantiate_g1_robot_model,
+@@ -23,7 +23,8 @@ class SimWrapper:
+         self.robot_model = robot_model
+         self.config = config
+ 
+-        init_channel(config=self.config)
++        # BaseSimulator owns Unitree DDS channel initialization.
++        # Do not initialize the ChannelFactory twice in one process.
+ 
+         # Create simulator using factory
+         self.sim = SimulatorFactory.create_simulator(
+diff --git a/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py b/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py
+index fac16ca..3176f7f 100644
+--- a/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py
++++ b/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py
+@@ -86,6 +86,12 @@ class UnitreeSdk2Bridge:
+         self.right_hand_state_puber = ChannelPublisher("rt/dex3/right/state", HandState_)
+         self.right_hand_state_puber.Init()
+ 
++        # Locks must exist before ChannelSubscriber.Init(), because Init()
++        # starts reader threads and callbacks may fire immediately.
++        self.low_cmd_lock = threading.Lock()
++        self.left_hand_cmd_lock = threading.Lock()
++        self.right_hand_cmd_lock = threading.Lock()
++
+         self.low_cmd_suber = ChannelSubscriber("rt/lowcmd", LowCmd_)
+         self.low_cmd_suber.Init(self.LowCmdHandler, 1)
+ 
+@@ -96,10 +102,6 @@ class UnitreeSdk2Bridge:
+         self.right_hand_cmd_suber = ChannelSubscriber("rt/dex3/right/cmd", HandCmd_)
+         self.right_hand_cmd_suber.Init(self.RightHandCmdHandler, 1)
+ 
+-        self.low_cmd_lock = threading.Lock()
+-        self.left_hand_cmd_lock = threading.Lock()
+-        self.right_hand_cmd_lock = threading.Lock()
+-
+         self.wireless_controller = unitree_go_msg_dds__WirelessController_()
+         self.wireless_controller_puber = ChannelPublisher(
+             "rt/wirelesscontroller", WirelessController_

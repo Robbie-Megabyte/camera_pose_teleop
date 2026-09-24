@@ -1,0 +1,16 @@
+diff --git a/torch2trt/converters/getitem.py b/torch2trt/converters/getitem.py
+index fa4d8cd..ca178ae 100644
+--- a/torch2trt/converters/getitem.py
++++ b/torch2trt/converters/getitem.py
+@@ -29,6 +29,11 @@ def num_slice_types(slices):
+ def convert_tensor_getitem(ctx):
+     input = ctx.method_args[0]
+     slices = ctx.method_args[1]
++
++    # Compatibility with normal PyTorch scalar indexing such as qkv[0].
++    # torch2trt's converter logic below expects an iterable of indices.
++    if not isinstance(slices, tuple):
++        slices = (slices,)
+     output = ctx.method_return
+     
+     if not hasattr(input, '_trt'):

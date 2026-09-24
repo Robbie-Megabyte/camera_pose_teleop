@@ -1,0 +1,196 @@
+# Camera Pose Teleop — subsystem-local .gitignore
+# These rules apply only inside camera_pose_teleop/.
+
+# ----------------------------
+# Local/private configuration
+# ----------------------------
+.env
+.env.*
+!.env.example
+configs/local.env
+configs/*.local
+configs/*.local.*
+*.local.env
+network.local.*
+hardware.local.*
+device.local.*
+runtime.local.*
+
+# Secrets / credentials / keys
+secrets/
+private/
+credentials/
+tokens/
+auth/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.gpg
+*.asc
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# ----------------------------
+# Python environments / caches
+# ----------------------------
+.venv/
+venv/
+env/
+ENV/
+.conda/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.pyright/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# ----------------------------
+# Build / packaging outputs
+# ----------------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install/
+log/
+**/target/
+
+# ----------------------------
+# Backups / temporary files
+# ----------------------------
+*.bak
+*.bak_*
+*.backup
+*.before_*
+*.orig
+*.rej
+*.tmp
+*.pid
+*.lock
+*~
+tmp/
+temp/
+
+# ----------------------------
+# Runtime outputs / logs / experiments
+# ----------------------------
+logs/
+runs/
+outputs/
+output/
+results/
+debug/
+recordings/
+captures/
+screenshots/
+saved_versions/
+frontend_benchmark_clips/
+replay_cadence_sweep_*/
+checkpoint_download_tmp/
+*_console.log
+*_render.log
+*_audit_*.txt
+*_audit_*.csv
+*_benchmark_*.txt
+*_benchmark_*.csv
+*.log
+
+# ----------------------------
+# Generated videos / datasets
+# ----------------------------
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.bag
+*.db3
+*.mcap
+
+# ----------------------------
+# ML weights / generated acceleration artifacts
+# ----------------------------
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.onnx.data
+*.engine
+*.plan
+*.trt
+*.trtcache
+*.timing
+*.timingcache
+
+hmr2_ort_trt*_cache/
+**/hmr2_ort_trt*_cache/
+tensorrt_*_isolated/
+**/tensorrt_*_isolated/
+tensorrt_libs/
+**/tensorrt_libs/
+torch2trt_v050/
+trt8_python/
+tensorrt_861_frontend_source/
+
+# Compiled/native artifacts
+*.so
+*.so.*
+*.a
+*.o
+*.obj
+*.dll
+*.dylib
+*.exe
+
+# Large numerical/debug artifacts
+*.npy
+*.npz
+
+# Canonical small calibration/reference artifacts may be committed.
+!calibration/legacy_fixed/**/*.npz
+!calibration/reference/**/*.npz
+
+# Session-generated neutral-pose alignment is never committed.
+runtime/calibration/
+**/session_alignment.npz
+**/session_alignment.json
+
+# Local caches/downloads
+.cache/
+cache/
+downloads/
+artifacts/
+third_party/build/
+third_party/cache/
+
+# IDE / OS metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+
+nohup.out
+core
+core.*
+
+# Camera Pose Teleop managed local state
+.deps/
+.artifacts/
+.runtime/

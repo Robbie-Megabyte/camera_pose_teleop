@@ -1,0 +1,91 @@
+diff --git a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/streamed_motion_merger.hpp b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/streamed_motion_merger.hpp
+index e128f43..482b4a9 100644
+--- a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/streamed_motion_merger.hpp
++++ b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/streamed_motion_merger.hpp
+@@ -66,8 +66,18 @@ public:
+     /// Number of already-consumed frames to retain before the playback cursor
+     /// (provides look-back for interpolation / blending).
+     static constexpr int HISTORY_FRAMES = 5;
+-    /// Maximum tolerated gap (in current-rate frames) before a catch-up reset.
++    /// Maximum tolerated gap (in current-rate frames) before an emergency
++    /// hard catch-up reset. Keep this large: normal live latency is handled
++    /// below by bounded soft catch-up without resetting playback or heading.
+     static constexpr int MAX_GAP_FRAMES = 200;
++
++    /// Desired maximum distance from playback to the newest live reference.
++    /// At the accepted 50 Hz Protocol-v1 rate, 25 frames = 0.5 seconds.
++    static constexpr int SOFT_TARGET_GAP_FRAMES = 25;
++
++    /// While above the soft target, consume at most one additional reference
++    /// frame per received packet. This avoids large discontinuous jumps.
++    static constexpr int SOFT_CATCHUP_STEP_FRAMES = 1;
+     
+     /// Returned by MergeIncomingData() to communicate what happened.
+     struct MergeResult {
+@@ -199,7 +209,47 @@ public:
+         // Build result
+         result.motion = new_motion;
+         result.window_start = new_window_start;
+-        result.frame_offset_adjustment = did_catchup ? 0 : window_shift;
++
++        // Normal window shifting subtracts window_shift from current_frame,
++        // preserving the same global playback position.  For live streaming,
++        // if playback is more than SOFT_TARGET_GAP_FRAMES behind the newest
++        // received reference, subtract one frame less.  The caller therefore
++        // advances by exactly one additional 50 Hz reference frame without
++        // entering the hard catch-up path, resetting current_frame to zero,
++        // or reinitializing heading.
++        int soft_catchup_frames = 0;
++
++        if (!did_catchup && frame_step > 0 && window_shift > 0) {
++            const int live_gap_frames =
++                std::max(
++                    0,
++                    (incoming_frame_end - global_playback_frame)
++                        / frame_step
++                );
++
++            if (live_gap_frames > SOFT_TARGET_GAP_FRAMES) {
++                soft_catchup_frames =
++                    std::min(
++                        SOFT_CATCHUP_STEP_FRAMES,
++                        window_shift
++                    );
++
++                if constexpr (DEBUG_LOGGING) {
++                    std::cout
++                        << "[StreamedMotionMerger] SOFT-CATCH-UP: "
++                        << "live_gap_frames=" << live_gap_frames
++                        << ", extra_advance_frames="
++                        << soft_catchup_frames
++                        << std::endl;
++                }
++            }
++        }
++
++        result.frame_offset_adjustment =
++            did_catchup
++                ? 0
++                : (window_shift - soft_catchup_frames);
++
+         result.did_catchup_reset = did_catchup;
+         result.frame_step = frame_step;
+         result.protocol_version = data.protocol_version;
+diff --git a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp
+index 6917e59..3697b92 100644
+--- a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp
++++ b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp
+@@ -369,6 +369,13 @@ class ZMQManager : public InputInterface {
+                           has_planner, planner_state, movement_state_buffer,
+                           current_motion_mutex);
+       } else {
++        // Streamed motion mode: forward network start requests before
++        // delegating to the pose interface. The pose interface has its own
++        // keyboard start flag, but ZMQManager owns command-topic start signals.
++        if (start_control_ && !operator_state.start) {
++          operator_state.start = true;
++        }
++
+         // Streamed motion mode: delegate to pose interface
+         if (pose_interface_) {
+           pose_interface_->handle_input(motion_reader, current_motion, current_frame,

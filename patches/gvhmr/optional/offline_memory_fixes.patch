@@ -1,0 +1,82 @@
+diff --git a/hmr4d/utils/preproc/vitfeat_extractor.py b/hmr4d/utils/preproc/vitfeat_extractor.py
+index 6ae37f5..55f936d 100644
+--- a/hmr4d/utils/preproc/vitfeat_extractor.py
++++ b/hmr4d/utils/preproc/vitfeat_extractor.py
+@@ -75,15 +75,19 @@ class Extractor:
+ 
+         # Inference
+         F, _, H, W = imgs.shape  # (F, 3, H, W)
+-        imgs = imgs.cuda()
+-        batch_size = 16  # 5GB GPU memory, occupies all CUDA cores of 3090
++        batch_size = 16
+         features = []
+         for j in tqdm(range(0, F, batch_size), desc="HMR2 Feature", leave=self.tqdm_leave):
+-            imgs_batch = imgs[j : j + batch_size]
++            # Keep the complete sequence in CPU memory and transfer only the
++            # current inference batch to CUDA. This avoids GPU memory growth
++            # proportional to the total recording duration.
++            imgs_batch = imgs[j : j + batch_size].cuda(non_blocking=True)
+ 
+             with torch.no_grad():
+                 feature = self.extractor({"img": imgs_batch})
+                 features.append(feature.detach().cpu())
+ 
++            del imgs_batch, feature
++
+         features = torch.cat(features, dim=0).clone()  # (F, 1024)
+         return features
+diff --git a/tools/demo/demo.py b/tools/demo/demo.py
+index a10fb64..63a233d 100644
+--- a/tools/demo/demo.py
++++ b/tools/demo/demo.py
+@@ -211,9 +211,47 @@ def render_incam(cfg):
+     smplx2smpl = torch.load("hmr4d/utils/body_model/smplx2smpl_sparse.pt").cuda()
+     faces_smpl = make_smplx("smpl").faces
+ 
+-    # smpl
+-    smplx_out = smplx(**to_cuda(pred["smpl_params_incam"]))
+-    pred_c_verts = torch.stack([torch.matmul(smplx2smpl, v_) for v_ in smplx_out.vertices])
++    # Generate SMPL vertices in bounded batches so GPU memory usage does
++    # not grow with the duration of the recording.
++    smpl_params_incam = pred["smpl_params_incam"]
++    num_frames = next(
++        value.shape[0]
++        for value in smpl_params_incam.values()
++        if torch.is_tensor(value) and value.ndim > 0
++    )
++    batch_size = 64
++    pred_c_verts_batches = []
++
++    with torch.inference_mode():
++        for start in tqdm(
++            range(0, num_frames, batch_size),
++            desc="SMPL-X Incam Vertices",
++        ):
++            end = min(start + batch_size, num_frames)
++
++            batch_params = {
++                key: (
++                    value[start:end]
++                    if torch.is_tensor(value)
++                    and value.ndim > 0
++                    and value.shape[0] == num_frames
++                    else value
++                )
++                for key, value in smpl_params_incam.items()
++            }
++
++            smplx_out = smplx(**to_cuda(batch_params))
++            batch_verts = torch.stack(
++                [torch.matmul(smplx2smpl, vertex) for vertex in smplx_out.vertices]
++            )
++
++            pred_c_verts_batches.append(batch_verts.detach().cpu())
++
++            del batch_params, smplx_out, batch_verts
++
++    pred_c_verts = torch.cat(pred_c_verts_batches, dim=0)
++    del pred_c_verts_batches
++    torch.cuda.empty_cache()
+ 
+     # -- rendering code -- #
+     video_path = cfg.video_path

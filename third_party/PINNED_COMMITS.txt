@@ -1,0 +1,27 @@
+# Camera Pose Teleop — pinned upstream revisions
+
+GVHMR
+repository=https://github.com/zju3dv/GVHMR.git
+commit=6ec3ca39336c50492c0fae65fba2fb831fc7d866
+
+GENMO
+repository=https://github.com/NVlabs/GENMO
+commit=16bebf402d8893184249ee206d957b8248cd8310
+
+GR00T-WholeBodyControl
+repository=https://github.com/NVlabs/GR00T-WholeBodyControl.git
+commit=4141c34280abb67c82e115342a8720f4a83d750d
+
+torch2trt
+repository=https://github.com/NVIDIA-AI-IOT/torch2trt.git
+commit=19a317659e15d1307009803e7a15f264672df19d
+version=0.5.0
+patch=patches/torch2trt/required/getitem_compat.patch
+
+SONIC Protocol V3 publisher helper
+repository=https://github.com/NVlabs/GR00T-WholeBodyControl.git
+source_commit=c374bae5b9039cd0ee71377e654d11ce1bc69e1d
+source_path=gear_sonic/examples/live_camera_teleop/soma_to_smpl.py
+vendored_path=sonic/publisher/soma_to_smpl.py
+sha256=f065d8c3506bd315cf00951a00450e389929f6587acc70bfedbb7070f0eab26c
+license=Apache-2.0

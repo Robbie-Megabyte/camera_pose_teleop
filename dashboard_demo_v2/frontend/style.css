@@ -1,0 +1,11496 @@
+:root {
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #0a0d12;
+    color: #eef2f7;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 75% -10%,
+            rgba(70, 102, 165, 0.16),
+            transparent 34%
+        ),
+        #0a0d12;
+}
+
+button {
+    font: inherit;
+}
+
+.app-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+}
+
+.sidebar {
+    border-right: 1px solid #202632;
+    background: rgba(12, 16, 23, 0.96);
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 34px;
+}
+
+.brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: #ecf2ff;
+    color: #111722;
+    font-weight: 850;
+    letter-spacing: -0.04em;
+}
+
+.brand-title {
+    font-weight: 750;
+    font-size: 15px;
+}
+
+.brand-subtitle {
+    color: #8791a2;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav-item {
+    border: 0;
+    border-radius: 10px;
+    padding: 11px 12px;
+    text-align: left;
+    background: transparent;
+    color: #8f99aa;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    background: #151a23;
+    color: #eef2f7;
+}
+
+.nav-item.active {
+    background: #1a2130;
+    color: #ffffff;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 14px 10px 2px;
+    color: #8993a3;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    display: inline-block;
+}
+
+.status-dot.off {
+    background: #596171;
+}
+
+.status-dot.on {
+    background: #55d28a;
+    box-shadow:
+        0 0 0 4px
+        rgba(85, 210, 138, 0.09);
+}
+
+.main {
+    min-width: 0;
+    padding: 24px 28px 32px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 27px;
+    letter-spacing: -0.03em;
+}
+
+.topbar p {
+    margin: 6px 0 0;
+    color: #7f8999;
+    font-size: 13px;
+}
+
+.system-badge {
+    border: 1px solid #303746;
+    background: #11161e;
+    color: #9099a8;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+}
+
+.system-badge.online {
+    color: #6fe19e;
+    border-color: rgba(111, 225, 158, 0.25);
+    background: rgba(111, 225, 158, 0.07);
+}
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+.live-grid {
+    display: grid;
+
+    /*
+     * D6UI-R2 FULL-WIDTH LIVE PAGE
+     *
+     * The outer Live page is a vertical document flow.
+     *
+     * Only .live-media-grid owns a two-column layout.
+     * This prevents Controls and V2 Runtime from being
+     * trapped in the old 1.65fr / 0.75fr first column.
+     */
+    grid-template-columns:
+        minmax(0, 1fr);
+
+    gap: 16px;
+
+    width: 100%;
+
+    min-width: 0;
+}
+
+.panel {
+    background:
+        rgba(18, 23, 32, 0.92);
+    border: 1px solid #242b38;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 16px 18px;
+    border-bottom: 1px solid #242b38;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-header h2 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.panel-header span {
+    display: block;
+    color: #7e899a;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.camera-panel {
+    min-height: 500px;
+}
+
+.camera-panel-header {
+    gap: 16px;
+}
+
+.camera-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.camera-mode-button {
+    min-height: 34px;
+    border: 1px solid #303847;
+    border-radius: 9px;
+    background: #171d27;
+    color: #929dad;
+    padding: 6px 10px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.camera-mode-button:hover {
+    border-color: #465064;
+    color: #c7cfdb;
+}
+
+.camera-mode-button.active {
+    border-color: #5a667a;
+    background: #252d3a;
+    color: #e2e7ef;
+}
+
+.camera-mode-button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.camera-mode-button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.camera-views {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr);
+    gap: 1px;
+    background: #242b38;
+}
+
+.camera-views.show-both {
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+}
+
+.camera-feed {
+    min-width: 0;
+    background: #080b10;
+}
+
+.camera-feed.hidden {
+    display: none;
+}
+
+.camera-feed-label {
+    min-height: 34px;
+    padding: 7px 11px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #10151d;
+    border-bottom: 1px solid #242b38;
+}
+
+.camera-feed-label strong {
+    color: #9da8b8;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+}
+
+.camera-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #080b10;
+    overflow: hidden;
+}
+
+.camera-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #080b10;
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.camera-image.visible {
+    opacity: 1;
+}
+
+.camera-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #788294;
+    gap: 9px;
+    padding: 18px;
+    text-align: center;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.018),
+            rgba(255,255,255,0)
+        );
+    transition: opacity 120ms ease;
+}
+
+.camera-placeholder.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.camera-placeholder strong {
+    color: #abb4c2;
+    font-size: 13px;
+}
+
+.camera-placeholder span {
+    font-size: 11px;
+}
+
+.camera-icon {
+    font-size: 46px;
+    color: #3f4859;
+}
+
+@media (max-width: 700px) {
+    .camera-panel-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .camera-header-actions {
+        justify-content: flex-start;
+    }
+
+    .camera-views.show-both {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+}
+
+.pill {
+    border-radius: 999px;
+    padding: 5px 9px;
+    font-size: 10px !important;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+}
+
+.pill.neutral {
+    background: #202633;
+    color: #8993a4;
+}
+
+.status-list {
+    padding: 7px 18px 12px;
+}
+
+.status-row {
+    min-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #202631;
+    color: #8c96a7;
+    font-size: 12px;
+}
+
+.status-row:last-child {
+    border-bottom: 0;
+}
+
+.status-row strong {
+    color: #c6ceda;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+
+.control-strip {
+    margin-top: 16px;
+    border: 1px solid #242b38;
+    border-radius: 16px;
+    background: rgba(18, 23, 32, 0.92);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control-title {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.control-description {
+    color: #7e899a;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.button-group {
+    display: flex;
+    gap: 9px;
+}
+
+.action {
+    border: 1px solid #303746;
+    border-radius: 10px;
+    padding: 9px 15px;
+    background: #161c26;
+    color: #c8cfdb;
+}
+
+.action:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.action.primary {
+    background: #e7edf8;
+    color: #10151d;
+}
+
+.action.danger {
+    color: #ff9a9a;
+}
+
+.steps {
+    padding: 8px 20px 18px;
+}
+
+.step {
+    display: grid;
+    grid-template-columns:
+        34px
+        minmax(0, 1fr)
+        auto;
+    gap: 12px;
+    align-items: center;
+    min-height: 62px;
+    border-bottom: 1px solid #202631;
+}
+
+.step:last-child {
+    border-bottom: 0;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #1d2430;
+    display: grid;
+    place-items: center;
+    color: #929caf;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.step > span:nth-child(2) {
+    color: #bdc5d1;
+    font-size: 13px;
+}
+
+.step strong {
+    color: #747f90;
+    font-size: 10px;
+    letter-spacing: 0.07em;
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.metric-card {
+    min-height: 130px;
+    border-radius: 16px;
+    border: 1px solid #242b38;
+    background: rgba(18, 23, 32, 0.92);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.metric-card span {
+    color: #818b9c;
+    font-size: 12px;
+}
+
+.metric-card strong {
+    font-size: 19px;
+    letter-spacing: -0.02em;
+}
+
+.log-panel {
+    min-height: 520px;
+}
+
+.event-log {
+    padding: 18px;
+    white-space: pre-wrap;
+    font-family:
+        "JetBrains Mono",
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+    font-size: 11px;
+    line-height: 1.7;
+    color: #9da7b6;
+}
+
+@media (max-width: 950px) {
+    .app-shell {
+        grid-template-columns: 76px minmax(0, 1fr);
+    }
+
+    .brand > div:last-child,
+    .nav-item {
+        font-size: 0;
+    }
+
+    .nav-item::first-letter {
+        font-size: 13px;
+    }
+
+    .sidebar-footer span:last-child {
+        display: none;
+    }
+
+    .live-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* D3B — process supervisor controls */
+
+.action:not(:disabled) {
+    cursor: pointer;
+}
+
+.action.primary:not(:disabled):hover {
+    filter: brightness(1.08);
+}
+
+.action.danger:not(:disabled):hover {
+    background: rgba(255, 105, 105, 0.08);
+    border-color: rgba(255, 105, 105, 0.28);
+}
+
+.action-message {
+    min-height: 20px;
+    margin-top: 10px;
+    padding: 0 4px;
+    color: #8f99aa;
+    font-size: 11px;
+}
+
+.action-message.error {
+    color: #ff8e8e;
+}
+
+.runtime-log-panel {
+    margin-top: 16px;
+}
+
+.runtime-log {
+    max-height: 470px;
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   MuJoCo + camera media layout
+   ========================================================= */
+
+.live-media-grid {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 12px;
+
+    align-items: start;
+}
+
+.live-media-grid > .panel {
+    min-width: 0;
+}
+
+.mujoco-panel {
+    min-height: 500px;
+}
+
+.mujoco-stage {
+    width: 100%;
+
+    /*
+     * MuJoCo's current offscreen output is 640x480.
+     * Keep the complete image visible rather than cropping.
+     */
+    aspect-ratio: 4 / 3;
+}
+
+#mujocoImage {
+    object-fit: contain;
+}
+
+
+@media (max-width: 1050px) {
+    .live-media-grid {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+}
+
+
+/* =========================================================
+   D5Q CANONICAL RESPONSIVE LAYOUT
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PAGE WIDTH
+   --------------------------------------------------------- */
+
+/*
+ * The workspace uses all horizontal room left by the sidebar.
+ * There is no fixed media-page width.
+ *
+ * As the browser gets wider:
+ *   Camera + MuJoCo grow together.
+ *
+ * As it gets narrower:
+ *   they shrink together.
+ *
+ * Only genuinely narrow layouts stack.
+ */
+
+.main {
+    width: 100%;
+    max-width: none;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   OPERATOR CONTROL STRIP
+   ========================================================= */
+
+.demo-control-strip {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr);
+
+    gap: 10px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding:
+        12px
+        14px;
+
+    margin-bottom: 12px;
+}
+
+
+.demo-state-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            5,
+            minmax(0, 1fr)
+        );
+
+    gap: 6px;
+
+    width: 100%;
+}
+
+
+.demo-state {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    min-width: 0;
+
+    padding:
+        7px
+        10px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    border-radius: 9px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    color:
+        rgba(
+            210,
+            225,
+            235,
+            0.66
+        );
+
+    font-size: 10px;
+    letter-spacing: 0.025em;
+}
+
+
+.demo-state strong {
+    color: #8da5b8;
+
+    font-size: 10px;
+    letter-spacing: 0.04em;
+}
+
+
+.demo-state strong.ready,
+.demo-state strong.live {
+    color: #61e3ad;
+}
+
+
+.demo-state strong.waiting {
+    color: #e0bd67;
+}
+
+
+/* ---------------------------------------------------------
+   Main demo buttons
+   --------------------------------------------------------- */
+
+.demo-action-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 7px;
+
+    width: 100%;
+}
+
+
+.demo-action-row .button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    min-height: 39px;
+
+    padding:
+        8px
+        12px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    border-radius: 9px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.055
+        );
+
+    color:
+        rgba(
+            238,
+            245,
+            250,
+            0.92
+        );
+
+    font-weight: 650;
+    font-size: 12px;
+    line-height: 1.15;
+
+    text-align: center;
+
+    transition:
+        background 120ms ease,
+        border-color 120ms ease,
+        transform 80ms ease;
+
+    cursor: pointer;
+}
+
+
+.demo-action-row
+.button:not(:disabled):hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.09
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.20
+        );
+}
+
+
+.demo-action-row
+.button:not(:disabled):active {
+    transform:
+        translateY(
+            1px
+        );
+}
+
+
+/*
+ * Disabled buttons remain intentional dashboard controls,
+ * rather than washed-out native HTML controls.
+ */
+.demo-action-row
+.button:disabled {
+    opacity: 1;
+
+    color:
+        rgba(
+            208,
+            218,
+            226,
+            0.38
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.065
+        );
+
+    box-shadow: none;
+
+    cursor: not-allowed;
+}
+
+
+#startDemoButton:not(:disabled),
+#startSonicButton:not(:disabled),
+#goLiveButton:not(:disabled) {
+    background:
+        rgba(
+            72,
+            152,
+            190,
+            0.15
+        );
+
+    border-color:
+        rgba(
+            103,
+            190,
+            226,
+            0.30
+        );
+}
+
+
+#dampingButton:not(:disabled) {
+    background:
+        rgba(
+            196,
+            74,
+            74,
+            0.12
+        );
+
+    border-color:
+        rgba(
+            224,
+            103,
+            103,
+            0.28
+        );
+
+    color:
+        rgba(
+            255,
+            190,
+            190,
+            0.95
+        );
+}
+
+
+/* =========================================================
+   MEDIA GRID
+   ========================================================= */
+
+/*
+ * Two equal responsive columns.
+ *
+ * No min-height is applied to either panel.
+ *
+ * This is the critical fix for the large empty area that
+ * appeared under Camera Views on smaller browser widths.
+ */
+
+.live-media-grid {
+    grid-column: 1 / -1;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 12px;
+
+    width: 100%;
+
+    align-items: start;
+}
+
+
+.live-media-grid > .panel {
+    width: 100%;
+
+    min-width: 0;
+
+    /*
+     * Override old base:
+     *
+     * .camera-panel { min-height: 500px; }
+     * .mujoco-panel { min-height: 500px; }
+     */
+    min-height: 0;
+}
+
+
+/*
+ * Explicitly override the original selectors as well.
+ */
+.camera-panel,
+.mujoco-panel {
+    min-height: 0;
+}
+
+
+/* ---------------------------------------------------------
+   Panel headers
+   --------------------------------------------------------- */
+
+/*
+ * Camera and MuJoCo begin with the same panel-header
+ * geometry.
+ */
+/* D5R HEADER PARITY */
+
+/*
+ * Camera and MuJoCo must start their visual viewport at the
+ * exact same vertical position.
+ *
+ * Never allow text wrapping or camera controls to increase
+ * one header independently of the other.
+ */
+.camera-panel > .panel-header,
+.mujoco-panel > .panel-header {
+    box-sizing: border-box;
+
+    height: 68px;
+    min-height: 68px;
+    max-height: 68px;
+
+    overflow: hidden;
+
+    align-items: center;
+}
+
+
+/*
+ * Camera has considerably more header content than MuJoCo.
+ * Give controls their own fixed-width column and allow the
+ * text column to shrink without changing header height.
+ */
+.camera-panel-header {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+/*
+ * Critical for text-overflow inside grid/flex children.
+ */
+.camera-panel-header > div:first-child,
+.mujoco-panel > .panel-header > div:first-child {
+    min-width: 0;
+}
+
+
+/*
+ * Descriptions remain one line.
+ *
+ * At narrow desktop widths they truncate rather than wrap
+ * and make Camera taller than MuJoCo.
+ */
+.camera-panel-header > div:first-child > span,
+.mujoco-panel > .panel-header > div:first-child > span {
+    display: block;
+
+    width: 100%;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/*
+ * Never let the two Camera controls wrap onto another row.
+ */
+.camera-header-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    flex-wrap: nowrap;
+
+    gap: 8px;
+
+    min-width: max-content;
+}
+
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+.camera-panel .camera-views {
+    width: 100%;
+
+    height: auto;
+
+    aspect-ratio: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr);
+
+    gap: 0;
+
+    overflow: visible;
+
+    background: transparent;
+}
+
+
+/*
+ * One feed = one full-width presentation frame.
+ */
+.camera-panel .camera-feed {
+    position: relative;
+
+    width: 100%;
+
+    height: auto;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: block;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+
+.camera-panel
+.camera-feed.hidden {
+    display: none;
+}
+
+
+/* ---------------------------------------------------------
+   Camera label becomes an overlay
+   --------------------------------------------------------- */
+
+/*
+ * Previously this occupied a 34 px row ABOVE the image,
+ * which meant the Camera and MuJoCo renders did not start at
+ * the same vertical position.
+ *
+ * It now floats over the camera frame instead.
+ */
+
+.camera-panel .camera-feed-label {
+    position: absolute;
+
+    z-index: 8;
+
+    top: 9px;
+    left: 9px;
+    right: 9px;
+
+    min-height: 0;
+
+    width: auto;
+
+    box-sizing: border-box;
+
+    padding:
+        6px
+        8px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+
+    border-radius: 8px;
+
+    background:
+        rgba(
+            6,
+            10,
+            16,
+            0.70
+        );
+
+    backdrop-filter:
+        blur(
+            4px
+        );
+
+    pointer-events: none;
+}
+
+
+.camera-panel
+.camera-feed-label strong {
+    color:
+        rgba(
+            230,
+            240,
+            248,
+            0.84
+        );
+
+    font-size: 10px;
+    letter-spacing: 0.055em;
+}
+
+
+/* ---------------------------------------------------------
+   Camera presentation frame
+   --------------------------------------------------------- */
+
+.camera-panel .camera-stage {
+    position: relative;
+
+    width: 100%;
+
+    height: auto;
+
+    /*
+     * Dashboard-defined presentation shape.
+     */
+    aspect-ratio:
+        16 / 10
+        !important;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+
+/*
+ * Physical camera stays untouched.
+ *
+ * 16:9 source inside 16:10 presentation frame:
+ * symmetric black padding, no cropping, no stretching.
+ */
+.camera-panel .camera-image {
+    position: absolute;
+
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    object-position:
+        50%
+        50%;
+
+    background: #000;
+}
+
+
+/* =========================================================
+   SHOW BOTH
+   ========================================================= */
+
+/*
+ * Raw and Keypoint are full-width and stacked.
+ *
+ * We intentionally allow the Camera card to become taller.
+ * Neither image gets squeezed.
+ */
+
+.camera-panel
+.camera-views.show-both {
+    grid-template-columns:
+        minmax(0, 1fr);
+
+    grid-template-rows:
+        auto
+        auto;
+
+    gap: 12px;
+}
+
+
+.camera-panel
+.camera-views.show-both
+.camera-feed {
+    width: 100%;
+}
+
+
+.camera-panel
+.camera-views.show-both
+.camera-stage {
+    width: 100%;
+
+    aspect-ratio:
+        16 / 10
+        !important;
+}
+
+
+/* =========================================================
+   MUJOCO
+   ========================================================= */
+
+.mujoco-panel {
+    min-width: 0;
+}
+
+
+.mujoco-panel .mujoco-stage {
+    position: relative;
+
+    width: 100%;
+
+    height: auto;
+
+    /*
+     * EXACT same presentation geometry as Camera.
+     */
+    aspect-ratio:
+        16 / 10;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #000;
+
+    cursor: grab;
+
+    user-select: none;
+
+    touch-action: none;
+}
+
+
+.mujoco-stage.dragging {
+    cursor: grabbing;
+}
+
+
+#mujocoImage {
+    position: absolute;
+
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    object-position:
+        50%
+        50%;
+
+    background: #000;
+
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   MuJoCo viewpoint control
+   --------------------------------------------------------- */
+
+.mujoco-camera-toolbar {
+    position: absolute;
+
+    z-index: 10;
+
+    top: 9px;
+    left: 9px;
+
+    display: flex;
+
+    gap: 2px;
+
+    padding: 3px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+
+    border-radius: 10px;
+
+    background:
+        rgba(
+            5,
+            10,
+            16,
+            0.72
+        );
+
+    backdrop-filter:
+        blur(
+            5px
+        );
+
+    pointer-events: auto;
+}
+
+
+.mujoco-camera-toolbar button {
+    min-width: 46px;
+    height: 28px;
+
+    padding:
+        0
+        9px;
+
+    border: 0;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color:
+        rgba(
+            232,
+            241,
+            247,
+            0.82
+        );
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.mujoco-camera-toolbar
+button:hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+}
+
+
+.mujoco-camera-hint {
+    position: absolute;
+
+    z-index: 9;
+
+    right: 9px;
+    bottom: 9px;
+
+    padding:
+        5px
+        8px;
+
+    border-radius: 7px;
+
+    color:
+        rgba(
+            235,
+            245,
+            250,
+            0.72
+        );
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.58
+        );
+
+    font-size: 10px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE BEHAVIOR
+   ========================================================= */
+
+/*
+ * Because the main sidebar becomes compact below 950 px,
+ * we can retain two useful media columns considerably lower
+ * than before.
+ *
+ * The layout stacks only when the overall browser becomes
+ * genuinely narrow.
+ */
+
+@media (
+    max-width: 760px
+) {
+    .live-media-grid {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+
+
+    .demo-state-row {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+
+    .demo-action-row {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+
+    .camera-panel-header {
+        align-items: center;
+    }
+
+
+    .camera-header-actions {
+        justify-content: flex-end;
+    }
+}
+
+
+@media (
+    max-width: 460px
+) {
+    .demo-action-row {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+
+
+    .mujoco-camera-hint {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   D6UI GROUPED OPERATOR CONTROLS
+   ========================================================= */
+
+/*
+ * The status strip stays independent above this section.
+ * Operator actions are grouped by responsibility:
+ *
+ *   Demo Stack
+ *   SONIC
+ *   Tracking
+ */
+
+.demo-action-groups {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+
+.demo-action-group {
+    min-width: 0;
+
+    padding: 10px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.075
+        );
+
+    border-radius: 11px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.022
+        );
+}
+
+
+/* ---------------------------------------------------------
+   Small category heading
+   --------------------------------------------------------- */
+
+.demo-action-group-header {
+    min-height: 31px;
+
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+
+
+.demo-action-group-name {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 8px;
+}
+
+
+.demo-action-group-name strong {
+    flex: 0 0 auto;
+
+    color:
+        rgba(
+            232,
+            240,
+            247,
+            0.93
+        );
+
+    font-size: 11px;
+    font-weight: 720;
+
+    letter-spacing: 0.045em;
+
+    text-transform: uppercase;
+}
+
+
+.demo-action-group-name span {
+    min-width: 0;
+
+    color:
+        rgba(
+            158,
+            172,
+            184,
+            0.63
+        );
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/*
+ * Temporary SONIC-stage status.
+ */
+.demo-action-group-status {
+    flex: 0 0 auto;
+
+    padding:
+        3px
+        6px;
+
+    border:
+        1px solid
+        rgba(
+            210,
+            174,
+            90,
+            0.20
+        );
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            210,
+            174,
+            90,
+            0.065
+        );
+
+    color:
+        rgba(
+            224,
+            193,
+            122,
+            0.72
+        );
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+
+/* ---------------------------------------------------------
+   Two actions per category
+   --------------------------------------------------------- */
+
+.demo-action-buttons {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr);
+
+    gap: 6px;
+}
+
+
+.demo-action-buttons .button {
+    width: 100%;
+
+    min-width: 0;
+    min-height: 37px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        7px
+        10px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.11
+        );
+
+    border-radius: 8px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.05
+        );
+
+    color:
+        rgba(
+            238,
+            245,
+            250,
+            0.92
+        );
+
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1.15;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        background 120ms ease,
+        border-color 120ms ease,
+        transform 80ms ease;
+}
+
+
+.demo-action-buttons
+.button:not(:disabled):hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.085
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.19
+        );
+}
+
+
+.demo-action-buttons
+.button:not(:disabled):active {
+    transform:
+        translateY(
+            1px
+        );
+}
+
+
+/*
+ * Deliberate disabled appearance.
+ */
+.demo-action-buttons
+.button:disabled {
+    opacity: 1;
+
+    color:
+        rgba(
+            207,
+            218,
+            226,
+            0.37
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.022
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    box-shadow: none;
+
+    cursor: not-allowed;
+}
+
+
+#startDemoButton:not(:disabled),
+#startSonicButton:not(:disabled),
+#goLiveButton:not(:disabled) {
+    background:
+        rgba(
+            72,
+            152,
+            190,
+            0.14
+        );
+
+    border-color:
+        rgba(
+            103,
+            190,
+            226,
+            0.28
+        );
+}
+
+
+#dampingButton:not(:disabled) {
+    background:
+        rgba(
+            196,
+            74,
+            74,
+            0.11
+        );
+
+    border-color:
+        rgba(
+            224,
+            103,
+            103,
+            0.26
+        );
+
+    color:
+        rgba(
+            255,
+            190,
+            190,
+            0.95
+        );
+}
+
+
+/* ---------------------------------------------------------
+   Responsive grouping
+   --------------------------------------------------------- */
+
+@media (
+    max-width: 760px
+) {
+    .demo-action-groups {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+}
+
+
+@media (
+    max-width: 520px
+) {
+    .demo-action-group-name {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 2px;
+    }
+}
+
+
+/* =========================================================
+   D6UI-R2 TOP-LEVEL LIVE ALIGNMENT
+   ========================================================= */
+
+/*
+ * Every major Live-page section owns the complete available
+ * content width.
+ *
+ * No max-width.
+ * No centering wrapper.
+ * No fixed desktop width.
+ */
+
+#view-live,
+#view-live .live-grid {
+    width: 100%;
+    max-width: none;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+.live-grid > .demo-control-strip,
+.live-grid > .live-media-grid,
+.live-grid > .panel {
+    grid-column:
+        1 / -1;
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+/*
+ * Camera + MuJoCo remain the ONLY desktop two-column region.
+ */
+.live-grid > .live-media-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 12px;
+
+    align-items: start;
+}
+
+
+/*
+ * Keep the existing responsive behavior:
+ * genuinely narrow windows stack Camera and MuJoCo.
+ */
+@media (
+    max-width: 760px
+) {
+    .live-grid > .live-media-grid {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+}
+
+
+/* =========================================================
+   D6D SONIC TARGET SELECTOR
+   ========================================================= */
+
+.sonic-action-group {
+    min-width: 0;
+}
+
+
+.sonic-target-row {
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 7px;
+}
+
+
+.sonic-target-row label {
+    color:
+        rgba(
+            166,
+            180,
+            191,
+            0.72
+        );
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.06em;
+
+    text-transform: uppercase;
+}
+
+
+.sonic-target-select {
+    width: 100%;
+
+    min-width: 0;
+    height: 32px;
+
+    box-sizing: border-box;
+
+    padding:
+        0
+        30px
+        0
+        10px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.11
+        );
+
+    border-radius: 8px;
+
+    background-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.045
+        );
+
+    color:
+        rgba(
+            232,
+            240,
+            247,
+            0.92
+        );
+
+    font-size: 10px;
+    font-weight: 620;
+
+    cursor: pointer;
+}
+
+
+.sonic-target-select:hover:not(:disabled) {
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.19
+        );
+
+    background-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.065
+        );
+}
+
+
+.sonic-target-select:focus-visible {
+    outline:
+        2px solid
+        rgba(
+            103,
+            190,
+            226,
+            0.50
+        );
+
+    outline-offset: 2px;
+}
+
+
+.sonic-target-select:disabled {
+    opacity: 0.48;
+
+    cursor: not-allowed;
+}
+
+
+/*
+ * Preserve a clean visual balance between the three groups.
+ */
+.demo-action-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.demo-action-group
+.demo-action-buttons {
+    margin-top: auto;
+}
+
+
+/* =========================================================
+   D7B ONE-BUTTON SYSTEM LAUNCHER
+   ========================================================= */
+
+.system-launch-panel {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding:
+        10px
+        12px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.075
+        );
+
+    border-radius: 11px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.022
+        );
+}
+
+
+.system-launch-copy {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.system-launch-copy strong {
+    color:
+        rgba(
+            234,
+            241,
+            247,
+            0.94
+        );
+
+    font-size: 11px;
+
+    letter-spacing: 0.045em;
+
+    text-transform: uppercase;
+}
+
+
+.system-launch-copy span {
+    color:
+        rgba(
+            158,
+            172,
+            184,
+            0.66
+        );
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.system-launch-controls {
+    flex:
+        1 1 auto;
+
+    min-width: 0;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(180px, 0.75fr)
+        minmax(190px, 1fr)
+        auto;
+
+    align-items: end;
+
+    gap: 8px;
+}
+
+
+.system-target-field {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.system-target-field > span {
+    color:
+        rgba(
+            165,
+            180,
+            192,
+            0.68
+        );
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.07em;
+
+    text-transform: uppercase;
+}
+
+
+#systemPrimaryButton {
+    min-height: 32px;
+}
+
+
+.system-launch-state {
+    align-self: center;
+
+    min-width: 78px;
+
+    padding:
+        5px
+        8px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    border-radius: 999px;
+
+    color:
+        rgba(
+            163,
+            179,
+            192,
+            0.78
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    font-size: 8px;
+    font-weight: 750;
+
+    letter-spacing: 0.055em;
+
+    text-align: center;
+}
+
+
+.system-launch-state.live {
+    color: #61e3ad;
+
+    border-color:
+        rgba(
+            97,
+            227,
+            173,
+            0.20
+        );
+}
+
+
+/*
+ * Normal operation no longer exposes direct V2 process
+ * buttons. Their backend APIs remain available for debugging.
+ */
+#startV2Button,
+#stopV2Button {
+    display: none !important;
+}
+
+
+@media (
+    max-width: 900px
+) {
+    .system-launch-panel {
+        align-items: stretch;
+
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+
+    .system-launch-controls {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr)
+            auto;
+    }
+}
+
+
+@media (
+    max-width: 600px
+) {
+    .system-launch-controls {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+
+
+    .system-launch-state {
+        justify-self: stretch;
+    }
+}
+
+
+/* =========================================================
+   D7D-R5 CLEAN PRESENTATION
+   ========================================================= */
+
+
+/* =========================================================
+   TOP
+   ========================================================= */
+
+.topbar h1 {
+    margin: 0;
+}
+
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+/*
+ * Remove:
+ *
+ *     Camera Views
+ *     one capture • raw + ViTPose
+ *
+ * The real windows identify themselves as Raw Camera and
+ * Keypoints Camera.
+ */
+.camera-panel-header > div:first-child {
+    display: none !important;
+}
+
+
+/*
+ * Keep only the useful display-mode controls.
+ */
+.camera-panel > .panel-header {
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+
+    box-sizing: border-box;
+
+    padding:
+        6px
+        10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    overflow: hidden;
+}
+
+
+.camera-header-actions {
+    width: auto;
+
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+/*
+ * Remove redundant:
+ *
+ *     LIVE
+ *     BOTH LIVE
+ *
+ * status pills.
+ */
+.camera-panel .pill {
+    display: none !important;
+}
+
+
+/*
+ * Each camera viewport has one simple name overlay.
+ */
+.camera-panel .camera-feed-label {
+    left: 9px;
+    right: auto;
+
+    width: auto;
+
+    min-width: 0;
+
+    padding:
+        6px
+        9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 0;
+}
+
+
+.camera-panel
+.camera-feed-label
+strong {
+    margin: 0;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.025em;
+
+    text-transform: none;
+}
+
+
+/* =========================================================
+   SIMULATION
+   ========================================================= */
+
+/*
+ * Header contains only:
+ *
+ *     Simulation
+ */
+.mujoco-panel > .panel-header {
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+
+    box-sizing: border-box;
+
+    padding:
+        6px
+        14px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+
+.mujoco-panel
+.panel-header
+h2 {
+    margin: 0;
+}
+
+
+/*
+ * Remove:
+ *
+ *     SONIC simulation • offscreen render
+ *     LIVE
+ */
+.mujoco-panel
+.panel-header
+span {
+    display: none !important;
+}
+
+
+/*
+ * Remove:
+ *
+ *     Front
+ *     Side
+ *     Rear
+ *     Reset
+ */
+.mujoco-camera-toolbar {
+    display: none !important;
+}
+
+
+/*
+ * Remove:
+ *
+ *     drag to orbit · wheel to zoom
+ */
+.mujoco-camera-hint {
+    display: none !important;
+}
+
+
+/* =========================================================
+   LOWER DUPLICATED STATUS
+   ========================================================= */
+
+/*
+ * Hide only the Live-page V2 Runtime panel.
+ *
+ * Logs -> V2 Runtime Output remains untouched.
+ */
+.v2-runtime-panel {
+    display: none !important;
+}
+
+
+/* =========================================================
+   WINDOW ALIGNMENT
+   ========================================================= */
+
+.camera-panel > .panel-header,
+.mujoco-panel > .panel-header {
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+}
+
+
+/* =========================================================
+   D7F FINAL PRESENTATION POLISH
+   ========================================================= */
+
+:root {
+    --bacalbasa-accent: #61e3ad;
+    --bacalbasa-accent-ink: rgb(8, 20, 27);
+}
+
+
+/* =========================================================
+   CAMERA WINDOW TITLES = SIMULATION TITLE STYLE
+   ========================================================= */
+
+/*
+ * Raw Camera and Keypoints Camera become real window headers
+ * rather than small floating labels.
+ */
+.camera-panel .camera-feed-label {
+    position: static !important;
+
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+
+    width: 100% !important;
+
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+
+    box-sizing: border-box;
+
+    padding:
+        6px
+        14px !important;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    background:
+        rgba(
+            18,
+            23,
+            32,
+            0.92
+        ) !important;
+
+    border: 0 !important;
+
+    border-bottom:
+        1px solid
+        #242b38 !important;
+
+    border-radius: 0 !important;
+
+    pointer-events: none;
+}
+
+
+/*
+ * Match the Simulation h2 typography.
+ */
+.camera-panel
+.camera-feed-label
+strong {
+    margin: 0;
+
+    padding: 0;
+
+    color: inherit;
+
+    font-size: 15px !important;
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    letter-spacing: 0 !important;
+
+    text-transform: none !important;
+}
+
+
+/*
+ * Status pill remains hidden.
+ */
+.camera-panel
+.camera-feed-label
+.pill {
+    display: none !important;
+}
+
+
+/* =========================================================
+   REMOVE LOWER V2 TELEOPERATION BOX
+   ========================================================= */
+
+.v2-teleop-control-strip {
+    display: none !important;
+}
+
+
+/* =========================================================
+   PRIMARY SYSTEM BUTTON = ACCENT
+   ========================================================= */
+
+#systemPrimaryButton:not(:disabled) {
+    background:
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    border-color:
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    color:
+        var(
+            --bacalbasa-accent-ink
+        ) !important;
+
+    font-weight: 750;
+
+    cursor: pointer;
+}
+
+
+#systemPrimaryButton:not(:disabled):hover {
+    filter: brightness(1.08);
+}
+
+
+#systemPrimaryButton:not(:disabled):active {
+    filter: brightness(0.94);
+}
+
+
+/* =========================================================
+   TARGET DROPDOWN = ACCENT
+   ========================================================= */
+
+/*
+ * Closed selector.
+ */
+#systemTargetSelect:not(:disabled) {
+    background-color:
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    border-color:
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    color:
+        var(
+            --bacalbasa-accent-ink
+        ) !important;
+
+    font-weight: 700;
+
+    color-scheme: light;
+}
+
+
+/*
+ * Open native option list.
+ *
+ * Firefox/Linux honors option background and foreground
+ * colors, so Simulation / Physical Robot use the same accent.
+ */
+#systemTargetSelect option {
+    background-color:
+        var(
+            --bacalbasa-accent
+        );
+
+    color:
+        var(
+            --bacalbasa-accent-ink
+        );
+
+    font-weight: 700;
+}
+
+
+#systemTargetSelect:focus-visible {
+    outline:
+        2px solid
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand-title {
+    font-size: 14px;
+    font-weight: 750;
+
+    letter-spacing: 0.01em;
+}
+
+
+/* =========================================================
+   CAMERA / SIMULATION HEADER PARITY
+   ========================================================= */
+
+.camera-panel .camera-feed-label,
+.mujoco-panel > .panel-header {
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+}
+
+
+/* =========================================================
+   D7H FOUR SLOT WORKSPACE
+   ========================================================= */
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand-mark {
+    background:
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    border-color:
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    color:
+        #071710 !important;
+
+    box-shadow:
+        0 0 0 1px
+        rgba(
+            97,
+            227,
+            173,
+            0.12
+        );
+}
+
+
+.brand-title {
+    color:
+        rgba(
+            239,
+            247,
+            243,
+            0.96
+        );
+}
+
+
+/*
+ * Subtle accent for the selected navigation item.
+ */
+.nav-item.active {
+    background:
+        rgba(
+            97,
+            227,
+            173,
+            0.09
+        ) !important;
+
+    color:
+        var(
+            --bacalbasa-accent
+        ) !important;
+}
+
+
+/* =========================================================
+   SYSTEM LAUNCHER
+   ========================================================= */
+
+/*
+ * The launcher should feel like one intentional control,
+ * rather than three unrelated old dashboard widgets.
+ */
+.system-launch-panel {
+    position: relative;
+
+    overflow: visible !important;
+
+    gap: 18px;
+
+    padding:
+        12px
+        14px !important;
+
+    border:
+        1px solid
+        rgba(
+            97,
+            227,
+            173,
+            0.15
+        ) !important;
+
+    border-radius: 14px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(
+                97,
+                227,
+                173,
+                0.055
+            ),
+            rgba(
+                18,
+                23,
+                32,
+                0.72
+            )
+        ) !important;
+
+    box-shadow:
+        inset
+        0 1px 0
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+}
+
+
+/*
+ * Parent panel must not clip the custom target menu.
+ */
+.demo-control-strip.panel {
+    overflow: visible !important;
+}
+
+
+.system-launch-copy {
+    flex:
+        0 0 145px;
+
+    align-self: center;
+}
+
+
+.system-launch-copy strong {
+    color:
+        rgba(
+            240,
+            247,
+            243,
+            0.97
+        ) !important;
+
+    font-size: 11px !important;
+
+    font-weight: 800;
+
+    letter-spacing: 0.055em;
+}
+
+
+/*
+ * Old subtitle is removed from HTML, but keep this as a
+ * defensive rule.
+ */
+#systemLaunchHint {
+    display: none !important;
+}
+
+
+.system-launch-controls {
+    grid-template-columns:
+        minmax(
+            210px,
+            0.82fr
+        )
+        minmax(
+            280px,
+            1.35fr
+        )
+        auto !important;
+
+    gap: 10px !important;
+
+    align-items: end;
+}
+
+
+.system-target-field {
+    position: relative;
+
+    overflow: visible;
+
+    gap: 5px;
+}
+
+
+.system-target-field > span {
+    color:
+        rgba(
+            97,
+            227,
+            173,
+            0.72
+        ) !important;
+}
+
+
+/* =========================================================
+   HIDE NATIVE TARGET SELECT
+   ========================================================= */
+
+.native-target-select-hidden {
+    position: absolute !important;
+
+    width: 1px !important;
+    height: 1px !important;
+
+    opacity: 0 !important;
+
+    pointer-events: none !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   CUSTOM GREEN TARGET PICKER
+   ========================================================= */
+
+.system-target-picker {
+    position: relative;
+
+    width: 100%;
+}
+
+
+.system-target-button {
+    width: 100%;
+    height: 36px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding:
+        0
+        13px;
+
+    border:
+        1px solid
+        rgba(
+            97,
+            227,
+            173,
+            0.82
+        );
+
+    border-radius: 9px;
+
+    background:
+        var(
+            --bacalbasa-accent
+        );
+
+    color:
+        #071710;
+
+    font: inherit;
+
+    font-size: 11px;
+    font-weight: 760;
+
+    cursor: pointer;
+
+    transition:
+        filter 150ms ease,
+        transform 150ms ease,
+        box-shadow 150ms ease;
+}
+
+
+.system-target-button:hover:not(:disabled) {
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 5px 18px
+        rgba(
+            97,
+            227,
+            173,
+            0.10
+        );
+}
+
+
+.system-target-button:active:not(:disabled) {
+    transform:
+        translateY(1px);
+
+    filter:
+        brightness(0.96);
+}
+
+
+.system-target-button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.50;
+}
+
+
+.system-target-chevron {
+    display: inline-flex;
+
+    font-size: 12px;
+
+    transition:
+        transform 180ms
+        cubic-bezier(
+            0.2,
+            0.8,
+            0.2,
+            1
+        );
+}
+
+
+.system-target-picker.open
+.system-target-chevron {
+    transform:
+        rotate(180deg);
+}
+
+
+.system-target-menu {
+    position: absolute;
+
+    z-index: 500;
+
+    top:
+        calc(
+            100%
+            +
+            7px
+        );
+
+    left: 0;
+    right: 0;
+
+    box-sizing: border-box;
+
+    padding: 5px;
+
+    border:
+        1px solid
+        rgba(
+            97,
+            227,
+            173,
+            0.92
+        );
+
+    border-radius: 11px;
+
+    background:
+        var(
+            --bacalbasa-accent
+        );
+
+    box-shadow:
+        0
+        16px
+        34px
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
+
+    transform-origin:
+        top center;
+
+    animation:
+        targetMenuIn
+        150ms
+        cubic-bezier(
+            0.2,
+            0.8,
+            0.2,
+            1
+        );
+}
+
+
+.system-target-menu[hidden] {
+    display: none;
+}
+
+
+.system-target-option {
+    width: 100%;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        0
+        10px;
+
+    border: 0;
+
+    border-radius: 7px;
+
+    background:
+        transparent;
+
+    color:
+        #071710;
+
+    font: inherit;
+
+    font-size: 11px;
+    font-weight: 720;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 120ms ease,
+        transform 120ms ease;
+}
+
+
+.system-target-option:hover,
+.system-target-option.selected {
+    background:
+        rgba(
+            7,
+            23,
+            16,
+            0.13
+        );
+}
+
+
+.system-target-option:active {
+    transform:
+        scale(0.985);
+}
+
+
+@keyframes targetMenuIn {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-4px)
+            scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   MAIN LAUNCH BUTTON — GREEN ACCENT
+   ========================================================= */
+
+#systemPrimaryButton:not(:disabled) {
+    min-height: 36px !important;
+
+    border:
+        1px solid
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    border-radius: 9px !important;
+
+    background:
+        var(
+            --bacalbasa-accent
+        ) !important;
+
+    color:
+        #071710 !important;
+
+    font-weight: 800 !important;
+
+    box-shadow:
+        0 5px 18px
+        rgba(
+            97,
+            227,
+            173,
+            0.08
+        );
+
+    transition:
+        filter 150ms ease,
+        transform 150ms ease,
+        box-shadow 150ms ease;
+}
+
+
+#systemPrimaryButton:not(:disabled):hover {
+    filter:
+        brightness(1.05);
+
+    box-shadow:
+        0 7px 22px
+        rgba(
+            97,
+            227,
+            173,
+            0.13
+        );
+}
+
+
+#systemPrimaryButton:not(:disabled):active {
+    transform:
+        translateY(1px);
+
+    filter:
+        brightness(0.96);
+}
+
+
+.system-launch-state {
+    min-width: 74px;
+
+    border-color:
+        rgba(
+            97,
+            227,
+            173,
+            0.14
+        ) !important;
+}
+
+
+/* =========================================================
+   FOUR-SLOT MEDIA WORKSPACE
+   ========================================================= */
+
+.media-workspace {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 14px;
+
+    align-items: start;
+}
+
+
+/*
+ * Every slot has exactly the same footprint.
+ *
+ * An empty slot remains subtly visible so the user knows
+ * where a tile can be dropped.
+ */
+.workspace-slot {
+    position: relative;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    border:
+        1px dashed
+        rgba(
+            97,
+            227,
+            173,
+            0.075
+        );
+
+    border-radius: 15px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.006
+        );
+
+    transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+
+.workspace-slot-empty::before {
+    content: "";
+
+    display: block;
+
+    width: 100%;
+
+    /*
+     * 16:10 media stage + 44px header.
+     */
+    padding-top:
+        calc(
+            62.5%
+            +
+            44px
+        );
+}
+
+
+.workspace-slot-target {
+    border-color:
+        rgba(
+            97,
+            227,
+            173,
+            0.75
+        );
+
+    background:
+        rgba(
+            97,
+            227,
+            173,
+            0.055
+        );
+
+    box-shadow:
+        0
+        0
+        0
+        2px
+        rgba(
+            97,
+            227,
+            173,
+            0.07
+        )
+        inset;
+}
+
+
+/* =========================================================
+   INDIVIDUAL TILES
+   ========================================================= */
+
+.workspace-tile {
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        #242b38;
+
+    border-radius: 15px;
+
+    background:
+        rgba(
+            18,
+            23,
+            32,
+            0.92
+        );
+
+    transform:
+        translate3d(
+            0,
+            0,
+            0
+        );
+
+    transition:
+        box-shadow 180ms ease,
+        border-color 180ms ease;
+}
+
+
+/*
+ * Existing hidden camera mode remains authoritative.
+ */
+.workspace-tile.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   IDENTICAL TILE HEADERS
+   ========================================================= */
+
+.workspace-tile-header,
+.workspace-tile.camera-panel
+.camera-feed-label,
+.workspace-tile.mujoco-panel
+> .panel-header {
+    position: relative !important;
+
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+
+    width: 100% !important;
+
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+
+    box-sizing: border-box;
+
+    padding:
+        0
+        14px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content:
+        space-between !important;
+
+    gap: 10px;
+
+    border: 0 !important;
+
+    border-bottom:
+        1px solid
+        #242b38 !important;
+
+    border-radius: 0 !important;
+
+    background:
+        rgba(
+            18,
+            23,
+            32,
+            0.98
+        ) !important;
+
+    cursor: grab;
+
+    user-select: none;
+
+    touch-action: none;
+}
+
+
+.workspace-tile-header:active {
+    cursor: grabbing;
+}
+
+
+.workspace-tile.camera-panel
+.camera-feed-label
+strong,
+.workspace-tile.mujoco-panel
+.panel-header
+h2 {
+    margin: 0 !important;
+
+    color:
+        rgba(
+            241,
+            246,
+            244,
+            0.96
+        ) !important;
+
+    font-size: 14px !important;
+
+    font-weight: 760 !important;
+
+    line-height: 1 !important;
+
+    letter-spacing:
+        0 !important;
+
+    text-transform:
+        none !important;
+}
+
+
+/*
+ * Camera controls are dynamically moved into the currently
+ * relevant Camera header, at exactly the same vertical level
+ * as the title.
+ */
+.workspace-tile
+.camera-header-actions {
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.workspace-tile
+.camera-mode-button {
+    min-height: 29px;
+
+    padding:
+        0
+        10px;
+
+    border-radius: 8px;
+}
+
+
+/*
+ * Existing status pills remain hidden.
+ */
+.workspace-tile .pill {
+    display: none !important;
+}
+
+
+/* =========================================================
+   IDENTICAL MEDIA STAGES
+   ========================================================= */
+
+.workspace-tile.camera-panel
+.camera-stage,
+.workspace-tile.mujoco-panel
+.mujoco-stage {
+    position: relative;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    aspect-ratio:
+        16 / 10 !important;
+
+    margin: 0;
+
+    border-radius: 0;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+
+/*
+ * Existing camera image semantics remain:
+ * contain, no crop, no stretch.
+ */
+.workspace-tile.camera-panel
+.camera-image,
+.workspace-tile.mujoco-panel
+.camera-image {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================================
+   IPHONE-LIKE REARRANGE MOTION
+   ========================================================= */
+
+/*
+ * During a drag, the other windows subtly jiggle like apps in
+ * iOS rearrangement mode.
+ */
+.media-workspace.workspace-arranging
+.workspace-tile:not(
+    .workspace-dragging
+):not(
+    .hidden
+) {
+    animation:
+        workspaceJiggle
+        210ms
+        ease-in-out
+        infinite
+        alternate;
+}
+
+
+.media-workspace.workspace-arranging
+.workspace-slot:nth-child(even)
+.workspace-tile:not(
+    .workspace-dragging
+):not(
+    .hidden
+) {
+    animation-direction:
+        alternate-reverse;
+}
+
+
+@keyframes workspaceJiggle {
+    from {
+        transform:
+            rotate(-0.18deg)
+            translateY(-0.4px);
+    }
+
+    to {
+        transform:
+            rotate(0.18deg)
+            translateY(0.4px);
+    }
+}
+
+
+.workspace-dragging {
+    z-index: 100;
+
+    pointer-events: none;
+
+    cursor: grabbing !important;
+
+    animation: none !important;
+
+    border-color:
+        rgba(
+            97,
+            227,
+            173,
+            0.44
+        );
+
+    box-shadow:
+        0
+        22px
+        45px
+        rgba(
+            0,
+            0,
+            0,
+            0.36
+        ),
+        0
+        0
+        0
+        1px
+        rgba(
+            97,
+            227,
+            173,
+            0.13
+        );
+
+    transform:
+        translate3d(
+            var(
+                --workspace-drag-x,
+                0px
+            ),
+            var(
+                --workspace-drag-y,
+                0px
+            ),
+            0
+        )
+        scale(1.018)
+        rotate(0.18deg);
+
+    transition: none !important;
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   RESPONSIVE WORKSPACE
+   ========================================================= */
+
+@media (
+    max-width: 900px
+) {
+    .media-workspace {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            );
+    }
+
+
+    .system-launch-controls {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            ) !important;
+    }
+
+
+    .system-launch-copy {
+        flex-basis: auto;
+    }
+}
+
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+    .media-workspace
+    .workspace-tile {
+        animation:
+            none !important;
+    }
+
+
+    .workspace-dragging {
+        transform:
+            translate3d(
+                var(
+                    --workspace-drag-x,
+                    0px
+                ),
+                var(
+                    --workspace-drag-y,
+                    0px
+                ),
+                0
+            );
+    }
+}
+
+
+/* =========================================================
+   D7I CAMERA INTERACTION FIX
+   ========================================================= */
+
+
+/* =========================================================
+   CAMERA HEADER INTERACTION
+   ========================================================= */
+
+/*
+ * IMPORTANT:
+ *
+ * An older Camera rule used pointer-events:none because the
+ * feed name used to be only a decorative overlay.
+ *
+ * D7H converted that element into the actual draggable tile
+ * header, so pointer events MUST now be restored.
+ *
+ * This fixes:
+ *   - dragging Raw Camera
+ *   - dragging Keypoints Camera
+ *   - Keypoints ON/OFF button
+ *   - Show Both ON/OFF button
+ */
+.workspace-tile.camera-panel
+.camera-feed-label {
+    pointer-events:
+        auto !important;
+
+    cursor:
+        grab !important;
+}
+
+
+.workspace-tile.camera-panel
+.camera-feed-label:active {
+    cursor:
+        grabbing !important;
+}
+
+
+/*
+ * Controls embedded inside the Camera header must remain fully
+ * interactive and must not initiate a drag.
+ */
+.workspace-tile.camera-panel
+.camera-header-actions,
+.workspace-tile.camera-panel
+.camera-header-actions button {
+    pointer-events:
+        auto !important;
+
+    cursor:
+        pointer;
+}
+
+
+/*
+ * Give the title itself the drag affordance.
+ */
+.workspace-tile.camera-panel
+.camera-feed-label strong {
+    pointer-events:
+        auto !important;
+
+    cursor:
+        grab;
+}
+
+
+/* =========================================================
+   LAUNCHER — CLEAN SINGLE ROW
+   ========================================================= */
+
+.system-launch-panel {
+    padding:
+        12px
+        14px !important;
+}
+
+
+/*
+ * System Launcher is now the only copy on the left.
+ */
+.system-launch-copy {
+    flex:
+        0 0 145px;
+
+    justify-content:
+        center;
+}
+
+
+.system-launch-copy strong {
+    margin: 0;
+
+    line-height: 1;
+}
+
+
+/*
+ * TARGET label was removed from HTML.
+ *
+ * Keep this defensive rule in case stale browser markup is
+ * temporarily present.
+ */
+.system-target-field > span {
+    display:
+        none !important;
+}
+
+
+/*
+ * Selector and Launch button get EXACTLY equal space.
+ *
+ * Third column is only the compact state badge.
+ */
+.system-launch-controls {
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        minmax(
+            0,
+            1fr
+        )
+        78px
+        !important;
+
+    gap:
+        10px !important;
+
+    align-items:
+        center !important;
+}
+
+
+/*
+ * No extra label gap above the custom target control.
+ */
+.system-target-field {
+    gap:
+        0 !important;
+
+    align-self:
+        center;
+}
+
+
+/* =========================================================
+   TARGET + LAUNCH BUTTON EXACT PARITY
+   ========================================================= */
+
+.system-target-button,
+#systemPrimaryButton {
+    width:
+        100% !important;
+
+    height:
+        38px !important;
+
+    min-height:
+        38px !important;
+
+    max-height:
+        38px !important;
+
+    box-sizing:
+        border-box !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0
+        14px !important;
+
+    border-radius:
+        9px !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        780 !important;
+
+    line-height:
+        1 !important;
+
+    letter-spacing:
+        0 !important;
+}
+
+
+/*
+ * Make selector text and Launch text use the same visual
+ * alignment and size.
+ */
+.system-target-button {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+}
+
+
+#systemPrimaryButton {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+}
+
+
+/* =========================================================
+   STATE BADGE — SAME ROW / SAME HEIGHT
+   ========================================================= */
+
+.system-launch-state {
+    align-self:
+        center !important;
+
+    justify-self:
+        stretch;
+
+    width:
+        78px !important;
+
+    min-width:
+        78px !important;
+
+    height:
+        38px !important;
+
+    min-height:
+        38px !important;
+
+    max-height:
+        38px !important;
+
+    box-sizing:
+        border-box;
+
+    margin:
+        0 !important;
+
+    padding:
+        0
+        10px !important;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        rgba(
+            97,
+            227,
+            173,
+            0.18
+        ) !important;
+
+    border-radius:
+        9px !important;
+
+    background:
+        rgba(
+            97,
+            227,
+            173,
+            0.035
+        ) !important;
+
+    color:
+        rgba(
+            215,
+            233,
+            224,
+            0.68
+        );
+
+    font-size:
+        9px;
+
+    font-weight:
+        760;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.055em;
+}
+
+
+/*
+ * Live state can remain brighter.
+ */
+.system-launch-state.live {
+    border-color:
+        rgba(
+            97,
+            227,
+            173,
+            0.42
+        ) !important;
+
+    background:
+        rgba(
+            97,
+            227,
+            173,
+            0.09
+        ) !important;
+
+    color:
+        var(
+            --bacalbasa-accent
+        );
+}
+
+
+/* =========================================================
+   CUSTOM TARGET MENU POLISH
+   ========================================================= */
+
+.system-target-menu {
+    padding:
+        6px !important;
+
+    border-radius:
+        10px !important;
+}
+
+
+.system-target-option {
+    height:
+        38px !important;
+
+    padding:
+        0
+        12px !important;
+
+    border-radius:
+        7px !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        760 !important;
+}
+
+
+/* =========================================================
+   REMOVE EMPTY ACTION-MESSAGE FOOTPRINT
+   ========================================================= */
+
+/*
+ * Successful shutdown now writes an empty string.
+ * These common message containers collapse when empty.
+ */
+#actionMessage:empty,
+.action-message:empty,
+.control-message:empty,
+.demo-action-message:empty {
+    display:
+        none !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    min-height:
+        0 !important;
+
+    height:
+        0 !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (
+    max-width: 900px
+) {
+    .system-launch-controls {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            )
+            !important;
+    }
+
+
+    .system-launch-state {
+        width:
+            100% !important;
+
+        min-width:
+            0 !important;
+    }
+}
+
+
+/* =========================================================
+   D7J UNIFIED LAUNCHER TYPOGRAPHY
+   ========================================================= */
+
+
+/* =========================================================
+   EXACTLY THREE FONT SIZES
+   ========================================================= */
+
+:root {
+    --ui-font-small: 10px;
+    --ui-font-normal: 12px;
+    --ui-font-large: 22px;
+}
+
+
+/*
+ * Default everything to the normal size.
+ *
+ * Specific status/meta elements are reduced below.
+ * The page title is enlarged below.
+ */
+body,
+body * {
+    font-size:
+        var(
+            --ui-font-normal
+        ) !important;
+}
+
+
+/*
+ * Large category: main page title only.
+ */
+#pageTitle {
+    font-size:
+        var(
+            --ui-font-large
+        ) !important;
+
+    line-height: 1.1;
+}
+
+
+/*
+ * Small category:
+ * status/meta/readout information.
+ */
+.demo-state,
+.demo-state strong,
+.system-launch-state,
+.sidebar-footer,
+.pill,
+.system-target-field > span,
+.control-description,
+.camera-placeholder span,
+.system-badge {
+    font-size:
+        var(
+            --ui-font-small
+        ) !important;
+}
+
+
+/*
+ * Placeholder icons use the large size instead of their old
+ * one-off 40px+ dimensions, preserving the three-size rule.
+ */
+.camera-icon {
+    font-size:
+        var(
+            --ui-font-large
+        ) !important;
+}
+
+
+/* =========================================================
+   SYSTEM LAUNCHER — FIVE-CONTROL ROW
+   ========================================================= */
+
+.system-launch-panel {
+    padding:
+        12px
+        14px !important;
+}
+
+
+.system-launch-copy {
+    flex:
+        0 0 145px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.system-launch-copy strong {
+    font-size:
+        var(
+            --ui-font-normal
+        ) !important;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/*
+ * Layout:
+ *
+ * [ Simulation      ]
+ * [ Launch Simulation ]
+ * [ Keypoints ]
+ * [ Show Both ]
+ * [ OFF ]
+ *
+ * First two equal.
+ * Last three exactly equal.
+ */
+.system-launch-controls {
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        minmax(
+            0,
+            1fr
+        )
+        92px
+        92px
+        92px
+        !important;
+
+    column-gap:
+        10px !important;
+
+    row-gap:
+        0 !important;
+
+    align-items:
+        center !important;
+}
+
+
+/* =========================================================
+   CAMERA BUTTON WRAPPER INSIDE LAUNCHER
+   ========================================================= */
+
+/*
+ * The existing camera-header-actions wrapper must not consume
+ * a grid column itself.
+ *
+ * Its two buttons become independent grid items.
+ */
+.system-launch-controls
+> .camera-header-actions {
+    display:
+        contents !important;
+}
+
+
+/*
+ * The old aggregate Camera status pill is not needed.
+ */
+#cameraPill {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   COMMON CONTROL GEOMETRY
+   ========================================================= */
+
+.system-target-button,
+#systemPrimaryButton,
+#keypointToggleButton,
+#bothToggleButton,
+.system-launch-state {
+    height:
+        38px !important;
+
+    min-height:
+        38px !important;
+
+    max-height:
+        38px !important;
+
+    box-sizing:
+        border-box !important;
+
+    margin:
+        0 !important;
+
+    border-radius:
+        9px !important;
+}
+
+
+/* =========================================================
+   FIRST TWO CONTROLS — SAME DIMENSIONS + FONT
+   ========================================================= */
+
+.system-target-button,
+#systemPrimaryButton {
+    width:
+        100% !important;
+
+    padding:
+        0
+        14px !important;
+
+    font-size:
+        var(
+            --ui-font-normal
+        ) !important;
+
+    font-weight:
+        780 !important;
+
+    line-height:
+        1 !important;
+
+    letter-spacing:
+        0 !important;
+}
+
+
+/* =========================================================
+   CENTRE "SIMULATION" PERFECTLY
+   ========================================================= */
+
+/*
+ * Three-column internal layout means the arrow cannot push the
+ * text away from the true centre.
+ */
+.system-target-button {
+    display:
+        grid !important;
+
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
+
+    align-items:
+        center;
+
+    justify-content:
+        stretch !important;
+}
+
+
+.system-target-picker-label {
+    grid-column: 2;
+
+    justify-self:
+        center;
+
+    text-align:
+        center;
+
+    white-space:
+        nowrap;
+}
+
+
+.system-target-chevron {
+    grid-column: 3;
+
+    justify-self:
+        end;
+}
+
+
+/* =========================================================
+   LAUNCH BUTTON
+   ========================================================= */
+
+#systemPrimaryButton {
+    display:
+        flex !important;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+}
+
+
+/* =========================================================
+   KEYPOINTS / SHOW BOTH / OFF
+   ========================================================= */
+
+/*
+ * These three controls use exactly the same footprint.
+ */
+#keypointToggleButton,
+#bothToggleButton,
+.system-launch-state {
+    width:
+        92px !important;
+
+    min-width:
+        92px !important;
+
+    max-width:
+        92px !important;
+
+    padding:
+        0
+        8px !important;
+}
+
+
+/*
+ * Camera controls use compact status typography.
+ */
+#keypointToggleButton,
+#bothToggleButton {
+    display:
+        flex !important;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        9px !important;
+
+    font-size:
+        var(
+            --ui-font-small
+        ) !important;
+
+    font-weight:
+        760 !important;
+
+    line-height:
+        1 !important;
+
+    letter-spacing:
+        0 !important;
+
+    white-space:
+        nowrap;
+}
+
+
+/* =========================================================
+   OFF BADGE TYPOGRAPHY = TOP STATUS OFF
+   ========================================================= */
+
+.system-launch-state {
+    display:
+        flex !important;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        var(
+            --ui-font-small
+        ) !important;
+
+    /*
+     * Match the status-strip readouts.
+     */
+    font-weight:
+        700 !important;
+
+    line-height:
+        1 !important;
+
+    letter-spacing:
+        0.045em !important;
+}
+
+
+.demo-state strong {
+    font-size:
+        var(
+            --ui-font-small
+        ) !important;
+
+    font-weight:
+        700 !important;
+
+    line-height:
+        1 !important;
+
+    letter-spacing:
+        0.045em !important;
+}
+
+
+/* =========================================================
+   CAMERA HEADERS NOW CONTAIN TITLE ONLY
+   ========================================================= */
+
+/*
+ * Camera control wrapper has moved to the launcher.
+ * Defensive rule so it can never visually return to a tile.
+ */
+.workspace-tile
+> .camera-feed-label
+> .camera-header-actions {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   TILE TYPOGRAPHY
+   ========================================================= */
+
+.workspace-tile.camera-panel
+.camera-feed-label
+strong,
+.workspace-tile.mujoco-panel
+.panel-header
+h2 {
+    font-size:
+        var(
+            --ui-font-normal
+        ) !important;
+
+    font-weight:
+        760 !important;
+}
+
+
+/* =========================================================
+   TARGET MENU TYPOGRAPHY
+   ========================================================= */
+
+.system-target-option {
+    font-size:
+        var(
+            --ui-font-normal
+        ) !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (
+    max-width: 1150px
+) {
+    .system-launch-controls {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            )
+            minmax(
+                0,
+                1fr
+            )
+            86px
+            86px
+            86px
+            !important;
+    }
+
+
+    #keypointToggleButton,
+    #bothToggleButton,
+    .system-launch-state {
+        width:
+            86px !important;
+
+        min-width:
+            86px !important;
+
+        max-width:
+            86px !important;
+    }
+}
+
+
+@media (
+    max-width: 900px
+) {
+    .system-launch-controls {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            )
+            !important;
+
+        row-gap:
+            8px !important;
+    }
+
+
+    #keypointToggleButton,
+    #bothToggleButton,
+    .system-launch-state {
+        width:
+            100% !important;
+
+        min-width:
+            0 !important;
+
+        max-width:
+            none !important;
+    }
+}
+
+
+/* =========================================================
+   D8A BACALBASA REFERENCE DESIGN
+   ========================================================= */
+
+:root {
+    --design-bg:
+        #0b100e;
+
+    --design-sidebar:
+        #111713;
+
+    --design-panel:
+        #101612;
+
+    --design-panel-2:
+        #141a16;
+
+    --design-border:
+        rgba(
+            184,
+            222,
+            183,
+            0.10
+        );
+
+    --design-border-strong:
+        rgba(
+            172,
+            229,
+            166,
+            0.20
+        );
+
+    --design-accent:
+        #a5e49d;
+
+    --design-accent-strong:
+        #91d988;
+
+    --design-text:
+        #edf5ec;
+
+    --design-muted:
+        #718076;
+
+    --design-warn:
+        #d7a16c;
+
+    --design-small:
+        10px;
+
+    --design-normal:
+        12px;
+
+    --design-large:
+        26px;
+
+    /*
+     * Keep older components using the same final accent.
+     */
+    --bacalbasa-accent:
+        var(
+            --design-accent
+        );
+}
+
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+html,
+body {
+    background:
+        var(
+            --design-bg
+        ) !important;
+}
+
+
+body,
+body * {
+    font-size:
+        var(
+            --design-normal
+        ) !important;
+}
+
+
+body {
+    color:
+        var(
+            --design-text
+        ) !important;
+}
+
+
+.app-shell {
+    min-height:
+        100vh;
+
+    grid-template-columns:
+        186px
+        minmax(
+            0,
+            1fr
+        ) !important;
+
+    background:
+        var(
+            --design-bg
+        ) !important;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    padding:
+        23px
+        17px !important;
+
+    border-right:
+        1px solid
+        var(
+            --design-border
+        ) !important;
+
+    background:
+        var(
+            --design-sidebar
+        ) !important;
+
+    gap:
+        0;
+}
+
+
+.brand {
+    display:
+        block !important;
+
+    margin:
+        0
+        4px
+        19px !important;
+
+    padding:
+        0 !important;
+}
+
+
+/*
+ * Reference design doesn't use the old G1 badge.
+ */
+.brand-mark {
+    display:
+        none !important;
+}
+
+
+.brand-title {
+    color:
+        var(
+            --design-accent
+        ) !important;
+
+    font-size:
+        18px !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        0 !important;
+}
+
+
+/*
+ * Dashboard Online moved directly underneath Bacalbasa.
+ */
+.brand
+.system-badge {
+    width:
+        auto !important;
+
+    min-width:
+        0 !important;
+
+    margin-top:
+        5px !important;
+
+    padding:
+        0 !important;
+
+    border:
+        0 !important;
+
+    background:
+        transparent !important;
+
+    color:
+        var(
+            --design-muted
+        ) !important;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        700 !important;
+
+    letter-spacing:
+        0.035em;
+
+    text-align:
+        left;
+}
+
+
+.brand
+.system-badge::before {
+    content:
+        "";
+
+    display:
+        inline-block;
+
+    width:
+        5px;
+    height:
+        5px;
+
+    margin-right:
+        6px;
+
+    border-radius:
+        999px;
+
+    vertical-align:
+        1px;
+
+    background:
+        var(
+            --design-accent
+        );
+
+    box-shadow:
+        0 0 8px
+        rgba(
+            165,
+            228,
+            157,
+            0.38
+        );
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.sidebar nav {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        7px;
+
+    margin-bottom:
+        18px;
+}
+
+
+.nav-item {
+    position:
+        relative;
+
+    min-height:
+        35px;
+
+    padding:
+        0
+        12px
+        0
+        34px !important;
+
+    border:
+        0 !important;
+
+    border-radius:
+        8px !important;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    color:
+        #9aa89e !important;
+
+    background:
+        transparent !important;
+
+    font-size:
+        var(
+            --design-normal
+        ) !important;
+
+    font-weight:
+        630;
+
+    text-align:
+        left;
+}
+
+
+.nav-item[data-view="live"]::before {
+    content:
+        "⌁";
+
+    position:
+        absolute;
+
+    left:
+        12px;
+
+    color:
+        currentColor;
+}
+
+
+.nav-item[data-view="logs"]::before {
+    content:
+        "▤";
+
+    position:
+        absolute;
+
+    left:
+        12px;
+
+    color:
+        currentColor;
+}
+
+
+.nav-item:hover {
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.045
+        ) !important;
+
+    color:
+        var(
+            --design-text
+        ) !important;
+}
+
+
+.nav-item.active {
+    color:
+        #132014 !important;
+
+    background:
+        #4a8f43 !important;
+}
+
+
+.nav-item.active::before {
+    color:
+        #c8efc3;
+}
+
+
+/*
+ * Any old hidden-development routes must not reappear.
+ */
+.nav-item[
+    data-view="teleop"
+],
+.nav-item[
+    data-view="system"
+] {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   NEW SIDEBAR CARDS
+   ========================================================= */
+
+.design-sidebar-sections {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        13px;
+}
+
+
+.design-side-card {
+    padding:
+        11px
+        10px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.012
+        );
+}
+
+
+.design-side-title {
+    margin:
+        0
+        0
+        10px;
+
+    color:
+        #69776d;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.055em;
+
+    text-transform:
+        uppercase;
+}
+
+
+.design-target-label {
+    display:
+        block;
+
+    margin:
+        0
+        0
+        5px;
+
+    color:
+        #59675e;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        750;
+
+    letter-spacing:
+        0.045em;
+
+    text-transform:
+        uppercase;
+}
+
+
+.design-status-list {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        7px;
+
+    margin-top:
+        11px;
+}
+
+
+.node-status-row {
+    min-height:
+        18px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        7px;
+
+    color:
+        #849087;
+}
+
+
+.node-status-label {
+    position:
+        relative;
+
+    padding-left:
+        15px;
+
+    white-space:
+        nowrap;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        650;
+}
+
+
+.node-status-label::before {
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        1px;
+    top:
+        50%;
+
+    width:
+        6px;
+    height:
+        6px;
+
+    transform:
+        translateY(
+            -50%
+        );
+
+    border-radius:
+        999px;
+
+    background:
+        #55625a;
+}
+
+
+.node-status-row strong {
+    color:
+        #77847b !important;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        750;
+
+    letter-spacing:
+        0.02em;
+}
+
+
+/*
+ * Reuse the existing runtime classes created by
+ * setDemoState().
+ */
+.node-status-row strong.live,
+.node-status-row strong.ready {
+    color:
+        var(
+            --design-accent
+        ) !important;
+}
+
+
+.node-status-row:has(
+    strong.live
+)
+.node-status-label::before,
+.node-status-row:has(
+    strong.ready
+)
+.node-status-label::before {
+    background:
+        var(
+            --design-accent
+        );
+
+    box-shadow:
+        0 0 7px
+        rgba(
+            165,
+            228,
+            157,
+            0.45
+        );
+}
+
+
+.node-status-row strong.waiting {
+    color:
+        #e1c174 !important;
+}
+
+
+.node-status-row:has(
+    strong.waiting
+)
+.node-status-label::before {
+    background:
+        #e1c174;
+}
+
+
+/* =========================================================
+   SIDEBAR TARGET PICKER
+   ========================================================= */
+
+.design-side-card
+.system-target-field {
+    width:
+        100%;
+
+    margin:
+        0 !important;
+
+    gap:
+        0 !important;
+}
+
+
+.design-side-card
+.system-target-field
+> span {
+    display:
+        none !important;
+}
+
+
+.design-side-card
+.system-target-picker {
+    width:
+        100%;
+}
+
+
+.design-side-card
+.system-target-button {
+    width:
+        100% !important;
+
+    height:
+        31px !important;
+
+    min-height:
+        31px !important;
+
+    padding:
+        0
+        9px !important;
+
+    border:
+        1px solid
+        var(
+            --design-border-strong
+        ) !important;
+
+    border-radius:
+        7px !important;
+
+    background:
+        #151c17 !important;
+
+    color:
+        var(
+            --design-text
+        ) !important;
+
+    box-shadow:
+        none !important;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        690 !important;
+}
+
+
+.design-side-card
+.system-target-picker-label {
+    color:
+        var(
+            --design-text
+        );
+}
+
+
+.design-side-card
+.system-target-chevron {
+    color:
+        var(
+            --design-accent
+        );
+}
+
+
+.design-side-card
+.system-target-menu {
+    z-index:
+        800;
+
+    border:
+        1px solid
+        var(
+            --design-border-strong
+        ) !important;
+
+    background:
+        #151c17 !important;
+}
+
+
+.design-side-card
+.system-target-option {
+    height:
+        31px !important;
+
+    color:
+        var(
+            --design-text
+        ) !important;
+
+    background:
+        transparent !important;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+}
+
+
+.design-side-card
+.system-target-option:hover,
+.design-side-card
+.system-target-option.selected {
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.10
+        ) !important;
+
+    color:
+        var(
+            --design-accent
+        ) !important;
+}
+
+
+/* =========================================================
+   DISPLAY SETTINGS
+   ========================================================= */
+
+.design-setting-row {
+    min-height:
+        27px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        8px;
+
+    color:
+        #8d9a90;
+}
+
+
+.design-setting-label {
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        650;
+}
+
+
+/*
+ * Existing real Camera mode buttons become compact switches.
+ */
+.design-setting-row
+.camera-mode-button {
+    position:
+        relative;
+
+    width:
+        32px !important;
+
+    min-width:
+        32px !important;
+
+    max-width:
+        32px !important;
+
+    height:
+        17px !important;
+
+    min-height:
+        17px !important;
+
+    max-height:
+        17px !important;
+
+    padding:
+        0 !important;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        #29342c !important;
+
+    border-radius:
+        999px !important;
+
+    background:
+        #1c241f !important;
+
+    color:
+        transparent !important;
+
+    text-indent:
+        -9999px;
+
+    box-shadow:
+        none !important;
+
+    cursor:
+        pointer;
+}
+
+
+.design-setting-row
+.camera-mode-button::after {
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        2px;
+    left:
+        2px;
+
+    width:
+        11px;
+    height:
+        11px;
+
+    border-radius:
+        999px;
+
+    background:
+        #657169;
+
+    transition:
+        transform
+        160ms
+        cubic-bezier(
+            0.2,
+            0.85,
+            0.25,
+            1
+        ),
+        background
+        160ms
+        ease;
+}
+
+
+.design-setting-row
+.camera-mode-button.active {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.32
+        ) !important;
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.11
+        ) !important;
+}
+
+
+.design-setting-row
+.camera-mode-button.active::after {
+    transform:
+        translateX(
+            15px
+        );
+
+    background:
+        var(
+            --design-accent
+        );
+}
+
+
+/* =========================================================
+   OLD SIDEBAR FOOTER
+   ========================================================= */
+
+.sidebar-footer {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+   ========================================================= */
+
+.main {
+    padding:
+        22px
+        24px
+        36px !important;
+
+    background:
+        var(
+            --design-bg
+        ) !important;
+}
+
+
+.topbar {
+    min-height:
+        54px;
+
+    margin-bottom:
+        15px;
+
+    padding:
+        0 !important;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+}
+
+
+#pageTitle {
+    margin:
+        0;
+
+    color:
+        var(
+            --design-accent
+        ) !important;
+
+    font-size:
+        var(
+            --design-large
+        ) !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        -0.035em;
+
+    line-height:
+        1;
+}
+
+
+.design-top-actions {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    padding:
+        5px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.012
+        );
+}
+
+
+.design-launch-button,
+.design-stop-button {
+    height:
+        34px;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        0
+        15px;
+
+    border-radius:
+        7px;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        720;
+
+    cursor:
+        pointer;
+
+    transition:
+        filter
+        140ms
+        ease,
+        opacity
+        140ms
+        ease,
+        transform
+        140ms
+        ease;
+}
+
+
+.design-launch-button {
+    min-width:
+        132px;
+
+    border:
+        1px solid
+        var(
+            --design-accent
+        );
+
+    color:
+        #172117;
+
+    background:
+        var(
+            --design-accent
+        );
+}
+
+
+.design-stop-button {
+    min-width:
+        72px;
+
+    border:
+        1px solid
+        var(
+            --design-border
+        );
+
+    color:
+        #9aa79d;
+
+    background:
+        #151b17;
+}
+
+
+.design-launch-button:hover:not(
+    :disabled
+),
+.design-stop-button:hover:not(
+    :disabled
+) {
+    filter:
+        brightness(
+            1.06
+        );
+}
+
+
+.design-launch-button:active:not(
+    :disabled
+),
+.design-stop-button:active:not(
+    :disabled
+) {
+    transform:
+        translateY(
+            1px
+        );
+}
+
+
+.design-launch-button:disabled,
+.design-stop-button:disabled {
+    opacity:
+        0.38;
+
+    cursor:
+        not-allowed;
+}
+
+
+/* =========================================================
+   HIDE OLD OPERATOR STRIP
+   ========================================================= */
+
+.demo-control-strip,
+#systemLaunchPanel {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   WORKSPACE
+   ========================================================= */
+
+.media-workspace {
+    width:
+        100%;
+
+    display:
+        grid !important;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        ) !important;
+
+    gap:
+        10px !important;
+
+    align-items:
+        start;
+}
+
+
+/*
+ * Empty fourth slot remains available for drag/drop but is
+ * intentionally extremely subtle.
+ */
+.workspace-slot {
+    min-width:
+        0;
+
+    border:
+        1px dashed
+        rgba(
+            165,
+            228,
+            157,
+            0.035
+        ) !important;
+
+    border-radius:
+        15px !important;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.003
+        ) !important;
+}
+
+
+.workspace-slot-target {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.45
+        ) !important;
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.035
+        ) !important;
+}
+
+
+/* =========================================================
+   WINDOW CARDS
+   ========================================================= */
+
+.workspace-tile {
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        rgba(
+            176,
+            217,
+            175,
+            0.075
+        ) !important;
+
+    border-radius:
+        15px !important;
+
+    background:
+        var(
+            --design-panel
+        ) !important;
+
+    box-shadow:
+        inset
+        0 1px 0
+        rgba(
+            255,
+            255,
+            255,
+            0.012
+        );
+}
+
+
+.workspace-tile-header,
+.workspace-tile.camera-panel
+.camera-feed-label,
+.workspace-tile.mujoco-panel
+> .panel-header {
+    height:
+        34px !important;
+
+    min-height:
+        34px !important;
+
+    max-height:
+        34px !important;
+
+    padding:
+        0
+        10px !important;
+
+    border-bottom:
+        1px solid
+        rgba(
+            176,
+            217,
+            175,
+            0.075
+        ) !important;
+
+    background:
+        rgba(
+            16,
+            22,
+            18,
+            0.97
+        ) !important;
+
+    cursor:
+        grab !important;
+}
+
+
+.workspace-tile-header::before,
+.workspace-tile.camera-panel
+.camera-feed-label::before,
+.workspace-tile.mujoco-panel
+> .panel-header::before {
+    content:
+        "";
+
+    flex:
+        0
+        0 auto;
+
+    width:
+        5px;
+    height:
+        5px;
+
+    margin-right:
+        6px;
+
+    border-radius:
+        999px;
+
+    background:
+        var(
+            --design-accent
+        );
+}
+
+
+.workspace-tile.camera-panel
+.camera-feed-label
+strong,
+.workspace-tile.mujoco-panel
+.panel-header
+h2 {
+    margin:
+        0 !important;
+
+    color:
+        #8ca08e !important;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        0.055em !important;
+
+    text-transform:
+        uppercase !important;
+}
+
+
+.workspace-tile.camera-panel
+.camera-stage,
+.workspace-tile.mujoco-panel
+.mujoco-stage {
+    aspect-ratio:
+        16 / 10 !important;
+
+    background:
+        #060907 !important;
+}
+
+
+/*
+ * Keep physical Camera behavior exactly as before.
+ */
+.workspace-tile.camera-panel
+.camera-image {
+    object-fit:
+        contain !important;
+}
+
+
+/* =========================================================
+   EMPTY/IDLE CONTENT
+   ========================================================= */
+
+.camera-placeholder {
+    color:
+        #59645c !important;
+}
+
+
+.camera-placeholder strong {
+    color:
+        #6e7d71 !important;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+}
+
+
+.camera-placeholder span {
+    color:
+        #4e5c52 !important;
+
+    font-size:
+        var(
+            --design-small
+        ) !important;
+}
+
+
+.camera-icon {
+    color:
+        #394a3d !important;
+
+    font-size:
+        22px !important;
+}
+
+
+/* =========================================================
+   DRAG MODE — RETAIN IPHONE-LIKE BEHAVIOUR
+   ========================================================= */
+
+.media-workspace.workspace-arranging
+.workspace-tile:not(
+    .workspace-dragging
+):not(
+    .hidden
+) {
+    animation:
+        designJiggle
+        200ms
+        ease-in-out
+        infinite
+        alternate !important;
+}
+
+
+@keyframes designJiggle {
+    from {
+        transform:
+            rotate(
+                -0.15deg
+            )
+            translateY(
+                -0.35px
+            );
+    }
+
+    to {
+        transform:
+            rotate(
+                0.15deg
+            )
+            translateY(
+                0.35px
+            );
+    }
+}
+
+
+.workspace-dragging {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.32
+        ) !important;
+
+    box-shadow:
+        0
+        24px
+        55px
+        rgba(
+            0,
+            0,
+            0,
+            0.42
+        ),
+        0
+        0
+        0
+        1px
+        rgba(
+            165,
+            228,
+            157,
+            0.10
+        ) !important;
+}
+
+
+/* =========================================================
+   OLD LOWER DEV PANELS
+   ========================================================= */
+
+.v2-runtime-panel,
+.v2-teleop-control-strip {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (
+    max-width: 950px
+) {
+    .app-shell {
+        grid-template-columns:
+            158px
+            minmax(
+                0,
+                1fr
+            ) !important;
+    }
+
+
+    .sidebar {
+        padding:
+            18px
+            12px !important;
+    }
+}
+
+
+@media (
+    max-width: 760px
+) {
+    .app-shell {
+        display:
+            block !important;
+    }
+
+
+    .sidebar {
+        position:
+            relative;
+
+        width:
+            auto;
+
+        border-right:
+            0 !important;
+
+        border-bottom:
+            1px solid
+            var(
+                --design-border
+            ) !important;
+    }
+
+
+    .media-workspace {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            ) !important;
+    }
+
+
+    .topbar {
+        gap:
+            12px;
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+}
+
+
+/* =========================================================
+   D8B REFERENCE DESIGN REFINEMENT
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL LIVE-PAGE WIDTH
+   ========================================================= */
+
+/*
+ * The reference is intentionally compact.
+ *
+ * Keep the whole presentation area together instead of
+ * stretching every tile across a large desktop monitor.
+ */
+.topbar,
+#view-live .media-workspace {
+    width:
+        100%;
+
+    max-width:
+        1120px;
+
+    margin-right:
+        auto;
+}
+
+
+/*
+ * Slightly tighter main canvas.
+ */
+.main {
+    padding:
+        24px
+        22px
+        34px
+        24px
+        !important;
+}
+
+
+/* =========================================================
+   SIDEBAR PROPORTIONS
+   ========================================================= */
+
+.app-shell {
+    grid-template-columns:
+        180px
+        minmax(
+            0,
+            1fr
+        )
+        !important;
+}
+
+
+.sidebar {
+    padding:
+        22px
+        15px
+        !important;
+}
+
+
+/* =========================================================
+   NODE STATUS CARD
+   ========================================================= */
+
+.design-side-card {
+    padding:
+        11px
+        10px
+        12px
+        !important;
+
+    border-radius:
+        9px
+        !important;
+}
+
+
+.design-side-title {
+    margin-bottom:
+        9px
+        !important;
+}
+
+
+/*
+ * All status rows use exactly one consistent layout.
+ */
+.node-status-row {
+    width:
+        100%;
+
+    min-height:
+        23px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        auto;
+
+    align-items:
+        center;
+
+    column-gap:
+        7px;
+}
+
+
+.node-status-label {
+    min-width:
+        0;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+}
+
+
+/*
+ * IMPORTANT:
+ *
+ * systemLaunchState used to be a large rounded badge.
+ * Inside Node Status it should behave exactly like every
+ * other textual state.
+ */
+.design-status-list
+.system-launch-state {
+    width:
+        auto
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    height:
+        auto
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    display:
+        inline
+        !important;
+
+    border:
+        0
+        !important;
+
+    border-radius:
+        0
+        !important;
+
+    background:
+        transparent
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    color:
+        #77847b
+        !important;
+
+    font-size:
+        var(
+            --design-small
+        )
+        !important;
+
+    font-weight:
+        750
+        !important;
+
+    line-height:
+        1
+        !important;
+
+    letter-spacing:
+        0.02em
+        !important;
+}
+
+
+.design-status-list
+.system-launch-state.live {
+    color:
+        var(
+            --design-accent
+        )
+        !important;
+}
+
+
+/* =========================================================
+   SYSTEM TARGET
+   ========================================================= */
+
+.design-target-label {
+    margin:
+        0
+        0
+        5px
+        !important;
+}
+
+
+.design-side-card
+.system-target-button {
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    max-height:
+        30px
+        !important;
+
+    padding:
+        0
+        9px
+        !important;
+
+    border-radius:
+        7px
+        !important;
+
+    font-size:
+        var(
+            --design-small
+        )
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/* =========================================================
+   DISPLAY SETTINGS
+   ========================================================= */
+
+/*
+ * Exactly like the supplied reference:
+ *
+ * Keypoints                   [ switch ]
+ * Show Both                   [ switch ]
+ */
+.design-setting-row {
+    width:
+        100%;
+
+    min-height:
+        27px;
+
+    display:
+        grid
+        !important;
+
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        30px;
+
+    align-items:
+        center;
+
+    column-gap:
+        9px;
+}
+
+
+.design-setting-label {
+    min-width:
+        0;
+
+    color:
+        #879489;
+
+    white-space:
+        nowrap
+        !important;
+
+    line-height:
+        1;
+}
+
+
+/*
+ * Override ALL older ID-based Camera button dimensions.
+ */
+.design-setting-row
+#keypointToggleButton,
+.design-setting-row
+#bothToggleButton {
+    position:
+        relative
+        !important;
+
+    justify-self:
+        end;
+
+    width:
+        30px
+        !important;
+
+    min-width:
+        30px
+        !important;
+
+    max-width:
+        30px
+        !important;
+
+    height:
+        16px
+        !important;
+
+    min-height:
+        16px
+        !important;
+
+    max-height:
+        16px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        #29342c
+        !important;
+
+    border-radius:
+        999px
+        !important;
+
+    background:
+        #1c241f
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    color:
+        transparent
+        !important;
+
+    font-size:
+        0
+        !important;
+
+    line-height:
+        0
+        !important;
+
+    text-indent:
+        -9999px;
+
+    cursor:
+        pointer;
+}
+
+
+/*
+ * Switch knob.
+ */
+.design-setting-row
+#keypointToggleButton::after,
+.design-setting-row
+#bothToggleButton::after {
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        2px;
+    left:
+        2px;
+
+    width:
+        10px;
+    height:
+        10px;
+
+    border-radius:
+        999px;
+
+    background:
+        #657169;
+
+    transform:
+        translateX(
+            0
+        );
+
+    transition:
+        transform
+        160ms
+        cubic-bezier(
+            0.2,
+            0.85,
+            0.25,
+            1
+        ),
+        background
+        160ms
+        ease;
+}
+
+
+/*
+ * Enabled state.
+ */
+.design-setting-row
+#keypointToggleButton.active,
+.design-setting-row
+#bothToggleButton.active {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.30
+        )
+        !important;
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.10
+        )
+        !important;
+}
+
+
+.design-setting-row
+#keypointToggleButton.active::after,
+.design-setting-row
+#bothToggleButton.active::after {
+    transform:
+        translateX(
+            14px
+        );
+
+    background:
+        var(
+            --design-accent
+        );
+}
+
+
+/*
+ * Buttons must remain clickable.
+ */
+.design-setting-row
+#keypointToggleButton,
+.design-setting-row
+#bothToggleButton,
+.design-setting-row
+#keypointToggleButton::after,
+.design-setting-row
+#bothToggleButton::after {
+    pointer-events:
+        auto;
+}
+
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+
+.topbar {
+    min-height:
+        58px;
+
+    margin-bottom:
+        13px;
+
+    align-items:
+        center;
+}
+
+
+/*
+ * Reference title size/weight.
+ */
+#pageTitle {
+    font-size:
+        28px
+        !important;
+
+    font-weight:
+        780
+        !important;
+
+    letter-spacing:
+        -0.045em;
+}
+
+
+/* =========================================================
+   TOP ACTION GROUP
+   ========================================================= */
+
+.design-top-actions {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+    padding:
+        4px
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        )
+        !important;
+
+    border-radius:
+        9px
+        !important;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.013
+        )
+        !important;
+
+    box-shadow:
+        0
+        6px
+        20px
+        rgba(
+            0,
+            0,
+            0,
+            0.10
+        );
+}
+
+
+/*
+ * Launch Simulation — reference shape.
+ */
+.design-launch-button {
+    width:
+        145px;
+
+    min-width:
+        145px
+        !important;
+
+    height:
+        34px
+        !important;
+
+    min-height:
+        34px
+        !important;
+
+    max-height:
+        34px
+        !important;
+
+    padding:
+        0
+        14px
+        !important;
+
+    border:
+        1px solid
+        var(
+            --design-accent
+        )
+        !important;
+
+    border-radius:
+        7px
+        !important;
+
+    background:
+        var(
+            --design-accent
+        )
+        !important;
+
+    color:
+        #182118
+        !important;
+
+    font-size:
+        var(
+            --design-small
+        )
+        !important;
+
+    font-weight:
+        720
+        !important;
+
+    line-height:
+        1
+        !important;
+
+    box-shadow:
+        0
+        2px
+        8px
+        rgba(
+            165,
+            228,
+            157,
+            0.08
+        );
+}
+
+
+/*
+ * Stop System — normal secondary action.
+ */
+.design-stop-button {
+    width:
+        83px;
+
+    min-width:
+        83px
+        !important;
+
+    height:
+        34px
+        !important;
+
+    min-height:
+        34px
+        !important;
+
+    max-height:
+        34px
+        !important;
+
+    padding:
+        0
+        10px
+        !important;
+
+    border-radius:
+        7px
+        !important;
+
+    font-size:
+        var(
+            --design-small
+        )
+        !important;
+
+    line-height:
+        1
+        !important;
+}
+
+
+/* =========================================================
+   MEDIA WORKSPACE — SMALLER / TIDIER
+   ========================================================= */
+
+#view-live
+.media-workspace {
+    max-width:
+        1120px
+        !important;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        )
+        !important;
+
+    gap:
+        10px
+        !important;
+}
+
+
+/*
+ * Slightly shorter media cards than the previous 16:10
+ * presentation.
+ *
+ * Both physical camera streams are already 16:9.
+ */
+.workspace-tile.camera-panel
+.camera-stage {
+    aspect-ratio:
+        16 / 9
+        !important;
+}
+
+
+/*
+ * MuJoCo stays uncropped by fitting its existing 16:10 image
+ * into the new compact presentation stage.
+ */
+.workspace-tile.mujoco-panel
+.mujoco-stage {
+    aspect-ratio:
+        16 / 9
+        !important;
+}
+
+
+.workspace-tile.mujoco-panel
+.camera-image {
+    object-fit:
+        contain
+        !important;
+
+    background:
+        #060907;
+}
+
+
+/*
+ * Compact header like the reference.
+ */
+.workspace-tile-header,
+.workspace-tile.camera-panel
+.camera-feed-label,
+.workspace-tile.mujoco-panel
+> .panel-header {
+    height:
+        32px
+        !important;
+
+    min-height:
+        32px
+        !important;
+
+    max-height:
+        32px
+        !important;
+
+    padding:
+        0
+        10px
+        !important;
+}
+
+
+/*
+ * Softer card border.
+ */
+.workspace-tile {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.065
+        )
+        !important;
+
+    border-radius:
+        13px
+        !important;
+}
+
+
+/*
+ * Empty slot should not dominate.
+ */
+.workspace-slot-empty {
+    opacity:
+        0.34;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (
+    max-width: 1200px
+) {
+    .topbar,
+    #view-live
+    .media-workspace {
+        max-width:
+            100%;
+    }
+}
+
+
+@media (
+    max-width: 760px
+) {
+    #view-live
+    .media-workspace {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            )
+            !important;
+    }
+}
+
+
+/* =========================================================
+   D9C ROBOT CONNECTION + CENTERED WORKSPACE
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   CENTER THE COMPLETE LIVE PRESENTATION
+   --------------------------------------------------------- */
+
+/*
+ * Title/action bar and media windows now share exactly the
+ * same centered width.
+ */
+.topbar,
+#view-live .media-workspace {
+    width:
+        min(
+            1120px,
+            100%
+        )
+        !important;
+
+    max-width:
+        1120px
+        !important;
+
+    margin-left:
+        auto
+        !important;
+
+    margin-right:
+        auto
+        !important;
+}
+
+
+/*
+ * Launch controls sit against the right-hand edge of the
+ * centered workspace, matching the design reference.
+ */
+.topbar {
+    justify-content:
+        space-between
+        !important;
+}
+
+
+.design-top-actions {
+    margin-left:
+        auto
+        !important;
+
+    flex:
+        0 0 auto;
+}
+
+
+/*
+ * Prevent the live view itself from inheriting old left
+ * alignment.
+ */
+#view-live {
+    width:
+        100%;
+}
+
+
+/* ---------------------------------------------------------
+   ROBOT CONNECTION BAR
+   --------------------------------------------------------- */
+
+.robot-connection-bar {
+    width:
+        100%;
+
+    min-height:
+        31px;
+
+    box-sizing:
+        border-box;
+
+    margin:
+        8px
+        0
+        5px;
+
+    padding:
+        0
+        8px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        7px
+        auto
+        minmax(
+            0,
+            1fr
+        );
+
+    align-items:
+        center;
+
+    column-gap:
+        6px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.045
+        );
+
+    border-radius:
+        7px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.018
+        );
+}
+
+
+.robot-connection-bar[hidden] {
+    display:
+        none
+        !important;
+}
+
+
+.robot-connection-dot {
+    width:
+        6px;
+
+    height:
+        6px;
+
+    border-radius:
+        999px;
+
+    background:
+        #657169;
+}
+
+
+.robot-connection-bar strong {
+    font-size:
+        var(
+            --design-small
+        )
+        !important;
+
+    font-weight:
+        800
+        !important;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.035em;
+}
+
+
+.robot-connection-endpoint {
+    min-width:
+        0;
+
+    overflow:
+        hidden;
+
+    color:
+        #657169;
+
+    font-size:
+        var(
+            --design-small
+        )
+        !important;
+
+    font-weight:
+        600;
+
+    text-align:
+        right;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+}
+
+
+/* checking */
+
+.robot-connection-bar.checking
+.robot-connection-dot {
+    background:
+        #d8ba6c;
+}
+
+
+.robot-connection-bar.checking
+strong {
+    color:
+        #d8ba6c
+        !important;
+}
+
+
+/* connected */
+
+.robot-connection-bar.connected {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.16
+        );
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.035
+        );
+}
+
+
+.robot-connection-bar.connected
+.robot-connection-dot {
+    background:
+        var(
+            --design-accent
+        );
+
+    box-shadow:
+        0 0 7px
+        rgba(
+            165,
+            228,
+            157,
+            0.48
+        );
+}
+
+
+.robot-connection-bar.connected
+strong {
+    color:
+        var(
+            --design-accent
+        )
+        !important;
+}
+
+
+/* disconnected */
+
+.robot-connection-bar.disconnected {
+    border-color:
+        rgba(
+            215,
+            125,
+            108,
+            0.15
+        );
+
+    background:
+        rgba(
+            215,
+            125,
+            108,
+            0.025
+        );
+}
+
+
+.robot-connection-bar.disconnected
+.robot-connection-dot {
+    background:
+        #d77d6c;
+}
+
+
+.robot-connection-bar.disconnected
+strong {
+    color:
+        #d77d6c
+        !important;
+}
+
+
+/* =========================================================
+   D9D FULL WIDTH LIVE LAYOUT
+   ========================================================= */
+
+
+/*
+ * The previous D9C pass centered a fixed-width 1120px block.
+ * That looked good on a small reference canvas but wastes too
+ * much room on the real desktop display.
+ *
+ * D9D keeps a clean left gutter after the sidebar and allows
+ * the live workspace to use nearly the whole remaining width.
+ */
+
+
+/* ---------------------------------------------------------
+   MAIN CANVAS
+   --------------------------------------------------------- */
+
+.main {
+    padding:
+        22px
+        28px
+        32px
+        22px
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   TOPBAR
+   --------------------------------------------------------- */
+
+.topbar {
+    width:
+        min(
+            1180px,
+            100%
+        )
+        !important;
+
+    max-width:
+        1180px
+        !important;
+
+    margin-left:
+        0
+        !important;
+
+    margin-right:
+        0
+        !important;
+
+    min-height:
+        58px
+        !important;
+
+    margin-bottom:
+        14px
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        space-between
+        !important;
+}
+
+
+/*
+ * Title sits naturally beside the sidebar rather than in the
+ * middle of the monitor.
+ */
+#pageTitle {
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+}
+
+
+/*
+ * Keep the launch group comfortably toward the left side of
+ * the overall monitor while retaining the intended
+ * title/actions hierarchy.
+ */
+.design-top-actions {
+    margin-left:
+        auto
+        !important;
+
+    margin-right:
+        0
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   LIVE WORKSPACE
+   --------------------------------------------------------- */
+
+#view-live {
+    width:
+        100%
+        !important;
+
+    max-width:
+        none
+        !important;
+}
+
+
+/*
+ * Use almost all horizontal room available after the sidebar.
+ */
+#view-live
+.media-workspace {
+    width:
+        100%
+        !important;
+
+    max-width:
+        1420px
+        !important;
+
+    margin-left:
+        0
+        !important;
+
+    margin-right:
+        0
+        !important;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        )
+        !important;
+
+    gap:
+        12px
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   LARGER MEDIA WINDOWS
+   --------------------------------------------------------- */
+
+/*
+ * Keep the real 16:9 feeds but allow each tile to become much
+ * larger than the old 1120px overall presentation.
+ */
+.workspace-tile.camera-panel
+.camera-stage,
+.workspace-tile.mujoco-panel
+.mujoco-stage {
+    aspect-ratio:
+        16 / 9
+        !important;
+
+    min-height:
+        0
+        !important;
+}
+
+
+.workspace-tile {
+    width:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    border-radius:
+        13px
+        !important;
+}
+
+
+/*
+ * Headers remain compact so most of each tile is actual media.
+ */
+.workspace-tile-header,
+.workspace-tile.camera-panel
+.camera-feed-label,
+.workspace-tile.mujoco-panel
+> .panel-header {
+    height:
+        32px
+        !important;
+
+    min-height:
+        32px
+        !important;
+
+    max-height:
+        32px
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   EMPTY FOURTH SLOT
+   --------------------------------------------------------- */
+
+.workspace-slot {
+    min-height:
+        0
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   ACTION MESSAGE
+   --------------------------------------------------------- */
+
+/*
+ * Keep the element for genuine runtime errors/status, but do
+ * not reserve a huge empty block at the bottom.
+ */
+.action-message:empty {
+    display:
+        none
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   LARGE DESKTOPS
+   --------------------------------------------------------- */
+
+@media (
+    min-width: 1500px
+) {
+    #view-live
+    .media-workspace {
+        max-width:
+            1460px
+            !important;
+    }
+
+
+    .topbar {
+        max-width:
+            1220px
+            !important;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   MEDIUM DESKTOPS
+   --------------------------------------------------------- */
+
+@media (
+    max-width: 1250px
+) {
+    #view-live
+    .media-workspace,
+    .topbar {
+        width:
+            100%
+            !important;
+
+        max-width:
+            100%
+            !important;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   SMALL SCREENS
+   --------------------------------------------------------- */
+
+@media (
+    max-width: 760px
+) {
+    #view-live
+    .media-workspace {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            )
+            !important;
+    }
+}
+
+
+/* =========================================================
+   D9E TOP ACTION ALIGNMENT + COMPACT MEDIA GRID
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   TOPBAR — USE THE WHOLE MAIN AREA
+   --------------------------------------------------------- */
+
+/*
+ * Title stays next to the sidebar.
+ * Launch/Stop are pushed to the far top-right.
+ */
+.topbar {
+    width:
+        100%
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    margin-left:
+        0
+        !important;
+
+    margin-right:
+        0
+        !important;
+
+    padding-right:
+        0
+        !important;
+
+    justify-content:
+        space-between
+        !important;
+}
+
+
+.design-top-actions {
+    margin-left:
+        auto
+        !important;
+
+    margin-right:
+        0
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   MEDIA GRID — REDUCE EMPTY SPACE
+   --------------------------------------------------------- */
+
+#view-live
+.media-workspace {
+    column-gap:
+        7px
+        !important;
+
+    row-gap:
+        6px
+        !important;
+
+    gap:
+        6px
+        7px
+        !important;
+}
+
+
+/*
+ * Slightly reduce vertical tile height so the second row
+ * remains visible on a normal 1080p desktop while keeping
+ * the windows large.
+ */
+.workspace-tile.camera-panel
+.camera-stage,
+.workspace-tile.mujoco-panel
+.mujoco-stage {
+    aspect-ratio:
+        16 / 8.6
+        !important;
+}
+
+
+/*
+ * Ensure slots themselves do not add artificial vertical
+ * spacing inherited from older layout revisions.
+ */
+.workspace-slot {
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    min-height:
+        0
+        !important;
+}
+
+
+/*
+ * Keep tile headers compact.
+ */
+.workspace-tile-header,
+.workspace-tile.camera-panel
+.camera-feed-label,
+.workspace-tile.mujoco-panel
+> .panel-header {
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    max-height:
+        30px
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   DESKTOP HEIGHT REFINEMENT
+   --------------------------------------------------------- */
+
+@media (
+    min-width: 1000px
+) and (
+    max-height: 1100px
+) {
+    .main {
+        padding-top:
+            18px
+            !important;
+
+        padding-bottom:
+            20px
+            !important;
+    }
+
+
+    .topbar {
+        min-height:
+            52px
+            !important;
+
+        margin-bottom:
+            8px
+            !important;
+    }
+
+
+    #view-live
+    .media-workspace {
+        row-gap:
+            5px
+            !important;
+    }
+}
+
+
+/* =========================================================
+   D9G COMPACT OCCUPIED ROWS
+   ========================================================= */
+
+/*
+ * Important:
+ *
+ * The previous visual gap was NOT CSS row-gap.
+ * Older workspace rules allowed the two grid rows to stretch
+ * inside the available workspace height.
+ *
+ * Keep both rows content-sized and pinned to the top.
+ */
+#view-live .media-workspace {
+    grid-template-rows:
+        auto
+        auto
+        !important;
+
+    grid-auto-rows:
+        auto
+        !important;
+
+    align-content:
+        start
+        !important;
+
+    row-gap:
+        6px
+        !important;
+
+    column-gap:
+        7px
+        !important;
+}
+
+
+/*
+ * Empty/hidden slots must not increase an occupied row's
+ * intrinsic height during normal viewing.
+ *
+ * They remain usable again while drag-arrange mode is active.
+ */
+#view-live
+.media-workspace:not(.workspace-arranging)
+.workspace-slot-empty,
+#view-live
+.media-workspace:not(.workspace-arranging)
+.workspace-slot:has(
+    > .workspace-tile.hidden
+) {
+    min-height:
+        0
+        !important;
+
+    height:
+        0
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    border:
+        0
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+#view-live
+.media-workspace:not(.workspace-arranging)
+.workspace-slot-empty::before,
+#view-live
+.media-workspace:not(.workspace-arranging)
+.workspace-slot:has(
+    > .workspace-tile.hidden
+)::before {
+    display:
+        none
+        !important;
+}
+
+
+/*
+ * During drag mode, retain a visible target for otherwise
+ * empty positions.
+ */
+#view-live
+.media-workspace.workspace-arranging
+.workspace-slot-empty {
+    min-height:
+        48px
+        !important;
+}
+
+
+/* =========================================================
+   D10B PHYSICAL ROBOT STACK + TRUE GRID COMPACTION
+   ========================================================= */
+
+
+/*
+ * The large two-tile gap was caused by legacy workspace row
+ * stretching, not by `row-gap`.
+ *
+ * Final authoritative rule:
+ *
+ * every occupied row is max-content and the grid itself has
+ * no forced/minimum presentation height.
+ */
+#view-live .media-workspace {
+    height:
+        auto
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    grid-template-rows:
+        max-content
+        max-content
+        !important;
+
+    grid-auto-rows:
+        max-content
+        !important;
+
+    align-content:
+        start
+        !important;
+
+    justify-content:
+        start
+        !important;
+
+    row-gap:
+        6px
+        !important;
+
+    column-gap:
+        7px
+        !important;
+
+    gap:
+        6px
+        7px
+        !important;
+}
+
+
+#view-live
+.media-workspace
+> .workspace-slot {
+    height:
+        auto
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    align-self:
+        start
+        !important;
+}
+
+
+/*
+ * A non-visible slot must contribute ZERO height when not
+ * arranging.
+ */
+#view-live
+.media-workspace:not(
+    .workspace-arranging
+)
+> .workspace-slot.d10b-empty-slot {
+    height:
+        0
+        !important;
+
+    min-height:
+        0
+        !important;
+
+    max-height:
+        0
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    border:
+        0
+        !important;
+
+    overflow:
+        hidden
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+#view-live
+.media-workspace:not(
+    .workspace-arranging
+)
+> .workspace-slot.d10b-empty-slot::before {
+    display:
+        none
+        !important;
+}
+
+
+/*
+ * Restore a drop target while tiles are being rearranged.
+ */
+#view-live
+.media-workspace.workspace-arranging
+> .workspace-slot.d10b-empty-slot {
+    height:
+        48px
+        !important;
+
+    min-height:
+        48px
+        !important;
+
+    max-height:
+        none
+        !important;
+}
+
+
+/*
+ * Keep the physical two-stage button visually identical to
+ * the current Launch Simulation button.
+ */
+.design-launch-button {
+    white-space:
+        nowrap;
+}
+
+
+/* =========================================================
+   D10E_TERMINAL_LOGS
+   ========================================================= */
+
+#view-logs {
+    width:
+        100%;
+
+    min-width:
+        0;
+}
+
+
+.d10e-terminal-console {
+    width:
+        100%;
+
+    height:
+        calc(
+            100vh
+            - 105px
+        );
+
+    min-height:
+        520px;
+
+    display:
+        grid;
+
+    grid-template-rows:
+        auto
+        auto
+        minmax(
+            0,
+            1fr
+        );
+
+    border:
+        1px solid
+        rgba(
+            165,
+            228,
+            157,
+            0.11
+        );
+
+    border-radius:
+        11px;
+
+    background:
+        #070c09;
+
+    overflow:
+        hidden;
+}
+
+
+.d10e-terminal-header {
+    min-height:
+        52px;
+
+    padding:
+        9px
+        13px;
+
+    box-sizing:
+        border-box;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        18px;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.055
+        );
+}
+
+
+.d10e-terminal-title {
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        baseline;
+
+    gap:
+        12px;
+}
+
+
+.d10e-terminal-title strong {
+    color:
+        #a5e49d;
+
+    font-size:
+        14px;
+
+    letter-spacing:
+        0.015em;
+}
+
+
+.d10e-terminal-title span {
+    color:
+        #6f8177;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.08em;
+}
+
+
+.d10e-terminal-meta {
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    color:
+        #68776f;
+
+    font-size:
+        10px;
+
+    white-space:
+        nowrap;
+}
+
+
+#d10eTerminalState.error {
+    color:
+        #df806f;
+}
+
+
+.d10e-terminal-toolbar {
+    min-height:
+        39px;
+
+    padding:
+        5px
+        8px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.045
+        );
+
+    overflow-x:
+        auto;
+}
+
+
+.d10e-terminal-tab,
+.d10e-terminal-control {
+    height:
+        27px;
+
+    padding:
+        0
+        9px;
+
+    flex:
+        0 0 auto;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.065
+        );
+
+    border-radius:
+        6px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.018
+        );
+
+    color:
+        #7c8c83;
+
+    font:
+        inherit;
+
+    font-size:
+        10px;
+
+    font-weight:
+        750;
+
+    cursor:
+        pointer;
+}
+
+
+.d10e-terminal-tab.active {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.25
+        );
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.09
+        );
+
+    color:
+        #a5e49d;
+}
+
+
+.d10e-terminal-spacer {
+    flex:
+        1 1 auto;
+
+    min-width:
+        12px;
+}
+
+
+.d10e-terminal-output {
+    width:
+        100%;
+
+    height:
+        100%;
+
+    min-width:
+        0;
+
+    min-height:
+        0;
+
+    box-sizing:
+        border-box;
+
+    margin:
+        0;
+
+    padding:
+        13px
+        15px
+        22px;
+
+    overflow:
+        auto;
+
+    background:
+        #050906;
+
+    color:
+        #abb8b0;
+
+    font-family:
+        "DejaVu Sans Mono",
+        "Liberation Mono",
+        monospace;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+    tab-size:
+        4;
+
+    white-space:
+        pre-wrap;
+
+    overflow-wrap:
+        anywhere;
+
+    scrollbar-gutter:
+        stable;
+}
+
+
+@media (
+    max-width: 900px
+) {
+    .d10e-terminal-header {
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap:
+            4px;
+    }
+
+
+    .d10e-terminal-console {
+        height:
+            calc(
+                100vh
+                - 90px
+            );
+    }
+}
+
+
+/* =========================================================
+   D11B FULL-BLEED VIDEO + ROBOT CAMERA
+   ========================================================= */
+
+
+/*
+ * Final authoritative video-fit rule.
+ *
+ * Older revisions intentionally used `contain`, producing the
+ * black pillar bars visible on camera and MuJoCo feeds.
+ *
+ * Fill each presentation frame instead.
+ */
+#view-live .camera-stage img,
+#view-live #mujocoImage,
+#view-live #robotCameraImage {
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    max-height:
+        none
+        !important;
+
+    display:
+        block
+        !important;
+
+    object-fit:
+        cover
+        !important;
+
+    object-position:
+        center center
+        !important;
+}
+
+
+/*
+ * Remove any internal image margins inherited from the older
+ * preview presentation.
+ */
+#view-live .camera-stage,
+#view-live .mujoco-stage,
+#view-live .robot-camera-stage {
+    padding:
+        0
+        !important;
+
+    overflow:
+        hidden
+        !important;
+
+    background:
+        #050906
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   G1 ROBOT CAMERA TILE
+   --------------------------------------------------------- */
+
+.robot-camera-panel {
+    min-width:
+        0
+        !important;
+
+    min-height:
+        0
+        !important;
+}
+
+
+.robot-camera-panel.hidden {
+    display:
+        none
+        !important;
+}
+
+
+.robot-camera-panel
+.workspace-tile-header {
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    gap:
+        7px
+        !important;
+}
+
+
+.robot-camera-panel
+.workspace-tile-header strong {
+    margin-left:
+        auto;
+
+    color:
+        #73857a;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.05em;
+}
+
+
+.robot-camera-header-dot {
+    width:
+        5px;
+
+    height:
+        5px;
+
+    flex:
+        0 0 auto;
+
+    border-radius:
+        999px;
+
+    background:
+        #637269;
+}
+
+
+.robot-camera-live
+.robot-camera-header-dot {
+    background:
+        #a5e49d;
+
+    box-shadow:
+        0 0 6px
+        rgba(
+            165,
+            228,
+            157,
+            0.45
+        );
+}
+
+
+.robot-camera-tile-state {
+    margin-left:
+        auto;
+
+    color:
+        #627168;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.06em;
+}
+
+
+.robot-camera-tile-state.live {
+    color:
+        #a5e49d;
+}
+
+
+.robot-camera-stage {
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        16 / 8.6
+        !important;
+}
+
+
+#robotCameraImage {
+    position:
+        absolute;
+
+    inset:
+        0;
+}
+
+
+.robot-camera-placeholder {
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-direction:
+        column;
+
+    gap:
+        7px;
+
+    padding:
+        20px;
+
+    box-sizing:
+        border-box;
+
+    color:
+        #617169;
+
+    text-align:
+        center;
+
+    pointer-events:
+        none;
+}
+
+
+.robot-camera-placeholder[hidden] {
+    display:
+        none
+        !important;
+}
+
+
+.robot-camera-placeholder strong {
+    color:
+        #73857a;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+}
+
+
+.robot-camera-placeholder span:last-child {
+    max-width:
+        330px;
+
+    color:
+        #506058;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+}
+
+
+.robot-camera-placeholder-icon {
+    color:
+        #71847a;
+
+    font-size:
+        19px;
+}
+
+
+/*
+ * With all four streams visible, form a complete 2x2
+ * dashboard rather than leaving an unused fourth slot.
+ */
+#view-live
+.media-workspace[data-visible-tiles="4"] {
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        )
+        !important;
+}
+
+
+/* =========================================================
+   D11C UNIFIED WINDOW HEADERS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   REMOVE DUPLICATE ROBOT-CAMERA DOT
+   --------------------------------------------------------- */
+
+/*
+ * Every workspace tile already gets the standard dashboard
+ * status dot. D11B accidentally added a second explicit dot
+ * to the robot-camera header.
+ */
+.robot-camera-header-dot {
+    display:
+        none
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   NEVER SHOW ROBOT CAMERA ALT TEXT
+   --------------------------------------------------------- */
+
+#robotCameraImage[hidden],
+#robotCameraImage:not([src]),
+#robotCameraImage[src=""] {
+    display:
+        none
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   UNIFIED HEADER GEOMETRY
+   --------------------------------------------------------- */
+
+#view-live .camera-feed-label,
+#view-live
+.workspace-tile.mujoco-panel
+> .panel-header,
+#view-live .workspace-tile-header {
+    position:
+        relative
+        !important;
+
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    max-height:
+        30px
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    padding:
+        0
+        10px
+        !important;
+
+    text-align:
+        center
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   UNIFIED TITLE TYPOGRAPHY
+   --------------------------------------------------------- */
+
+#view-live .camera-feed-label strong,
+#view-live
+.workspace-tile.mujoco-panel
+> .panel-header strong,
+#view-live
+.workspace-tile-header
+> strong {
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    color:
+        #82968a
+        !important;
+
+    font-size:
+        10px
+        !important;
+
+    font-weight:
+        800
+        !important;
+
+    line-height:
+        1
+        !important;
+
+    letter-spacing:
+        0.055em
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    white-space:
+        nowrap
+        !important;
+}
+
+
+/*
+ * The robot-camera state stays on the far-right while the
+ * title itself remains truly centered.
+ */
+.robot-camera-panel
+.workspace-tile-header
+> strong {
+    position:
+        absolute
+        !important;
+
+    left:
+        50%
+        !important;
+
+    transform:
+        translateX(
+            -50%
+        )
+        !important;
+
+    margin:
+        0
+        !important;
+}
+
+
+.robot-camera-tile-state {
+    position:
+        absolute
+        !important;
+
+    right:
+        10px
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translateY(
+            -50%
+        )
+        !important;
+
+    margin:
+        0
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   KEEP THE ONE STANDARD LEFT DOT ALIGNED
+   --------------------------------------------------------- */
+
+#view-live .camera-feed-label::before,
+#view-live
+.workspace-tile.mujoco-panel
+> .panel-header::before,
+#view-live
+.workspace-tile-header::before {
+    position:
+        absolute
+        !important;
+
+    left:
+        10px
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translateY(
+            -50%
+        )
+        !important;
+}
+
+
+/* =========================================================
+   D11D FULL WINDOW CONSISTENCY
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   REMOVE ROBOT CAMERA OFF LABEL
+   --------------------------------------------------------- */
+
+/*
+ * The other media windows do not have OFF/LIVE text inside
+ * their title bars, so the G1 camera must not have one either.
+ */
+.robot-camera-tile-state {
+    display:
+        none
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   REMOVE ROBOT CAMERA WHITE INNER OUTLINE
+   --------------------------------------------------------- */
+
+#view-live .robot-camera-stage,
+#view-live #robotCameraImage {
+    border:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/*
+ * Prevent any inherited image/frame styling from drawing a
+ * bright line around the robot-camera presentation area.
+ */
+#view-live .robot-camera-stage::before,
+#view-live .robot-camera-stage::after,
+#view-live #robotCameraImage::before,
+#view-live #robotCameraImage::after {
+    border:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   ONE IDENTICAL HEADER FOR EVERY WINDOW
+   --------------------------------------------------------- */
+
+#view-live .camera-feed-label,
+#view-live
+.workspace-tile.mujoco-panel
+> .panel-header,
+#view-live
+.workspace-tile
+> .workspace-tile-header {
+    position:
+        relative
+        !important;
+
+    height:
+        30px
+        !important;
+
+    min-height:
+        30px
+        !important;
+
+    max-height:
+        30px
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    padding:
+        0 10px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    text-align:
+        center
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   EXACT SAME TITLE SIZE / WEIGHT / SPACING
+   --------------------------------------------------------- */
+
+/*
+ * Use the robot-camera title appearance as the authoritative
+ * typography for ALL media windows.
+ */
+#view-live .camera-feed-label strong,
+#view-live
+.workspace-tile.mujoco-panel
+> .panel-header strong,
+#view-live
+.workspace-tile
+> .workspace-tile-header
+> strong {
+    position:
+        absolute
+        !important;
+
+    left:
+        50%
+        !important;
+
+    top:
+        50%
+        !important;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    color:
+        #82968a
+        !important;
+
+    font-size:
+        11px
+        !important;
+
+    font-weight:
+        800
+        !important;
+
+    line-height:
+        1
+        !important;
+
+    letter-spacing:
+        0.055em
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    white-space:
+        nowrap
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   ONE IDENTICAL STATUS DOT
+   --------------------------------------------------------- */
+
+#view-live .camera-feed-label::before,
+#view-live
+.workspace-tile.mujoco-panel
+> .panel-header::before,
+#view-live
+.workspace-tile
+> .workspace-tile-header::before {
+    position:
+        absolute
+        !important;
+
+    left:
+        10px
+        !important;
+
+    top:
+        50%
+        !important;
+
+    width:
+        5px
+        !important;
+
+    height:
+        5px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    transform:
+        translateY(
+            -50%
+        )
+        !important;
+
+    border-radius:
+        999px
+        !important;
+}
+
+
+/*
+ * The explicit D11B robot-camera dot stays suppressed because
+ * the normal workspace header already provides the single dot.
+ */
+.robot-camera-header-dot {
+    display:
+        none
+        !important;
+}
+
+
+/* =========================================================
+   D11E UNIFIED INNER TEXT + ROBOT CAMERA FRAME FIX
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   EXACT SAME IDLE PLACEHOLDER LAYOUT IN EVERY WINDOW
+   --------------------------------------------------------- */
+
+#view-live .unified-preview-placeholder {
+    display:
+        flex
+        !important;
+
+    position:
+        absolute
+        !important;
+
+    inset:
+        0
+        !important;
+
+    width:
+        100%
+        !important;
+
+    height:
+        100%
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        center
+        !important;
+
+    flex-direction:
+        column
+        !important;
+
+    gap:
+        8px
+        !important;
+
+    padding:
+        20px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    border:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   EXACT SAME MAIN TEXT
+   --------------------------------------------------------- */
+
+#view-live .unified-preview-title {
+    display:
+        block
+        !important;
+
+    position:
+        static
+        !important;
+
+    transform:
+        none
+        !important;
+
+    width:
+        auto
+        !important;
+
+    height:
+        auto
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    color:
+        #73857a
+        !important;
+
+    font-family:
+        inherit
+        !important;
+
+    font-size:
+        11px
+        !important;
+
+    font-style:
+        normal
+        !important;
+
+    font-weight:
+        700
+        !important;
+
+    line-height:
+        1.2
+        !important;
+
+    letter-spacing:
+        0
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    text-transform:
+        none
+        !important;
+
+    white-space:
+        nowrap
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   EXACT SAME DESCRIPTION TEXT
+   --------------------------------------------------------- */
+
+#view-live .unified-preview-subtitle {
+    display:
+        block
+        !important;
+
+    position:
+        static
+        !important;
+
+    transform:
+        none
+        !important;
+
+    width:
+        auto
+        !important;
+
+    height:
+        auto
+        !important;
+
+    max-width:
+        380px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    color:
+        #506058
+        !important;
+
+    font-family:
+        inherit
+        !important;
+
+    font-size:
+        10px
+        !important;
+
+    font-style:
+        normal
+        !important;
+
+    font-weight:
+        500
+        !important;
+
+    line-height:
+        1.35
+        !important;
+
+    letter-spacing:
+        0
+        !important;
+
+    text-align:
+        center
+        !important;
+
+    text-transform:
+        none
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   ROBOT CAMERA — REMOVE THE BRIGHT FRAME COMPLETELY
+   --------------------------------------------------------- */
+
+/*
+ * The white lines are coming from inherited presentation
+ * styling on the camera-stage layer, not from the tile header.
+ *
+ * Reset every possible border channel explicitly.
+ */
+#view-live
+.robot-camera-panel
+.robot-camera-stage.robot-camera-stage-clean {
+    border:
+        none
+        !important;
+
+    border-width:
+        0
+        !important;
+
+    border-style:
+        none
+        !important;
+
+    border-color:
+        transparent
+        !important;
+
+    border-top:
+        0
+        !important;
+
+    border-right:
+        0
+        !important;
+
+    border-bottom:
+        0
+        !important;
+
+    border-left:
+        0
+        !important;
+
+    outline:
+        none
+        !important;
+
+    outline-width:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    filter:
+        none
+        !important;
+
+    margin:
+        0
+        !important;
+
+    padding:
+        0
+        !important;
+
+    background:
+        #050906
+        !important;
+
+    background-image:
+        none
+        !important;
+
+    overflow:
+        hidden
+        !important;
+}
+
+
+/*
+ * Kill inherited pseudo-element frames too.
+ */
+#view-live
+.robot-camera-panel
+.robot-camera-stage.robot-camera-stage-clean::before,
+#view-live
+.robot-camera-panel
+.robot-camera-stage.robot-camera-stage-clean::after {
+    content:
+        none
+        !important;
+
+    display:
+        none
+        !important;
+
+    border:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/*
+ * A camera with no active stream must not leave a browser
+ * image box or broken-image edge behind.
+ */
+#view-live #robotCameraImage[hidden],
+#view-live #robotCameraImage:not([src]),
+#view-live #robotCameraImage[src=""] {
+    display:
+        none
+        !important;
+
+    visibility:
+        hidden
+        !important;
+
+    width:
+        0
+        !important;
+
+    height:
+        0
+        !important;
+
+    border:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/*
+ * When live, the actual JPEG image itself also has no frame.
+ */
+#view-live #robotCameraImage[src]:not([src=""]) {
+    border:
+        0
+        !important;
+
+    outline:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/*
+ * The tile body itself must use the same dark border treatment
+ * as every other workspace tile. No bright inner edge.
+ */
+#view-live
+.workspace-tile.robot-camera-panel {
+    outline:
+        0
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/*
+ * Preserve only the normal outer dashboard card border.
+ */
+#view-live
+.workspace-tile.robot-camera-panel
+> .robot-camera-stage {
+    border-radius:
+        0
+        !important;
+}
+
+
+/* =========================================================
+   D11F HIDDEN PLACEHOLDER FIX
+   ========================================================= */
+
+/*
+ * D11E unified placeholder styling uses display:flex !important.
+ * Explicitly restore HTML hidden semantics with higher/later
+ * authority.
+ */
+#view-live .unified-preview-placeholder[hidden],
+#view-live .robot-camera-placeholder[hidden] {
+    display:
+        none
+        !important;
+
+    visibility:
+        hidden
+        !important;
+}
+
+
+/* =========================================================
+   D12E ROBOT MODES SIDEBAR
+   ========================================================= */
+
+
+/*
+ * Robot-mode controls add vertical content to the left rail.
+ * Keep the rail usable on shorter screens.
+ */
+.sidebar {
+    overflow-y:
+        auto
+        !important;
+
+    overflow-x:
+        hidden
+        !important;
+}
+
+
+.robot-modes-card {
+    margin-top:
+        9px
+        !important;
+
+    padding:
+        10px
+        !important;
+}
+
+
+.robot-modes-card[hidden] {
+    display:
+        none
+        !important;
+}
+
+
+.robot-modes-header {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        8px;
+
+    margin-bottom:
+        8px;
+}
+
+
+.robot-modes-header > strong {
+    color:
+        #879a8e;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.045em;
+
+    text-transform:
+        uppercase;
+}
+
+
+.robot-mode-refresh {
+    height:
+        23px;
+
+    padding:
+        0 7px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
+
+    border-radius:
+        5px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.018
+        );
+
+    color:
+        #708179;
+
+    font:
+        inherit;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+}
+
+
+.robot-mode-status {
+    min-height:
+        25px;
+
+    box-sizing:
+        border-box;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        7px;
+
+    margin-bottom:
+        5px;
+
+    padding:
+        0 7px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.045
+        );
+
+    border-radius:
+        5px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.014
+        );
+}
+
+
+.robot-mode-status span {
+    color:
+        #5f6f66;
+
+    font-size:
+        9px;
+
+    font-weight:
+        650;
+}
+
+
+.robot-mode-status strong {
+    min-width:
+        0;
+
+    overflow:
+        hidden;
+
+    color:
+        #91a69a;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    text-align:
+        right;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+}
+
+
+.robot-mode-ownership {
+    margin:
+        0 1px
+        8px;
+
+    color:
+        #5d6d64;
+
+    font-size:
+        8px;
+
+    font-weight:
+        650;
+
+    line-height:
+        1.3;
+}
+
+
+.robot-mode-ownership.locked {
+    color:
+        #c98474;
+}
+
+
+.robot-mode-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        5px;
+}
+
+
+.robot-mode-group-label {
+    grid-column:
+        1 / -1;
+
+    margin-top:
+        3px;
+
+    color:
+        #506058;
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.07em;
+
+    text-transform:
+        uppercase;
+}
+
+
+.robot-mode-button {
+    min-width:
+        0;
+
+    height:
+        27px;
+
+    padding:
+        0 5px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    border-radius:
+        5px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.018
+        );
+
+    color:
+        #75877d;
+
+    font:
+        inherit;
+
+    font-size:
+        8.5px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1;
+
+    cursor:
+        pointer;
+
+    white-space:
+        nowrap;
+}
+
+
+.robot-mode-button:hover:not(
+    :disabled
+) {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.20
+        );
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.055
+        );
+
+    color:
+        #a5e49d;
+}
+
+
+.robot-mode-button.danger {
+    border-color:
+        rgba(
+            215,
+            125,
+            108,
+            0.19
+        );
+
+    color:
+        #c98474;
+}
+
+
+.robot-mode-button.danger:hover:not(
+    :disabled
+) {
+    border-color:
+        rgba(
+            215,
+            125,
+            108,
+            0.38
+        );
+
+    background:
+        rgba(
+            215,
+            125,
+            108,
+            0.065
+        );
+
+    color:
+        #e08a79;
+}
+
+
+.robot-mode-button:disabled,
+.robot-mode-refresh:disabled {
+    cursor:
+        not-allowed;
+
+    opacity:
+        0.35;
+}
+
+
+/*
+ * Keep sidebar footer reachable after adding Robot Modes.
+ */
+.sidebar-footer {
+    flex:
+        0 0 auto;
+}
+
+
+/*
+ * Small desktop refinement.
+ */
+@media (
+    max-height: 850px
+) {
+    .robot-mode-button {
+        height:
+            24px;
+    }
+
+
+    .robot-modes-card {
+        padding:
+            8px
+            !important;
+    }
+
+
+    .robot-mode-grid {
+        gap:
+            4px;
+    }
+}
+
+
+/* =========================================================
+   D12F WIDER SIDEBAR
+   ========================================================= */
+
+:root {
+    --bacalbasa-sidebar-width:
+        235px;
+}
+
+
+/*
+ * Make the actual sidebar wider.
+ *
+ * flex-basis handles flex layouts.
+ * width/min/max handles fixed/normal layouts.
+ */
+.sidebar {
+    width:
+        var(
+            --bacalbasa-sidebar-width
+        )
+        !important;
+
+    min-width:
+        var(
+            --bacalbasa-sidebar-width
+        )
+        !important;
+
+    max-width:
+        var(
+            --bacalbasa-sidebar-width
+        )
+        !important;
+
+    flex:
+        0 0
+        var(
+            --bacalbasa-sidebar-width
+        )
+        !important;
+}
+
+
+/*
+ * If the dashboard shell uses CSS Grid, update its first
+ * column automatically without depending on the shell's
+ * historical class name.
+ */
+*:has(
+    > .sidebar
+):has(
+    > .main
+) {
+    grid-template-columns:
+        var(
+            --bacalbasa-sidebar-width
+        )
+        minmax(
+            0,
+            1fr
+        )
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   SIDEBAR CARDS
+   --------------------------------------------------------- */
+
+.sidebar
+.design-side-card,
+.sidebar
+.robot-modes-card {
+    width:
+        100%
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/*
+ * Give the system target select the full useful width.
+ */
+.sidebar
+.system-target-field,
+.sidebar
+#systemTargetSelect {
+    width:
+        100%
+        !important;
+
+    max-width:
+        none
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   ROBOT MODES
+   --------------------------------------------------------- */
+
+.robot-mode-grid {
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        )
+        !important;
+
+    column-gap:
+        6px
+        !important;
+}
+
+
+.robot-mode-button {
+    width:
+        100%
+        !important;
+
+    min-width:
+        0
+        !important;
+
+    padding-left:
+        7px
+        !important;
+
+    padding-right:
+        7px
+        !important;
+
+    overflow:
+        hidden
+        !important;
+
+    text-overflow:
+        ellipsis
+        !important;
+}
+
+
+/*
+ * Current mode should now have enough room to show its value.
+ */
+.robot-mode-status {
+    gap:
+        10px
+        !important;
+}
+
+
+.robot-mode-status strong {
+    flex:
+        1 1 auto
+        !important;
+
+    max-width:
+        none
+        !important;
+}
+
+
+/*
+ * Ownership/status text can wrap naturally instead of being
+ * squeezed into the old narrow rail.
+ */
+.robot-mode-ownership {
+    white-space:
+        normal
+        !important;
+
+    overflow-wrap:
+        anywhere
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   SMALLER DISPLAYS
+   --------------------------------------------------------- */
+
+@media (
+    max-width: 1100px
+) {
+    :root {
+        --bacalbasa-sidebar-width:
+            220px;
+    }
+}
+
+
+/* =========================================================
+   D12H-R1B FLAT ROBOT MODES UI
+   ========================================================= */
+
+.robot-mode-ownership {
+    display:
+        none
+        !important;
+}
+
+
+.robot-mode-grid {
+    margin-top:
+        6px
+        !important;
+}
+
+
+.robot-mode-group-label {
+    grid-column:
+        1 / -1;
+
+    margin:
+        2px 0 1px
+        !important;
+}
+
+
+/*
+ * Give the actual current G1 state visual priority.
+ */
+.robot-mode-status strong {
+    color:
+        #a5e49d
+        !important;
+
+    font-size:
+        9.5px
+        !important;
+
+    font-weight:
+        800
+        !important;
+}
+
+
+/* =========================================================
+   D12I TWO-COLOR ACCENT POLICY
+   ========================================================= */
+
+
+/*
+ * Zero Torque no longer receives a separate danger color.
+ * It uses precisely the same presentation as every other
+ * Robot Modes button.
+ */
+.robot-mode-button.danger {
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        )
+        !important;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.018
+        )
+        !important;
+
+    color:
+        #75877d
+        !important;
+}
+
+
+.robot-mode-button.danger:hover:not(
+    :disabled
+) {
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.20
+        )
+        !important;
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.055
+        )
+        !important;
+
+    color:
+        #a5e49d
+        !important;
+}
+
+
+/*
+ * Stop System reuses the exact runtime color already used by
+ * WAITING. No new accent color is defined here.
+ */
+button.bacalbasa-waiting-stop {
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    border-color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+}
+
+
+button.bacalbasa-waiting-stop:disabled {
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    border-color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+}
+
+
+/* =========================================================
+   D12K SEGMENTED DEPLOY / STOP CONTROL
+   ========================================================= */
+
+.bacalbasa-system-switch {
+    display:
+        inline-flex
+        !important;
+
+    align-items:
+        stretch
+        !important;
+
+    gap:
+        4px
+        !important;
+
+    padding:
+        4px
+        !important;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.045
+        )
+        !important;
+
+    border-radius:
+        10px
+        !important;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        )
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+}
+
+
+.bacalbasa-system-segment {
+    height:
+        34px
+        !important;
+
+    margin:
+        0
+        !important;
+
+    border-radius:
+        7px
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    transition:
+        opacity 120ms ease,
+        background 120ms ease
+        !important;
+}
+
+
+/*
+ * Keep Deploy / Start / Robot Live using the dashboard green.
+ */
+.bacalbasa-system-segment-primary {
+    min-width:
+        136px
+        !important;
+}
+
+
+/*
+ * Stop System uses ONLY the existing WAITING accent captured
+ * by D12I. No third accent color.
+ */
+.bacalbasa-system-segment-stop {
+    min-width:
+        92px
+        !important;
+
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    border-color:
+        transparent
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+.bacalbasa-system-segment-stop:hover:not(
+    :disabled
+) {
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    border-color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+.bacalbasa-system-segment-stop:disabled {
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    border-color:
+        transparent
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+/* =========================================================
+   D12M CONNECTION GATE
+   ========================================================= */
+
+.robot-connection-toggle {
+    width:
+        100%;
+
+    min-height:
+        27px;
+
+    margin:
+        5px 0 8px;
+
+    border:
+        1px solid
+        rgba(
+            165,
+            228,
+            157,
+            0.22
+        );
+
+    border-radius:
+        6px;
+
+    background:
+        rgba(
+            165,
+            228,
+            157,
+            0.045
+        );
+
+    color:
+        #a5e49d;
+
+    font:
+        inherit;
+
+    font-size:
+        9px;
+
+    font-weight:
+        750;
+
+    cursor:
+        pointer;
+}
+
+
+/*
+ * "Disconnect" uses the existing WAITING amber.
+ */
+.robot-connection-toggle[
+    data-state="connected"
+] {
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    border-color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+/*
+ * "Connect" remains green.
+ */
+.robot-connection-toggle[
+    data-state="disconnected"
+] {
+    color:
+        #a5e49d
+        !important;
+}
+
+
+.robot-connection-toggle:disabled {
+    opacity:
+        0.4;
+
+    cursor:
+        not-allowed;
+}
+
+
+.dashboard-disconnected {
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+}
+
+
+/* =========================================================
+   D12N STATUS + CONNECTION PRESENTATION
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   STATUS HEADING
+   --------------------------------------------------------- */
+
+.d12n-status-heading {
+    display:
+        block
+        !important;
+
+    width:
+        100%
+        !important;
+
+    margin:
+        9px 0 5px
+        !important;
+
+    padding:
+        0
+        !important;
+
+    color:
+        #75877d
+        !important;
+
+    font-size:
+        9px
+        !important;
+
+    font-weight:
+        800
+        !important;
+
+    letter-spacing:
+        0.055em
+        !important;
+
+    line-height:
+        1
+        !important;
+
+    text-transform:
+        uppercase
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   CLEAN CONNECTION BAR
+   --------------------------------------------------------- */
+
+/*
+ * Hide all legacy contents:
+ *
+ *   CONNECTED G1 · 192.168...
+ *
+ * and render our own short status.
+ */
+.d12n-connection-row {
+    min-height:
+        31px
+        !important;
+
+    box-sizing:
+        border-box
+        !important;
+
+    display:
+        flex
+        !important;
+
+    align-items:
+        center
+        !important;
+
+    justify-content:
+        flex-start
+        !important;
+
+    gap:
+        7px
+        !important;
+
+    padding:
+        0 10px
+        !important;
+
+    font-size:
+        0
+        !important;
+}
+
+
+.d12n-connection-row
+> * {
+    display:
+        none
+        !important;
+}
+
+
+/*
+ * Recreate the one status dot ourselves so no legacy green
+ * dot survives while disconnected.
+ */
+.d12n-connection-row::before {
+    content:
+        "";
+
+    display:
+        block;
+
+    width:
+        5px;
+
+    height:
+        5px;
+
+    flex:
+        0 0 auto;
+
+    border-radius:
+        999px;
+}
+
+
+.d12n-connection-row::after {
+    content:
+        attr(
+            data-connection-label
+        );
+
+    display:
+        block;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.035em;
+
+    line-height:
+        1;
+
+    white-space:
+        nowrap;
+}
+
+
+/* Connected = green */
+.d12n-connection-row.d12n-connected {
+    color:
+        #a5e49d
+        !important;
+
+    border-color:
+        rgba(
+            165,
+            228,
+            157,
+            0.22
+        )
+        !important;
+}
+
+
+.d12n-connection-row.d12n-connected::before {
+    background:
+        #a5e49d
+        !important;
+
+    box-shadow:
+        0 0 6px
+        rgba(
+            165,
+            228,
+            157,
+            0.35
+        );
+}
+
+
+/* Disconnected = the EXISTING WAITING amber */
+.d12n-connection-row.d12n-disconnected {
+    color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    border-color:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+.d12n-connection-row.d12n-disconnected::before {
+    background:
+        var(
+            --bacalbasa-stop-accent
+        )
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   FOUR-TILE WORKSPACE
+   --------------------------------------------------------- */
+
+/*
+ * With Show Both enabled and Physical Robot selected, keep
+ * the requested permanent two-column arrangement.
+ */
+#mediaWorkspace {
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        )
+        !important;
+}
+
+
+/* =========================================================
+   D12O CONNECTION PRESENTATION
+   ========================================================= */
+
+
+/*
+ * Exact two-color policy:
+ *
+ * CONNECTED    = existing dashboard green
+ * DISCONNECTED = exact computed WAITING amber
+ */
+
+
+/* ---------------------------------------------------------
+   DISCONNECTED BAR
+   --------------------------------------------------------- */
+
+.d12n-connection-row.d12n-disconnected {
+    color:
+        var(
+            --bacalbasa-runtime-amber,
+            var(
+                --bacalbasa-stop-accent
+            )
+        )
+        !important;
+
+    border:
+        1px solid
+        var(
+            --bacalbasa-runtime-amber,
+            var(
+                --bacalbasa-stop-accent
+            )
+        )
+        !important;
+
+    outline:
+        none
+        !important;
+
+    box-shadow:
+        none
+        !important;
+
+    background:
+        transparent
+        !important;
+}
+
+
+.d12n-connection-row.d12n-disconnected::before {
+    content:
+        ""
+        !important;
+
+    display:
+        block
+        !important;
+
+    width:
+        5px
+        !important;
+
+    height:
+        5px
+        !important;
+
+    flex:
+        0 0 5px
+        !important;
+
+    border-radius:
+        999px
+        !important;
+
+    background:
+        var(
+            --bacalbasa-runtime-amber,
+            var(
+                --bacalbasa-stop-accent
+            )
+        )
+        !important;
+
+    box-shadow:
+        none
+        !important;
+}
+
+
+.d12n-connection-row.d12n-disconnected::after {
+    color:
+        var(
+            --bacalbasa-runtime-amber,
+            var(
+                --bacalbasa-stop-accent
+            )
+        )
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   CONNECTED BAR
+   --------------------------------------------------------- */
+
+.d12n-connection-row.d12n-connected {
+    border:
+        1px solid
+        rgba(
+            165,
+            228,
+            157,
+            0.22
+        )
+        !important;
+
+    color:
+        #a5e49d
+        !important;
+}
+
+
+.d12n-connection-row.d12n-connected::before {
+    background:
+        #a5e49d
+        !important;
+}
+
+
+/* ---------------------------------------------------------
+   SIMULATION HAS NO ROBOT CONNECTION BUTTON
+   --------------------------------------------------------- */
+
+#robotConnectionToggle[hidden] {
+    display:
+        none
+        !important;
+}
