@@ -1,143 +1,213 @@
 # Camera Pose Teleop
 
-Camera-based whole-body human pose estimation and teleoperation pipeline.
+> **V3 development status**
+>
+> The `v3` branch is an experimental wrist/hand extension of the working V2
+> body teleoperation pipeline. It is **not currently considered production-ready
+> or fully working**.
+>
+> The latest combined MuJoCo validation shows that the previous persistent
+> wrist-lock behavior has been improved, but important control-quality issues
+> remain. Body and wrist motion can become visibly segmented, and wrist-only
+> movement can produce abrupt compensating motion in the robot arm.
+>
+> These issues must be resolved before V3 is considered validated and before
+> combined V3 wrist control is tested on the physical Unitree G1.
 
-Current pipeline:
+Camera-based whole-body human pose estimation and teleoperation for the
+Unitree G1.
 
-Camera
--> YOLOX + ByteTrack
--> ViTPose-H
--> HMR2 visual features
--> GVHMR
--> Pair FASTIK
--> SONIC Protocol V3
--> MuJoCo / Unitree G1
+## V3 Pipeline
 
-V2 adds automatic camera selection, dynamic capture profiles, full-body startup
-framing checks, and session-based neutral-pose gravity alignment.
+V3 preserves the V2 body pipeline and adds a hand/wrist side branch.
 
-V2 has been validated end-to-end in MuJoCo.
-V2 has also been validated end-to-end on a physical Unitree G1.
+```text
+    RGB CAMERA
+        |
+        v
+    latest-frame FFmpeg/V4L2
+        |
+        v
+    YOLOX + ByteTrack
+        |
+        v
+    selected operator
+        |
+        v
+    ViTPose-H COCO17
+        |
+        +-----------------------------+
+        |                             |
+        v                             v
+    body branch                  elbow/wrist geometry
+        |                             |
+        v                             v
+    HMR2                         body-guided hand crops
+        |                             |
+        v                             v
+    causal GVHMR                 WiLoR FAST
+        |                        two-hand batch
+        v                             |
+    Pair FASTIK                       v
+        |                        raw 3D hand joints
+        |                             |
+        |                        rigid palm H
+        |                             |
+        +---------- body F -----------+
+                   |
+                   v
+             forearm-relative
+       canonical wrist orientation
+                   |
+                   v
+        per hand trust/authority
+                   |
+                   v
+              G1 mapping
+             limits + slew
+                   |
+                   v
+         Body + 6 Wrist Joints
+                   |
+                   v
+              SONIC / ZMQ
+                   |
+                   v
+              MuJoCo / physical G1
+
+```
+
+The wrist branch reuses the already selected V2 operator and body pose. It
+does not run a second independent person-selection pipeline.
+
+The final V3 target is simultaneous body + wrist teleoperation while
+preserving the latency, stability, and safety behavior of the V2 body path.
+
+## V2 Baseline
+
+V3 is built on top of the validated V2 Camera Pose Teleop body pipeline.
+
+V2 includes:
+
+- automatic camera selection;
+- dynamic capture-profile selection;
+- startup full-body framing checks;
+- neutral-pose session alignment;
+- runtime camera/gravity alignment;
+- the protected fixed-camera V1 fallback path;
+- latest-frame-only perception scheduling;
+- SONIC Protocol V3 publication;
+- MuJoCo simulation;
+- physical Unitree G1 teleoperation.
+
+The V2 body pipeline is the reference baseline and should remain behaviorally
+unchanged while V3 wrist control is developed.
 
 ## Calibration
 
-Two alignment paths are kept separate:
+Two alignment paths are kept separate.
 
-- `session_v2`
-  Current V2 path. A short neutral pose at startup determines the gravity
-  alignment for the current camera position and orientation.
+### `session_v2`
 
-- `fixed_v1`
-  Protected legacy fixed-camera calibration used by the original working system.
+The default V2/V3 path.
 
-If the camera is moved after V2 alignment is complete, restart the pipeline
-and perform the neutral alignment again.
+A short neutral pose at startup determines the gravity alignment for the
+current camera position and orientation.
 
-Do not overwrite or remove the fixed V1 calibration/reference artifacts.
+If the camera is moved after alignment is complete, restart the pipeline and
+perform the neutral startup alignment again.
 
-## Startup
+### `fixed_v1`
 
-### Terminal 1 - MuJoCo
+Protected legacy fixed-camera calibration used by the original working system.
 
-~~~bash
-cd "$HOME/GR00T-WholeBodyControl"
-source .venv_sim/bin/activate
+The fixed V1 calibration/reference artifacts should not be overwritten by
+session-generated calibration.
 
-python gear_sonic/scripts/run_sim_loop.py \
-  --interface lo
-~~~
+## V3 Wrist Control
 
-### Terminal 2 - SONIC
+The V3 extension currently contains:
 
-~~~bash
-source "$HOME/sonic_deploy_env.sh"
+- body-guided WiLoR hand estimation;
+- canonical left/right hand observations;
+- per-hand trust states and loss/reacquisition handling;
+- calibrated forearm-relative 3-DOF wrist orientation;
+- stateful Unitree G1 wrist mapping with physical joint limits;
+- command slew and authority handling;
+- integration of six wrist joints into the existing SONIC motion stream.
 
-cd "$HOME/GR00T-WholeBodyControl/gear_sonic_deploy"
-source scripts/setup_env.sh
+The current implementation should be treated as development software.
+MuJoCo testing is still being used to resolve motion smoothness and
+whole-arm coupling before physical V3 wrist validation.
 
-bash deploy.sh \
-  --cp policy/low_latency/model \
-  --obs-config policy/low_latency/observation_config.yaml \
-  --input-type zmq \
-  --zmq-host localhost \
-  sim
-~~~
+## Repository Layout
 
-### Terminal 3 - Camera Pose Teleop V2
+The repository root is the Camera Pose Teleop project root.
 
-~~~bash
-cd /path/to/camera_pose_teleop
-source "$HOME/GVHMR/.venv/bin/activate"
+```text
+alignment/      Camera/session alignment
+calibration/    Calibration and protected reference artifacts
+camera/         Camera discovery and preview tools
+configs/        Configuration templates
+docs/           Project documentation
+patches/        Required source patches
+perception/     Body perception runtime
+retargeting/    Body retargeting
+scripts/        Launch scripts
+simulation/     Simulation helpers
+sonic/          SONIC bridge and runtime
+tests/          Deterministic V3 tests
+third_party/    Third-party integration files
+v3_fusion/      V3 hand/wrist fusion and wrist-control runtime
+```
 
-export CAMERA_ALIGNMENT_MODE=session_v2
-unset CAMERA_PROFILE_OVERRIDE
+Local environments, generated model artifacts, runtime logs, caches,
+machine-specific configuration, and development diagnostics are intentionally
+excluded from Git.
 
-./scripts/run_pose.sh dual
-~~~
+## Running V3
 
-Stand in a neutral pose with the full body visible while startup framing and
-session alignment complete.
+The V3 runtime is launched from the repository root with:
 
-### Optional - Raw camera view
-
-~~~bash
-cd /path/to/camera_pose_teleop
-source "$HOME/GVHMR/.venv/bin/activate"
-
-python camera/previews/view_dual_raw.py
-~~~
-
-### Optional - Keypoint view
-
-~~~bash
-cd /path/to/camera_pose_teleop
-source "$HOME/GVHMR/.venv/bin/activate"
-
-python camera/previews/view_dual_keypoints.py
-~~~
-
-To choose a different camera on the next launch:
-
-~~~bash
-CAMERA_RESELECT=1 \
-./scripts/run_pose.sh dual
-~~~
-
-## Legacy V1
-
-To use the protected fixed-camera path:
-
-~~~bash
-export CAMERA_ALIGNMENT_MODE=fixed_v1
-./scripts/run_pose.sh dual
-~~~
-
-
-## V3 wrist control
-
-The `v3` branch extends the validated V2 body pipeline with camera-derived
-wrist orientation and control.
-
-The V3 wrist path adds:
-
-- WiLoR hand estimation
-- forearm-relative wrist orientation
-- per-hand observation/trust handling
-- bounded Unitree G1 wrist mapping
-- wrist command slew and safety handling
-- integration with the existing SONIC whole-body reference
-
-The V2 body pipeline remains the baseline architecture.
-
-V3 wrist control has been validated in software and MuJoCo. Combined physical
-Unitree G1 validation of the V3 wrist path has not yet been completed.
-
-Launch the V3 runtime from the repository root with:
-
-~~~bash
+```bash
 ./scripts/run_pose_v3.sh normal
-~~~
+```
 
-Machine-specific paths, environments, downloaded model weights, generated
-TensorRT artifacts, caches, logs, and runtime state are intentionally excluded
-from Git.
+The runtime depends on the same external V2 components and model stack used by
+the body pipeline, plus the V3 hand/wrist dependencies.
+
+A reproducible setup system for the PC, robot-side runtime, and Jetson
+environment is being developed separately from generated runtime state.
+
+## Current Validation Boundary
+
+### V2
+
+Validated:
+
+- software/runtime regression;
+- live camera alignment;
+- MuJoCo end-to-end operation;
+- physical Unitree G1 teleoperation.
+
+### V3
+
+Validated so far:
+
+- wrist-orientation geometry;
+- live WiLoR hand processing;
+- hand trust and reacquisition logic;
+- G1 wrist mapping;
+- anti-windup recovery behavior;
+- software integration with the V2 body path;
+- combined MuJoCo execution.
+
+Still unresolved:
+
+- visibly segmented body/wrist motion under the current combined load;
+- abrupt whole-arm response during some wrist-only movements;
+- final smooth wrist-command delivery;
+- combined physical Unitree G1 validation.
+
+V3 should therefore be considered **experimental until these issues are
+resolved and the combined physical validation stage is completed**.
