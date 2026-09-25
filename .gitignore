@@ -194,3 +194,20 @@ core.*
 .deps/
 .artifacts/
 .runtime/
+
+# V3 local development state
+# Source/audit scripts are intentionally NOT hidden here:
+# non-product scripts should be absent from the release tree.
+.v3_python_deps/
+.venv_*/
+hf_cache/
+setup_logs/
+viewer_output/
+backups/
+
+# Additional historical/editor backup forms
+*.backup_*
+*.pre_*
+*.pre-*
+*.save
+*.old

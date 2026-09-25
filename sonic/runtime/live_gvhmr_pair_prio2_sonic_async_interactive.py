@@ -6,6 +6,7 @@ import argparse
 from collections import deque
 import hashlib
 import importlib.util
+import math
 import os
 from pathlib import Path
 import sys
@@ -189,6 +190,66 @@ def parse_wrapper_args():
         default="R_gravity_from_left",
     )
 
+    # Q5_24_V3_WRIST_ARGS_V1
+    ap.add_argument(
+        "--v3-wrists",
+        action="store_true",
+        help=(
+            "Enable V3 WiLoR/Q4/trust/Q5 wrist output."
+        ),
+    )
+
+    ap.add_argument(
+        "--v3-wrist-calibrate-startup",
+        action="store_true",
+        help=(
+            "Explicitly request one neutral wrist calibration "
+            "after successful session_v2 body alignment."
+        ),
+    )
+
+    ap.add_argument(
+        "--v3-wrist-speed-deg-s",
+        type=float,
+        default=90.0,
+        help=(
+            "Conservative teleoperation wrist slew cap. "
+            "This is NOT the URDF hard velocity limit."
+        ),
+    )
+
+    ap.add_argument(
+        "--v3-wrist-max-dt-s",
+        type=float,
+        default=0.20,
+    )
+
+    ap.add_argument(
+        "--v3-q4-pair-max-s",
+        type=float,
+        default=0.20,
+    )
+
+    # Q5_26F_V3_PREVIEW_V1
+    ap.add_argument(
+        "--v3-preview",
+        action="store_true",
+        help=(
+            "Enable asynchronous latest-only raw camera preview "
+            "fanout without reopening the V4L2 device."
+        ),
+    )
+
+    ap.add_argument(
+        "--v3-preview-port",
+        type=int,
+        default=5602,
+        help=(
+            "Local ZMQ raw preview port. "
+            "Default: 5602."
+        ),
+    )
+
     ap.add_argument(
         "--self-check",
         action="store_true",
@@ -205,6 +266,61 @@ def main():
     args, base_args = (
         parse_wrapper_args()
     )
+
+    # Q5_24_V3_ARG_VALIDATION_V1
+    if (
+        args.v3_wrist_calibrate_startup
+        and not args.v3_wrists
+    ):
+        raise RuntimeError(
+            "--v3-wrist-calibrate-startup requires --v3-wrists"
+        )
+
+    # Q5_26F_PREVIEW_ARG_VALIDATION_V1
+    if (
+        args.v3_preview
+        and not args.v3_wrists
+    ):
+        raise RuntimeError(
+            "--v3-preview currently requires --v3-wrists "
+            "because it reuses the V3 hand-frame fanout."
+        )
+
+    if (
+        args.v3_wrist_calibrate_startup
+        and
+        args.alignment_mode
+        != "session_v2"
+    ):
+        raise RuntimeError(
+            "Startup V3 wrist calibration currently requires "
+            "--alignment-mode session_v2 so neutral is explicit."
+        )
+
+    if (
+        args.v3_wrist_speed_deg_s
+        <= 0.0
+    ):
+        raise RuntimeError(
+            "--v3-wrist-speed-deg-s must be > 0"
+        )
+
+    if (
+        args.v3_wrist_max_dt_s
+        <= 0.0
+    ):
+        raise RuntimeError(
+            "--v3-wrist-max-dt-s must be > 0"
+        )
+
+    if (
+        args.v3_q4_pair_max_s
+        <= 0.0
+    ):
+        raise RuntimeError(
+            "--v3-q4-pair-max-s must be > 0"
+        )
+
 
     base_path = Path(
         args.base_runner
@@ -306,6 +422,17 @@ def main():
             app_dir,
         )
 
+    # Q5_24_V3_SANDBOX_PATH_V1
+    v3_sandbox_root = str(
+        PROJECT_ROOT.parent
+    )
+
+    if v3_sandbox_root not in sys.path:
+        sys.path.insert(
+            0,
+            v3_sandbox_root,
+        )
+
     alignment_dir = str(
         PROJECT_ROOT
         / "alignment"
@@ -344,6 +471,20 @@ def main():
     from session_v2_bridge_gate import (
         SessionV2BridgeGate,
     )
+
+    # Q5_24_V3_IMPORTS_V1
+    from v3_fusion.live_wilor_q4_runtime import (
+        LiveWilorQ4Runtime,
+    )
+
+    from v3_fusion.g1_wrist_control_runtime import (
+        G1WristControlRuntime,
+    )
+
+    from v3_fusion.sonic_v3_wrist_integration import (
+        inject_wrists_into_bridge_fields,
+    )
+
 
     print(
         "============================================================"
@@ -547,6 +688,40 @@ def main():
 
         "mailbox_condition": threading.Condition(),
         "pending": None,
+
+        # V3_HAND_MAILBOX_V1
+        #
+        # Independent latest-only raw hand ingress.
+        # WiLoR will consume this in its own worker in the next step.
+        "hand_mailbox_condition": threading.Condition(),
+        "hand_pending": None,
+        "hand_generation": 0,
+        "hand_queued": 0,
+        "hand_superseded": 0,
+
+        # Q5_24_HAND_RUNTIME_STATE_V1
+        "hand_worker_thread": None,
+        "hand_stop": False,
+        "hand_error": None,
+        "hand_runtime": None,
+
+        "wrist_controller": None,
+        "wrist_controller_initialized": False,
+        "wrist_calibration_armed": False,
+
+        # Q5_WRIST_CALIBRATION_POSE_WINDOW_V1
+        "wrist_calibration_pose_waiting": False,
+        "wrist_calibration_pose_deadline": None,
+        "wrist_calibration_try_after": None,
+        "wrist_calibrations": 0,
+
+        # Q5_26F_PREVIEW_RUNTIME_STATE_V1
+        "preview_pending": None,
+        "preview_worker_thread": None,
+        "preview_ready": threading.Event(),
+        "preview_frames": 0,
+        "preview_dropped": 0,
+        "preview_error": None,
         "generation": 0,
         "stop": False,
         "ready": threading.Event(),
@@ -575,6 +750,375 @@ def main():
             == "off"
         ):
             return fast_predict
+
+        # V3_HAND_INGRESS_SINK_V1
+        def v3_offer_hand_frame(
+            packet,
+        ):
+            """Cheap producer-side latest-only hand ingress."""
+
+            cond = runtime[
+                "hand_mailbox_condition"
+            ]
+
+            with cond:
+                if (
+                    runtime[
+                        "hand_pending"
+                    ]
+                    is not None
+                ):
+                    runtime[
+                        "hand_superseded"
+                    ] += 1
+
+                runtime[
+                    "hand_generation"
+                ] += 1
+
+                runtime[
+                    "hand_pending"
+                ] = (
+                    runtime[
+                        "hand_generation"
+                    ],
+                    packet,
+                    time.perf_counter(),
+                )
+
+                # Q5_26F_PREVIEW_LATEST_SLOT_V1
+                if args.v3_preview:
+                    if (
+                        runtime[
+                            "preview_pending"
+                        ]
+                        is not None
+                    ):
+                        runtime[
+                            "preview_dropped"
+                        ] += 1
+
+                    # Reuse the same packet already copied
+                    # for asynchronous WiLoR processing.
+                    runtime[
+                        "preview_pending"
+                    ] = packet
+
+                runtime[
+                    "hand_queued"
+                ] += 1
+
+                cond.notify_all()
+
+        if not hasattr(
+            base,
+            "set_v3_hand_frame_sink",
+        ):
+            raise RuntimeError(
+                "V3 base runner lacks set_v3_hand_frame_sink()"
+            )
+
+        # Q5_24_HAND_WORKER_V1
+        hand_runtime = None
+        wrist_controller = None
+
+        if args.v3_wrists:
+            hand_runtime = (
+                LiveWilorQ4Runtime(
+                    pair_max_s=
+                        args.v3_q4_pair_max_s,
+                )
+            )
+
+            wrist_controller = (
+                G1WristControlRuntime(
+                    teleop_max_speed_rad_s=
+                        math.radians(
+                            args.v3_wrist_speed_deg_s
+                        ),
+                    max_dt_s=
+                        args.v3_wrist_max_dt_s,
+                )
+            )
+
+            runtime[
+                "hand_runtime"
+            ] = hand_runtime
+
+            runtime[
+                "wrist_controller"
+            ] = wrist_controller
+
+            base.set_v3_hand_frame_sink(
+                v3_offer_hand_frame
+            )
+
+            def v3_hand_worker():
+                while True:
+                    cond = runtime[
+                        "hand_mailbox_condition"
+                    ]
+
+                    with cond:
+                        while (
+                            runtime[
+                                "hand_pending"
+                            ]
+                            is None
+                            and not runtime[
+                                "hand_stop"
+                            ]
+                        ):
+                            cond.wait(
+                                timeout=0.2
+                            )
+
+                        if runtime[
+                            "hand_stop"
+                        ]:
+                            return
+
+                        (
+                            generation,
+                            packet,
+                            queued_at,
+                        ) = runtime[
+                            "hand_pending"
+                        ]
+
+                        # Single-slot mailbox:
+                        # while WiLoR is running, producer updates simply
+                        # replace this slot. There can never be a second
+                        # WiLoR inference in flight.
+                        runtime[
+                            "hand_pending"
+                        ] = None
+
+                    try:
+                        hand_runtime.process_hand_packet(
+                            packet
+                        )
+
+                        runtime[
+                            "hand_error"
+                        ] = None
+
+                    except Exception as exc:
+                        runtime[
+                            "hand_error"
+                        ] = repr(
+                            exc
+                        )
+
+                        print(
+                            "V3 WiLoR hand worker error:",
+                            repr(
+                                exc
+                            ),
+                        )
+
+            hand_worker = (
+                threading.Thread(
+                    target=v3_hand_worker,
+                    name="v3-wilor-latest-worker",
+                    daemon=True,
+                )
+            )
+
+            runtime[
+                "hand_worker_thread"
+            ] = hand_worker
+
+            hand_worker.start()
+
+            print(
+                "V3 wrist hand worker: READY"
+            )
+
+            # Q5_26F_PREVIEW_WORKER_V1
+            if args.v3_preview:
+
+                def v3_preview_worker():
+                    import cv2
+                    import zmq
+
+                    endpoint = (
+                        "tcp://127.0.0.1:"
+                        f"{int(args.v3_preview_port)}"
+                    )
+
+                    context = (
+                        zmq.Context.instance()
+                    )
+
+                    socket = context.socket(
+                        zmq.PUB
+                    )
+
+                    socket.setsockopt(
+                        zmq.SNDHWM,
+                        1,
+                    )
+
+                    socket.setsockopt(
+                        zmq.LINGER,
+                        0,
+                    )
+
+                    try:
+                        socket.bind(
+                            endpoint
+                        )
+
+                        runtime[
+                            "preview_error"
+                        ] = None
+
+                        runtime[
+                            "preview_ready"
+                        ].set()
+
+                        print(
+                            "V3 raw preview fanout: READY "
+                            f"{endpoint} topic='raw'"
+                        )
+
+                        while True:
+                            cond = runtime[
+                                "hand_mailbox_condition"
+                            ]
+
+                            with cond:
+                                while (
+                                    runtime[
+                                        "preview_pending"
+                                    ]
+                                    is None
+                                    and not runtime[
+                                        "hand_stop"
+                                    ]
+                                ):
+                                    cond.wait(
+                                        timeout=0.2
+                                    )
+
+                                if runtime[
+                                    "hand_stop"
+                                ]:
+                                    return
+
+                                packet = runtime[
+                                    "preview_pending"
+                                ]
+
+                                runtime[
+                                    "preview_pending"
+                                ] = None
+
+                            frame = packet.get(
+                                "frame_bgr"
+                            )
+
+                            if frame is None:
+                                continue
+
+                            ok, encoded = (
+                                cv2.imencode(
+                                    ".jpg",
+                                    frame,
+                                    [
+                                        cv2.IMWRITE_JPEG_QUALITY,
+                                        80,
+                                    ],
+                                )
+                            )
+
+                            if not ok:
+                                continue
+
+                            try:
+                                socket.send_multipart(
+                                    [
+                                        b"raw",
+                                        encoded.tobytes(),
+                                    ],
+                                    flags=zmq.NOBLOCK,
+                                )
+
+                                runtime[
+                                    "preview_frames"
+                                ] += 1
+
+                            except zmq.Again:
+                                runtime[
+                                    "preview_dropped"
+                                ] += 1
+
+                    except Exception as exc:
+                        runtime[
+                            "preview_error"
+                        ] = repr(
+                            exc
+                        )
+
+                        runtime[
+                            "preview_ready"
+                        ].set()
+
+                        print(
+                            "V3 raw preview worker error:",
+                            repr(
+                                exc
+                            ),
+                        )
+
+                    finally:
+                        socket.close(
+                            linger=0
+                        )
+
+                preview_worker = (
+                    threading.Thread(
+                        target=v3_preview_worker,
+                        name="v3-raw-preview-worker",
+                        daemon=True,
+                    )
+                )
+
+                runtime[
+                    "preview_worker_thread"
+                ] = preview_worker
+
+                preview_worker.start()
+
+                if not runtime[
+                    "preview_ready"
+                ].wait(
+                    timeout=3.0
+                ):
+                    raise RuntimeError(
+                        "V3 raw preview worker "
+                        "did not become ready"
+                    )
+
+                if runtime[
+                    "preview_error"
+                ] is not None:
+                    raise RuntimeError(
+                        "V3 raw preview startup failed: "
+                        + runtime[
+                            "preview_error"
+                        ]
+                    )
+
+
+        else:
+            # Important: when V3 wrists are disabled, remove the hook so
+            # the copied body runner does not even copy camera frames for
+            # hand processing.
+            base.set_v3_hand_frame_sink(
+                None
+            )
 
         def sonic_worker():
             adapter = None
@@ -745,7 +1289,12 @@ def main():
                             ),
                             min_duration_s=2.0,
                             max_duration_s=5.0,
-                            min_frames=20,
+
+                            # V3_SESSION_ALIGNMENT_MIN_FRAMES_18_V1
+                            # Preserve all neutral-pose quality checks
+                            # and timing gates; only reduce the number
+                            # of accepted neutral samples required.
+                            min_frames=18,
                         )
                     )
 
@@ -838,10 +1387,16 @@ def main():
                         ):
                             break
 
+                        # V3_BODY_MAILBOX_UNPACK_V1
+                        # Q5_24_BODY_UNPACK_POST_FASTIK_V1
                         (
                             generation,
                             flat_cpu,
                             queued_at,
+                            body_capture_sequence,
+                            body_capture_ts,
+                            body_track_id,
+                            post_fastik_cpu,
                         ) = runtime[
                             "pending"
                         ]
@@ -849,6 +1404,19 @@ def main():
                         runtime[
                             "pending"
                         ] = None
+
+                    # V3_BODY_LATEST_METADATA_V1
+                    runtime[
+                        "body_capture_sequence"
+                    ] = body_capture_sequence
+
+                    runtime[
+                        "body_capture_ts"
+                    ] = body_capture_ts
+
+                    runtime[
+                        "body_track_id"
+                    ] = body_track_id
 
                     worker_start = (
                         time.perf_counter()
@@ -892,6 +1460,151 @@ def main():
                                 params_last
                             )
                         )
+
+                    # Q5_24_Q4_BODY_UPDATE_V1
+                    if args.v3_wrists:
+                        if post_fastik_cpu is None:
+                            raise RuntimeError(
+                                "V3 post-FASTIK body snapshot missing"
+                            )
+
+                        if not np.isfinite(
+                            body_capture_ts
+                        ):
+                            raise RuntimeError(
+                                "V3 wrist body timestamp is non-finite"
+                            )
+
+                        hand_runtime.update_body(
+                            timestamp_s=
+                                body_capture_ts,
+                            track_id=
+                                body_track_id,
+                            post_fastik_joints=
+                                post_fastik_cpu,
+                        )
+
+                        # Q5_WRIST_CALIBRATION_POSE_WINDOW_V1
+                        if (
+                            runtime[
+                                "wrist_calibration_pose_waiting"
+                            ]
+                            and not runtime[
+                                "wrist_controller_initialized"
+                            ]
+                        ):
+                            pose_deadline = runtime[
+                                "wrist_calibration_pose_deadline"
+                            ]
+
+                            if (
+                                pose_deadline is not None
+                                and
+                                time.monotonic()
+                                >= pose_deadline
+                            ):
+                                hand_runtime.arm_calibration()
+
+                                runtime[
+                                    "wrist_calibration_pose_waiting"
+                                ] = False
+
+                                runtime[
+                                    "wrist_calibration_pose_deadline"
+                                ] = None
+
+                                runtime[
+                                    "wrist_calibration_armed"
+                                ] = True
+
+                                # pair_max_s is currently 0.20 s.
+                                # Wait slightly longer than that horizon so
+                                # pre-arm hand observations cannot be reused.
+                                fresh_delay_s = max(
+                                    float(
+                                        hand_runtime.pair_max_s
+                                    )
+                                    + 0.05,
+                                    0.25,
+                                )
+
+                                runtime[
+                                    "wrist_calibration_try_after"
+                                ] = (
+                                    time.monotonic()
+                                    + fresh_delay_s
+                                )
+
+                                print()
+                                print(
+                                    "V3 wrist calibration: ARMED"
+                                )
+                                print(
+                                    "Waiting for a fresh post-arm "
+                                    "trusted hand/body pair."
+                                )
+                                print(
+                                    "Fresh-pair barrier: "
+                                    f"{fresh_delay_s:.3f} s"
+                                )
+
+                        if (
+                            runtime[
+                                "wrist_calibration_armed"
+                            ]
+                            and
+                            runtime[
+                                "wrist_calibration_try_after"
+                            ]
+                            is not None
+                            and
+                            time.monotonic()
+                            >= runtime[
+                                "wrist_calibration_try_after"
+                            ]
+                            and not runtime[
+                                "wrist_controller_initialized"
+                            ]
+                        ):
+                            calibration = (
+                                hand_runtime.try_calibrate()
+                            )
+
+                            if calibration is not None:
+                                wrist_controller.initialize_neutral(
+                                    body_capture_ts
+                                )
+
+                                runtime[
+                                    "wrist_controller_initialized"
+                                ] = True
+
+                                runtime[
+                                    "wrist_calibration_armed"
+                                ] = False
+
+                                runtime[
+                                    "wrist_calibrations"
+                                ] += 1
+
+                                print()
+                                print(
+                                    "========================================"
+                                )
+                                print(
+                                    "V3 WRIST CALIBRATION: PASS"
+                                )
+                                print(
+                                    "Q4 explicit neutral locked."
+                                )
+                                print(
+                                    "Q5 physical wrist target initialized "
+                                    "to zero-relative neutral."
+                                )
+                                print(
+                                    "========================================"
+                                )
+
 
                     # ==========================================
                     # V2 CALIBRATION GATE
@@ -1034,6 +1747,78 @@ def main():
                                     f"{args.sonic_topic}"
                                 )
 
+                            # Q5_24_ARM_WRIST_CALIBRATION_V1
+                            if (
+                                args.v3_wrists
+                                and
+                                args.v3_wrist_calibrate_startup
+                            ):
+                                # Q5_WRIST_CALIBRATION_POSE_WINDOW_V1
+                                #
+                                # Body/session alignment requires the normal
+                                # arms-down neutral pose, while Q4 wrist
+                                # calibration requires bent elbows.  Do not
+                                # calibrate from the first frame after body
+                                # alignment; give the operator time to change
+                                # pose first.
+                                pose_delay_s = max(
+                                    0.0,
+                                    float(
+                                        os.environ.get(
+                                            "V3_WRIST_CALIBRATION_POSE_DELAY_S",
+                                            "5.0",
+                                        )
+                                    ),
+                                )
+
+                                runtime[
+                                    "wrist_calibration_pose_waiting"
+                                ] = True
+
+                                runtime[
+                                    "wrist_calibration_pose_deadline"
+                                ] = (
+                                    time.monotonic()
+                                    + pose_delay_s
+                                )
+
+                                runtime[
+                                    "wrist_calibration_try_after"
+                                ] = None
+
+                                print()
+                                print(
+                                    "========================================"
+                                )
+                                print(
+                                    "V3 WRIST CALIBRATION: POSE WINDOW"
+                                )
+                                print(
+                                    "Move now to the wrist-neutral pose:"
+                                )
+                                print(
+                                    "  BOTH elbows bent"
+                                )
+                                print(
+                                    "  forearms near/roughly parallel to torso"
+                                )
+                                print(
+                                    "  wrists neutral"
+                                )
+                                print(
+                                    "  BOTH hands clearly visible"
+                                )
+                                print(
+                                    "Calibration will arm in "
+                                    f"{pose_delay_s:.1f} seconds."
+                                )
+                                print(
+                                    "Hold that pose until calibration PASS."
+                                )
+                                print(
+                                    "========================================"
+                                )
+
                             # Critical:
                             # do not teleoperate from the
                             # final calibration frame.
@@ -1063,10 +1848,80 @@ def main():
                             ],
                         )
 
+                        # Q5_24_WRIST_FIELD_INJECTION_V1
+                        if (
+                            args.v3_wrists
+                            and
+                            runtime[
+                                "wrist_controller_initialized"
+                            ]
+                        ):
+                            if np.isfinite(
+                                body_capture_ts
+                            ):
+                                for side in (
+                                    "L",
+                                    "R",
+                                ):
+                                    sample = (
+                                        hand_runtime.command_sample(
+                                            side
+                                        )
+                                    )
+
+                                    R_target = (
+                                        sample[
+                                            "R"
+                                        ]
+                                    )
+
+                                    trust_state = (
+                                        sample[
+                                            "trust_state"
+                                        ]
+                                    )
+
+                                    authority = float(
+                                        sample[
+                                            "authority"
+                                        ]
+                                    )
+
+                                    # If Q4 cannot provide a compatible
+                                    # calibrated pair, fail safe to HOLD.
+                                    # We do not feed stale/bad geometry into
+                                    # the stateful Q5 mapper.
+                                    if R_target is None:
+                                        trust_state = "LOST"
+                                        authority = 0.0
+
+                                    wrist_controller.update_side(
+                                        side,
+                                        body_capture_ts,
+                                        R_target,
+                                        trust_state=
+                                            trust_state,
+                                        authority=
+                                            authority,
+                                    )
+
+                            fields = (
+                                inject_wrists_into_bridge_fields(
+                                    fields,
+                                    wrist_controller.sonic_wrists(),
+                                    copy_fields=False,
+                                )
+                            )
+
                         if (
                             bridge.publisher
                             is not None
                         ):
+                            if args.v3_wrists:
+                                v3_wrist_diag.record_publish(
+                                    fields
+                                )
+
                             bridge.publisher.publish(
                                 fields
                             )
@@ -1150,6 +2005,55 @@ def main():
             prediction = fast_predict(
                 data,
                 static_cam=static_cam,
+            )
+
+            # Q5_24_POST_FASTIK_SNAPSHOT_V1
+            post_fastik_cpu = None
+
+            if args.v3_wrists:
+                post_fastik = prediction.get(
+                    "v3_post_fastik_joints_last"
+                )
+
+                if post_fastik is None:
+                    raise RuntimeError(
+                        "V3 wrist mode requires "
+                        "v3_post_fastik_joints_last"
+                    )
+
+                post_fastik_cpu = (
+                    torch.as_tensor(
+                        post_fastik
+                    )
+                    .detach()
+                    .to(
+                        device="cpu",
+                        dtype=torch.float32,
+                    )
+                    .contiguous()
+                )
+
+
+            # V3_BODY_SOURCE_METADATA_V1
+            body_capture_sequence = int(
+                data.get(
+                    "v3_capture_sequence",
+                    -1,
+                )
+            )
+
+            body_capture_ts = float(
+                data.get(
+                    "v3_capture_ts",
+                    float("nan"),
+                )
+            )
+
+            body_track_id = int(
+                data.get(
+                    "v3_track_id",
+                    -1,
+                )
             )
 
             t0 = time.perf_counter()
@@ -1241,6 +2145,8 @@ def main():
                     "generation"
                 ] += 1
 
+                # V3_BODY_MAILBOX_METADATA_V1
+                # Q5_24_BODY_MAILBOX_POST_FASTIK_V1
                 runtime[
                     "pending"
                 ] = (
@@ -1249,6 +2155,10 @@ def main():
                     ],
                     flat_cpu,
                     queued_at,
+                    body_capture_sequence,
+                    body_capture_ts,
+                    body_track_id,
+                    post_fastik_cpu,
                 )
 
                 runtime[
@@ -1311,6 +2221,58 @@ def main():
             ] = True
 
             cond.notify_all()
+
+        # Q5_24_HAND_WORKER_SHUTDOWN_V1
+        if hasattr(
+            base,
+            "set_v3_hand_frame_sink",
+        ):
+            base.set_v3_hand_frame_sink(
+                None
+            )
+
+        hand_cond = runtime[
+            "hand_mailbox_condition"
+        ]
+
+        with hand_cond:
+            runtime[
+                "hand_stop"
+            ] = True
+
+            hand_cond.notify_all()
+
+        hand_worker = runtime[
+            "hand_worker_thread"
+        ]
+
+        if hand_worker is not None:
+            hand_worker.join(
+                timeout=3.0
+            )
+
+            if hand_worker.is_alive():
+                print(
+                    "WARNING: V3 WiLoR hand worker "
+                    "did not stop within timeout."
+                )
+
+        # Q5_26F_PREVIEW_WORKER_SHUTDOWN_V1
+        preview_worker = runtime[
+            "preview_worker_thread"
+        ]
+
+        if preview_worker is not None:
+            preview_worker.join(
+                timeout=3.0
+            )
+
+            if preview_worker.is_alive():
+                print(
+                    "WARNING: V3 raw preview worker "
+                    "did not stop within timeout."
+                )
+
 
         worker = runtime[
             "worker_thread"

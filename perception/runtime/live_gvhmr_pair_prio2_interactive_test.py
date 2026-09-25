@@ -24,6 +24,101 @@ import numpy as np
 import onnxruntime as ort
 import torch
 
+
+# V3_HAND_FRAME_HOOK_V1
+#
+# Optional nonblocking ingress hook installed by the V3 wrapper.
+# When no sink is installed this adds no frame-copy overhead.
+#
+# The sink receives one safe CPU snapshot:
+#   capture_sequence
+#   capture_ts
+#   track_id
+#   frame_bgr
+#   bbx_xys
+#   kp2d
+#
+# The sink MUST return immediately.  Expensive hand inference belongs
+# in its own latest-only worker and must never block the body pipeline.
+
+_V3_HAND_FRAME_SINK = None
+
+
+def set_v3_hand_frame_sink(
+    sink,
+):
+    global _V3_HAND_FRAME_SINK
+
+    if (
+        sink is not None
+        and not callable(sink)
+    ):
+        raise TypeError(
+            "V3 hand-frame sink must be callable or None"
+        )
+
+    _V3_HAND_FRAME_SINK = sink
+
+
+def _v3_cpu_numpy_copy(
+    value,
+):
+    if torch.is_tensor(value):
+        return (
+            value
+            .detach()
+            .cpu()
+            .numpy()
+            .copy()
+        )
+
+    return np.asarray(
+        value
+    ).copy()
+
+
+def _v3_emit_hand_frame(
+    *,
+    sequence,
+    capture_ts,
+    track_id,
+    frame_bgr,
+    bbx_xys,
+    kp2d,
+):
+    sink = _V3_HAND_FRAME_SINK
+
+    if sink is None:
+        return
+
+    sink(
+        {
+            "capture_sequence":
+                int(sequence),
+
+            "capture_ts":
+                float(capture_ts),
+
+            "track_id":
+                int(track_id),
+
+            "frame_bgr":
+                np.asarray(
+                    frame_bgr
+                ).copy(),
+
+            "bbx_xys":
+                _v3_cpu_numpy_copy(
+                    bbx_xys
+                ),
+
+            "kp2d":
+                _v3_cpu_numpy_copy(
+                    kp2d
+                ),
+        }
+    )
+
 from hydra import (
     compose,
     initialize_config_module,
@@ -141,7 +236,16 @@ FRONTEND_TARGET_FPS = 15.0
 HISTORY = 30
 YOLO_PERIOD = 30
 
-TEST_DURATION_S = float("inf")
+# Q5_PERF_TIMED_NORMAL_EXIT_V1
+# Default remains infinite for normal interactive operation.
+# Performance/diagnostic runs may request a finite duration so
+# shutdown follows the normal summary path instead of SIGINT.
+TEST_DURATION_S = float(
+    os.environ.get(
+        "LIVE_GVHMR_TEST_DURATION_S",
+        "inf",
+    )
+)
 
 DEBUG_VIDEO_FPS = 10.0
 
@@ -1031,6 +1135,12 @@ def make_fastik_predictor(
         fullgraph=False,
     )
 
+    # Q5_26X_FASTIK_FIRST_COMPILE_CACHE_RELEASE_V1
+    # One-shot release of UNUSED PyTorch CUDA allocator cache before
+    # the first lazy Inductor/Triton FASTIK execution. No FASTIK
+    # geometry, solver parameters, or torch.compile settings change.
+    _q5_26x_fastik_first_call = [True]
+
     print(
         "PAIR-BATCHED FASTIK predictor: configured"
     )
@@ -1265,6 +1375,34 @@ def make_fastik_predictor(
         )
 
 
+        if _q5_26x_fastik_first_call[0]:
+            torch.cuda.synchronize()
+
+            free_before, _ = torch.cuda.mem_get_info()
+            allocated_before = torch.cuda.memory_allocated()
+            reserved_before = torch.cuda.memory_reserved()
+
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+
+            free_after, _ = torch.cuda.mem_get_info()
+            reserved_after = torch.cuda.memory_reserved()
+
+            reclaimed_mib = (free_after - free_before) / (1024.0 * 1024.0)
+
+            print(
+                f"FASTIK first-compile CUDA cache release: "
+                f"free={free_before / (1024.0 * 1024.0):.1f}"
+                f"->{free_after / (1024.0 * 1024.0):.1f} MiB "
+                f"reserved={reserved_before / (1024.0 * 1024.0):.1f}"
+                f"->{reserved_after / (1024.0 * 1024.0):.1f} MiB "
+                f"allocated={allocated_before / (1024.0 * 1024.0):.1f} MiB "
+                f"reclaimed={reclaimed_mib:.1f} MiB",
+                flush=True,
+            )
+
+            _q5_26x_fastik_first_call[0] = False
+
         body_pose_last = (
             compiled_ccd(
                 local_last,
@@ -1307,6 +1445,32 @@ def make_fastik_predictor(
             ] = body_pose
 
 
+        # V3_POST_FASTIK_Q4_EXPOSURE_V1
+        #
+        # Exact Q4 live-validation exposure:
+        # re-run FK only for the newest corrected post-FASTIK frame.
+        _v3_global_last = {
+            key:
+                value[
+                    :,
+                    -1:,
+                ]
+            for key, value
+            in outputs[
+                "pred_smpl_params_global"
+            ].items()
+        }
+
+        (
+            _v3_post_fastik_joints_last,
+            _v3_post_fastik_local_last,
+            _,
+        ) = endecoder.fk_v2(
+            **_v3_global_last,
+            get_intermediate=True,
+        )
+
+
         # Exact DemoPL.predict outward contract.
         return {
             "smpl_params_global": {
@@ -1335,6 +1499,9 @@ def make_fastik_predictor(
                 data[
                     "K_fullimg"
                 ],
+
+            "v3_post_fastik_joints_last":
+                _v3_post_fastik_joints_last.detach().clone(),
 
             "net_outputs":
                 outputs,
@@ -2914,6 +3081,16 @@ def main():
                     "kp_bbox_updates"
                 ] += 1
 
+        # V3_HAND_FRAME_EMIT_V1
+        _v3_emit_hand_frame(
+            sequence=sequence,
+            capture_ts=capture_ts,
+            track_id=track_state["track_id"],
+            frame_bgr=frame_bgr,
+            bbx_xys=bbx_xys,
+            kp2d=kp2d,
+        )
+
         end_ts = (
             time.monotonic()
         )
@@ -2990,7 +3167,36 @@ def main():
             ]
         )
 
-        torch.cuda.synchronize()
+        # V3_TEMPORAL_SOURCE_METADATA_V1
+        #
+        # These are CPU metadata only.  The accepted FASTIK/GVHMR
+        # predictor selects its known tensor keys explicitly, so these
+        # do not enter the learned model.
+        data["v3_capture_sequence"] = int(
+            snapshot[-1]["capture_sequence"]
+        )
+
+        data["v3_capture_ts"] = float(
+            snapshot[-1]["capture_ts"]
+        )
+
+        data["v3_track_id"] = int(
+            snapshot[-1]["track_id"]
+        )
+
+        # Q5_PRIORITY_NARROW_SYNC_V1
+        #
+        # Preserve the dependency on CUDA work that prepared `data`,
+        # but do not issue a device-wide barrier here.  A global
+        # torch.cuda.synchronize() also waits for the independent
+        # WiLoR stream and unnecessarily couples the two branches.
+        #
+        # The temporal stream waits only for work already queued on
+        # this worker's current producer/default stream.  Independent
+        # WiLoR CUDA work remains free to proceed.
+        temporal_cuda_stream.wait_stream(
+            torch.cuda.current_stream()
+        )
 
         t0 = time.monotonic()
 
